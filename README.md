@@ -155,12 +155,14 @@ The backend exposes a lightweight REST interface on port `3001`:
 
 ```text
 Pact/
+|-- FRONTEND.md              # Client integration guide and Supabase service
 |-- docs/
 |   `-- FRONTEND_INTEGRATION.md  # Client integration guide and component specifications
 |-- scripts/
 |   |-- demo-simulation.ts       # Interactive lifecycle simulation
 |   |-- deploy-testnet.ts        # NEAR Testnet deployment helper
 |   |-- seed-bounties.ts         # Generates initial mock data
+|   |-- supabase-schema.sql      # Supabase cloud schema and seed data
 |   `-- validate-submission.ts   # Hackathon payload validation
 |-- src/
 |   |-- bounty-contract.ts       # Protocol state machine and lifecycle methods
