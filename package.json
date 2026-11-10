@@ -1,0 +1,36 @@
+{
+  "name": "pact-protocol",
+  "version": "1.0.0",
+  "description": "Pact: Earned Trust Coordination Protocol on NEAR for NEAR Hackathon 2026",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx --test tests/**/*.test.ts",
+    "seed": "tsx scripts/seed-bounties.ts",
+    "demo": "tsx scripts/demo-simulation.ts",
+    "dev": "tsx src/index.ts",
+    "api": "tsx src/server.ts",
+    "start": "tsx src/server.ts"
+  },
+  "keywords": [
+    "near",
+    "sputnik-dao",
+    "social-money",
+    "bounties",
+    "reputation",
+    "web3"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "near-api-js": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
+
