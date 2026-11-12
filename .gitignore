@@ -33,4 +33,6 @@ Thumbs.db
 HACKATHON.md
 DEMO_POST_TEMPLATE.md
 mock-bounties.json
+data/test-*.json
+data/test-store/
 

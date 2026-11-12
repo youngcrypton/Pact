@@ -1,41 +1,59 @@
 import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
 import { TrustBountyContract } from './bounty-contract.js';
 import { NearSocialConnector } from './near-social.js';
 import { GitHubVerifier } from './github-verifier.js';
+import { PactStorage } from './storage.js';
 
-const PORT = process.env.PORT || 3001;
-const contract = new TrustBountyContract();
+const isTest = process.env.NODE_ENV === 'test' || process.argv.some(arg => arg.includes('test'));
+const PORT = isTest ? (process.env.TEST_PORT || 3002) : (process.env.PORT || 3001);
+const storagePath = isTest
+  ? path.resolve(process.cwd(), 'data', 'test-api-store.json')
+  : path.resolve(process.cwd(), 'data', 'pact-store.json');
+
+if (isTest && fs.existsSync(storagePath)) {
+  try { fs.unlinkSync(storagePath); } catch {}
+}
+
+const storage = new PactStorage({ localFilePath: storagePath });
+const contract = new TrustBountyContract(undefined, ['council.testnet', 'admin.testnet'], storage);
 const socialConnector = new NearSocialConnector();
 const gitHubVerifier = new GitHubVerifier();
 
-// Seed initial council members for testing
+// Hydrate state from cloud Supabase or local durable storage
+await contract.init();
+
+// Seed initial council members for testing if empty
 contract.addCouncilMember('council.testnet');
 contract.addCouncilMember('admin.testnet');
 
-// Pre-seed a few sample bounties
-contract.create_bounty({
-  title: 'Implement NEP-171 NFT Metadata Parser',
-  description: 'Write a lightweight parser for standard NEAR NFT metadata in TypeScript.',
-  amount_formatted: 3.5,
-  category: 'DEV',
-  created_by: 'devhub.sputnik-dao.testnet'
-});
+// Pre-seed a few sample bounties only if empty
+if (contract.get_bounties().length === 0) {
+  contract.create_bounty({
+    title: 'Implement NEP-171 NFT Metadata Parser',
+    description: 'Write a lightweight parser for standard NEAR NFT metadata in TypeScript.',
+    amount_formatted: 3.5,
+    category: 'DEV',
+    created_by: 'devhub.sputnik-dao.testnet'
+  });
 
-contract.create_bounty({
-  title: 'BOS / NEAR Social Component Card Design',
-  description: 'Design pixel-perfect Figma cards for reputation badges on near.social.',
-  amount_formatted: 8.0,
-  category: 'DESIGN',
-  created_by: 'marketing.sputnik-dao.testnet'
-});
+  contract.create_bounty({
+    title: 'BOS / NEAR Social Component Card Design',
+    description: 'Design pixel-perfect Figma cards for reputation badges on near.social.',
+    amount_formatted: 8.0,
+    category: 'DESIGN',
+    created_by: 'marketing.sputnik-dao.testnet'
+  });
 
-contract.create_bounty({
-  title: 'Build Full Cross-Chain Intent Relayer',
-  description: 'Build a production-ready intent solver for 10 NEAR/ETH swaps.',
-  amount_formatted: 50.0,
-  category: 'DEV',
-  created_by: 'intents.sputnik-dao.testnet'
-});
+  contract.create_bounty({
+    title: 'Build Full Cross-Chain Intent Relayer',
+    description: 'Build a production-ready intent solver for 10 NEAR/ETH swaps.',
+    amount_formatted: 50.0,
+    category: 'DEV',
+    created_by: 'intents.sputnik-dao.testnet'
+  });
+}
 
 const server = http.createServer((req, res) => {
   // CORS Headers for React Frontend
@@ -116,6 +134,36 @@ const server = http.createServer((req, res) => {
   // GET /api/escrow (Escrow Vault Metrics - Bug 5)
   if (req.method === 'GET' && pathname === '/api/escrow') {
     return sendJson(200, contract.get_escrow_metrics());
+  }
+
+  // GET /api/storage (Storage Engine & Cloud Status - Bug 1)
+  if (req.method === 'GET' && pathname === '/api/storage') {
+    const storage = contract.getStorage();
+    const bounties = contract.get_bounties();
+    const leaderboard = contract.get_leaderboard(100);
+    return sendJson(200, {
+      mode: storage.getStorageMode(),
+      isCloudActive: storage.isCloudActive(),
+      counts: {
+        bounties: bounties.length,
+        contributors: leaderboard.length
+      },
+      updatedAt: Date.now()
+    });
+  }
+
+  // POST /api/storage/sync (Force Snapshot Sync - Bug 1)
+  if (req.method === 'POST' && pathname === '/api/storage/sync') {
+    contract.persist().then(() => {
+      return sendJson(200, {
+        success: true,
+        mode: contract.getStorage().getStorageMode(),
+        message: 'Storage snapshot synchronized'
+      });
+    }).catch((err: any) => {
+      return sendJson(500, { error: err.message });
+    });
+    return;
   }
 
   // POST /api/bounties (Create)

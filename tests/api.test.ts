@@ -4,7 +4,7 @@ import assert from 'node:assert';
 import { server, contract } from '../src/server.js';
 
 test('Pact API Server Integration', async (t) => {
-  const BASE_URL = 'http://localhost:3001/api';
+  const BASE_URL = 'http://localhost:3002/api';
 
   await t.test('GET /api/health returns healthy', async () => {
     const res = await fetch(`${BASE_URL}/health`);
@@ -183,6 +183,25 @@ test('Pact API Server Integration', async (t) => {
     assert.strictEqual(res.status, 200);
     const data = await res.json() as any;
     assert.ok(Array.isArray(data.leaderboard));
+  });
+
+  await t.test('Bug 1: GET /api/storage returns storage status and counts', async () => {
+    const res = await fetch(`${BASE_URL}/storage`);
+    assert.strictEqual(res.status, 200);
+    const data = await res.json() as any;
+    assert.ok(data.mode === 'supabase' || data.mode === 'local-durable');
+    assert.strictEqual(typeof data.isCloudActive, 'boolean');
+    assert.ok(data.counts.bounties >= 1);
+  });
+
+  await t.test('Bug 1: POST /api/storage/sync executes snapshot persistence', async () => {
+    const res = await fetch(`${BASE_URL}/storage/sync`, {
+      method: 'POST'
+    });
+    assert.strictEqual(res.status, 200);
+    const data = await res.json() as any;
+    assert.strictEqual(data.success, true);
+    assert.ok(data.mode);
   });
 
   // Close server after tests complete

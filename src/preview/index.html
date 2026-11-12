@@ -1340,6 +1340,10 @@
           <span class="pulse-dot"></span>
           NEAR Testnet
         </div>
+        <div class="live-status-pill" id="storage-status-pill" title="Phase 3: Persistence Engine Status" style="background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.25); color: #10b981;">
+          <span class="pulse-dot" id="storage-dot" style="background: #10b981;"></span>
+          <span id="storage-mode-text">Local Durable Store Active</span>
+        </div>
       </div>
 
       <!-- Desktop Segmented Nav -->
@@ -1360,6 +1364,11 @@
 
       <!-- Right Actions -->
       <div class="top-actions">
+        <!-- Demo State Reset -->
+        <button class="theme-icon-btn" onclick="resetDemoState()" id="reset-btn" title="Reset Demo State to Initial Seeds" style="font-size: 13px; font-weight: 700;">
+          ↺
+        </button>
+
         <!-- Moon Icon Theme Switcher -->
         <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle Theme (Moon)">
           <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1747,8 +1756,10 @@
       }
     }
 
-    // State Store
-    const state = {
+    // State Store (Bug 1: Resilient Persistent State)
+    const STORAGE_KEY = 'pactt_app_state_v3';
+
+    const DEFAULT_STATE = {
       activeView: 'bounties',
       filterTier: 'ALL',
       filterCategory: 'ALL',
@@ -1910,6 +1921,70 @@
         { account: 'newuser.testnet', trust: 0.0, completed: 0, role: 'New Contributor', earned: '0.0 NEAR', tier: 'Tier 3 (DAO)', badge: 'Unclaimed' }
       ]
     };
+
+    function loadCachedState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.bounties) && parsed.bounties.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (e) {
+        console.warn('[Pact] Failed to read localStorage:', e);
+      }
+      return null;
+    }
+
+    const cachedState = loadCachedState();
+    const state = cachedState || JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+    function persistState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.warn('[Pact] Failed to persist state:', e);
+      }
+    }
+
+    function resetDemoState() {
+      if (confirm('Reset application state back to fresh default seeds?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        window.location.reload();
+      }
+    }
+
+    async function checkStorageHealth() {
+      const pill = document.getElementById('storage-status-pill');
+      const dot = document.getElementById('storage-dot');
+      const text = document.getElementById('storage-mode-text');
+      if (!pill || !text) return;
+
+      try {
+        const res = await fetch('/api/storage');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.mode === 'supabase' && data.isCloudActive) {
+            text.innerText = 'Supabase Cloud Synced';
+            pill.style.borderColor = 'rgba(6, 182, 212, 0.4)';
+            pill.style.color = '#06b6d4';
+            pill.style.background = 'rgba(6, 182, 212, 0.08)';
+            if (dot) dot.style.background = '#06b6d4';
+          } else {
+            text.innerText = 'Local Durable Store Active';
+            pill.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+            pill.style.color = '#10b981';
+            pill.style.background = 'rgba(16, 185, 129, 0.08)';
+            if (dot) dot.style.background = '#10b981';
+          }
+        } else {
+          text.innerText = 'Durable Browser Cache Active';
+        }
+      } catch {
+        text.innerText = 'Durable Browser Cache Active';
+      }
+    }
 
     function computeTierForPersona(amount, personaId) {
       const p = state.personas[personaId] || { trust: 0 };
@@ -2233,6 +2308,14 @@
 
       b.claimedBy = state.activePersona;
       b.status = 'CLAIMED';
+      persistState();
+
+      fetch(`/api/bounties/${b.id}/claim`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account_id: state.activePersona })
+      }).catch(() => {});
+
       renderBounties();
       openDrawer(b.id);
     }
@@ -2341,6 +2424,13 @@
 
       renderBounties();
       renderContributors();
+      persistState();
+
+      fetch(`/api/bounties/${b.id}/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contributor_id: state.activePersona, proof_url: prUrl })
+      }).catch(() => {});
     }
 
     function challengeCurrentBounty() {
@@ -2365,6 +2455,14 @@
 
       renderBounties();
       renderContributors();
+      persistState();
+
+      fetch(`/api/bounties/${b.id}/challenge`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ council_account_id: state.activePersona, reason: reason, slash_points: 50 })
+      }).catch(() => {});
+
       openDrawer(b.id);
     }
 
@@ -2379,11 +2477,20 @@
       }
       renderBounties();
       renderContributors();
+      persistState();
+
+      fetch(`/api/bounties/${b.id}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ council_account_id: state.activePersona })
+      }).catch(() => {});
+
       openDrawer(b.id);
     }
 
     function onPersonaChanged() {
       state.activePersona = document.getElementById('persona-select').value;
+      persistState();
       renderBounties();
       if (state.selectedBountyId) openDrawer(state.selectedBountyId);
     }
@@ -2426,6 +2533,7 @@
 
     renderBounties();
     renderContributors();
+    checkStorageHealth();
   </script>
 </body>
 

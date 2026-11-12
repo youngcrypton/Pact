@@ -15,11 +15,37 @@ const server = http.createServer((req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
+    return;
+  }
+
+  // Reverse proxy API routes to backend on port 3001
+  if (url.pathname.startsWith('/api/')) {
+    const proxyHeaders = { ...req.headers, host: '127.0.0.1:3001' };
+    const proxyReq = http.request({
+      hostname: '127.0.0.1',
+      port: 3001,
+      path: req.url,
+      method: req.method,
+      headers: proxyHeaders
+    }, (proxyRes) => {
+      res.writeHead(proxyRes.statusCode || 200, proxyRes.headers);
+      proxyRes.pipe(res, { end: true });
+    });
+
+    proxyReq.on('error', (err) => {
+      res.writeHead(502, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ 
+        error: 'Backend API offline on port 3001: ' + err.message,
+        fallbackMode: 'durable-local-browser'
+      }));
+    });
+
+    req.pipe(proxyReq, { end: true });
     return;
   }
 
@@ -49,6 +75,6 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`[Pact Preview] Dev server active on http://localhost:${PORT}`);
   console.log(`[Pact Preview] Network access on http://192.168.18.2:${PORT}`);
+  console.log(`[Pact Preview] Reverse-proxying /api/ to http://127.0.0.1:3001`);
   console.log(`[Pact Preview] UI Specification: Swiss Instrument / Anti-slop`);
 });
-

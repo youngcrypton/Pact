@@ -3,6 +3,7 @@ import { Bounty, BountyStatus, ContributorProfile, TierPolicy, EscrowStatus } fr
 import { TrustEngine } from './trust-engine.js';
 import { SputnikConnector } from './sputnik-connector.js';
 import { DEFAULT_TIER_POLICY } from './config.js';
+import { PactStorage } from './storage.js';
 
 export class TrustBountyContract {
   private bounties: Map<string, Bounty> = new Map();
@@ -12,14 +13,64 @@ export class TrustBountyContract {
   private councilMembers: Set<string> = new Set();
   private bountyCounter: number = 0;
   private usedProofUrls: Map<string, string> = new Map(); // Bug 3: Tracks normalized deliverable URLs to prevent recycling
+  private storage: PactStorage;
 
   constructor(
     policy: TierPolicy = DEFAULT_TIER_POLICY,
-    councilAccounts: string[] = ['council.testnet', 'admin.testnet']
+    councilAccounts: string[] = ['council.testnet', 'admin.testnet'],
+    storage?: PactStorage
   ) {
     this.trustEngine = new TrustEngine(policy);
     this.sputnikConnector = new SputnikConnector();
+    this.storage = storage || new PactStorage();
     councilAccounts.forEach(c => this.councilMembers.add(c));
+  }
+
+  /**
+   * Hydrates state from cloud Supabase or local durable storage
+   */
+  public async init(): Promise<void> {
+    const snapshot = await this.storage.loadState();
+    if (snapshot) {
+      if (snapshot.bounties && snapshot.bounties.length > 0) {
+        this.bounties.clear();
+        for (const b of snapshot.bounties) {
+          this.bounties.set(b.id, b);
+          const num = parseInt(b.id.replace('bounty-', ''), 10);
+          if (!isNaN(num) && num > this.bountyCounter) {
+            this.bountyCounter = num;
+          }
+        }
+      }
+      if (snapshot.contributors && snapshot.contributors.length > 0) {
+        this.contributors.clear();
+        for (const c of snapshot.contributors) {
+          this.contributors.set(c.account_id, c);
+        }
+      }
+      if (snapshot.usedProofUrls) {
+        this.usedProofUrls.clear();
+        for (const [url, id] of snapshot.usedProofUrls) {
+          this.usedProofUrls.set(url, id);
+        }
+      }
+    }
+  }
+
+  public getStorage(): PactStorage {
+    return this.storage;
+  }
+
+  public async persist(): Promise<void> {
+    try {
+      await this.storage.saveState({
+        bounties: Array.from(this.bounties.values()),
+        contributors: Array.from(this.contributors.values()),
+        usedProofUrls: this.usedProofUrls
+      });
+    } catch (err: any) {
+      console.warn(`[TrustBountyContract] Persist error: ${err.message}`);
+    }
   }
 
   // --- VIEW METHODS ---
@@ -96,6 +147,7 @@ export class TrustBountyContract {
     };
 
     this.bounties.set(id, bounty);
+    this.persist();
     return bounty;
   }
 
@@ -116,6 +168,7 @@ export class TrustBountyContract {
     bounty.claimed_by = claimant_account_id;
     bounty.claimed_at = Date.now();
     bounty.status = 'CLAIMED';
+    this.persist();
 
     return bounty;
   }
@@ -154,6 +207,7 @@ export class TrustBountyContract {
       if (recentAutoCount >= 2) {
         bounty.status = 'IN_REVIEW';
         bounty.required_tier = 'TIER_2_SINGLE_COUNCIL';
+        this.persist();
         return {
           bounty,
           actionTaken: 'VELOCITY_LIMIT_EXCEEDED: Contributor reached max 2 instant auto-payouts in 24h. Payout routed to Tier 2 (Single Council Review) for confirmation.'
@@ -168,6 +222,7 @@ export class TrustBountyContract {
       // Record Trust points
       const { updatedProfile, pointsAwarded } = this.trustEngine.recordCompletion(profile, bounty, true);
       this.contributors.set(args.contributor_id, updatedProfile);
+      this.persist();
 
       return {
         bounty,
@@ -175,6 +230,7 @@ export class TrustBountyContract {
       };
     } else if (tier === 'TIER_2_SINGLE_COUNCIL') {
       bounty.status = 'IN_REVIEW';
+      this.persist();
       return {
         bounty,
         actionTaken: 'TIER_2_PENDING_COUNCIL: Single council member sign-off required to finalize payout.'
@@ -183,6 +239,7 @@ export class TrustBountyContract {
       // Tier 3: Escalate to Sputnik DAO proposal
       bounty.status = 'ESCALATED_TO_DAO';
       bounty.sputnik_proposal_id = Math.floor(Math.random() * 1000) + 1; // Simulated proposal ID
+      this.persist();
 
       return {
         bounty,
@@ -216,6 +273,7 @@ export class TrustBountyContract {
       const { updatedProfile } = this.trustEngine.recordCompletion(profile, bounty);
       this.contributors.set(bounty.claimed_by, updatedProfile);
     }
+    this.persist();
 
     return bounty;
   }
@@ -232,6 +290,7 @@ export class TrustBountyContract {
 
     bounty.status = 'REJECTED';
     bounty.escrow_status = 'REFUNDED'; // Bug 5: Return escrowed funds
+    this.persist();
     return bounty;
   }
 
@@ -277,8 +336,28 @@ export class TrustBountyContract {
     const slashAmount = args.slash_points || (10 + Math.floor(bounty.amount_formatted * 5));
     const slashedProfile = this.trustEngine.recordSlash(profile, bounty, slashAmount, args.reason);
     this.contributors.set(bounty.claimed_by, slashedProfile);
+    this.persist();
 
     return { bounty, slashedProfile };
+  }
+
+  public seedContributor(profileOrAccount: ContributorProfile | string, trustScore?: number): void {
+    if (typeof profileOrAccount === 'string') {
+      const p: ContributorProfile = {
+        account_id: profileOrAccount,
+        trust_score: trustScore || 0,
+        completed_bounties_count: 0,
+        total_earned_yocto: '0',
+        total_earned_formatted: 0,
+        current_tier: (trustScore || 0) >= 50 ? 'TRUSTED_CORE' : 'CONTRIBUTOR',
+        near_social_badge_minted: true,
+        history: []
+      };
+      this.contributors.set(profileOrAccount, p);
+    } else {
+      this.contributors.set(profileOrAccount.account_id, profileOrAccount);
+    }
+    this.persist();
   }
 
   public get_escrow_metrics(): {
