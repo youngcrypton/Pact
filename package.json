@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node scripts/prepare-dist.mjs",
+    "build:cloudflare": "tsc && node scripts/prepare-dist.mjs",
     "test": "tsx --test tests/**/*.test.ts",
     "seed": "tsx scripts/seed-bounties.ts",
     "demo": "tsx scripts/demo-simulation.ts",

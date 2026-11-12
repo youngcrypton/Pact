@@ -431,6 +431,178 @@
       opacity: 0.9;
     }
 
+    /* NEAR Wallet Selector Modal & Connected Pill (Bug 2) */
+    .wallet-connected-pill {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px;
+      height: 34px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-sharp);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+    .wallet-connected-pill.active {
+      display: flex;
+    }
+    .wallet-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+    }
+    .wallet-tier-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+    }
+    .btn-wallet-disconnect {
+      background: transparent;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      font-size: 15px;
+      padding: 0 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease;
+    }
+    .btn-wallet-disconnect:hover {
+      color: #dc2626;
+    }
+
+    .wallet-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 8, 16, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .wallet-modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .wallet-modal-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-sharp);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transform: scale(0.96);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wallet-modal-overlay.active .wallet-modal-card {
+      transform: scale(1);
+    }
+    .wallet-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wallet-modal-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .wallet-modal-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-top: -6px;
+    }
+    .wallet-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .wallet-option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-sharp);
+      background: var(--surface);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .wallet-option-item:hover {
+      border-color: var(--accent);
+      background: rgba(124, 58, 237, 0.04);
+      transform: translateY(-1px);
+    }
+    .wallet-option-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    body.theme-midnight .wallet-option-icon {
+      background: #ffffff;
+      color: #000000;
+    }
+    .wallet-option-details {
+      flex: 1;
+    }
+    .wallet-option-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .wallet-option-desc {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .wallet-badge-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 6px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #10b981;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+    .wallet-modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-faint);
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
     /* Mobile Subnav Strip */
     .mobile-subnav {
       display: none;
@@ -1384,8 +1556,17 @@
           </select>
         </div>
 
-        <button class="btn-connect" onclick="alert('Connected to NEAR Testnet via MyNearWallet')">
-          Connect
+        <!-- Connected Wallet Badge (Bug 2) -->
+        <div class="wallet-connected-pill" id="wallet-connected-pill">
+          <span class="wallet-status-dot"></span>
+          <span id="wallet-account-display">alex.testnet</span>
+          <span class="wallet-tier-badge" id="wallet-tier-badge">Tier 1</span>
+          <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet">✕</button>
+        </div>
+
+        <!-- Connect Wallet Button (Bug 2) -->
+        <button class="btn-connect" id="btn-wallet-connect" onclick="openWalletModal()">
+          <span style="font-size: 13px;">Ⓝ</span> Connect Wallet
         </button>
       </div>
     </div>
@@ -1658,6 +1839,69 @@
     </div>
 
   </main>
+
+  <!-- NEAR Wallet Selector Modal (Bug 2) -->
+  <div id="wallet-modal" class="wallet-modal-overlay" onclick="closeWalletModal(event)">
+    <div class="wallet-modal-card" onclick="event.stopPropagation()">
+      <div class="wallet-modal-header">
+        <div class="wallet-modal-title">Connect NEAR Wallet</div>
+        <button class="drawer-close" onclick="hideWalletModal()">✕</button>
+      </div>
+      <div class="wallet-modal-subtitle">
+        Select your NEAR testnet wallet to sign deliverables, claim bounties, and build on-chain trust reputation.
+      </div>
+      <div class="wallet-options-list">
+        <!-- MyNearWallet -->
+        <div class="wallet-option-item" onclick="connectWallet('mynearwallet')">
+          <div class="wallet-option-icon">Ⓝ</div>
+          <div class="wallet-option-details">
+            <div class="wallet-option-name">MyNearWallet</div>
+            <div class="wallet-option-desc">Official browser-based NEAR testnet wallet</div>
+          </div>
+          <div class="wallet-badge-tag">POPULAR</div>
+        </div>
+
+        <!-- Meteor Wallet -->
+        <div class="wallet-option-item" onclick="connectWallet('meteor')">
+          <div class="wallet-option-icon">☄</div>
+          <div class="wallet-option-details">
+            <div class="wallet-option-name">Meteor Wallet</div>
+            <div class="wallet-option-desc">Browser extension and mobile wallet</div>
+          </div>
+          <div class="wallet-badge-tag">EXTENSION</div>
+        </div>
+
+        <!-- Here Wallet -->
+        <div class="wallet-option-item" onclick="connectWallet('here')">
+          <div class="wallet-option-icon">Ⓗ</div>
+          <div class="wallet-option-details">
+            <div class="wallet-option-name">Here Wallet</div>
+            <div class="wallet-option-desc">Mobile self-custody wallet with biometrics</div>
+          </div>
+        </div>
+
+        <!-- Custom Testnet Account / Manual Named Account -->
+        <div class="wallet-option-item" style="cursor: default; flex-direction: column; align-items: stretch; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="wallet-option-icon">⚡</div>
+            <div class="wallet-option-details">
+              <div class="wallet-option-name">Custom Testnet Account</div>
+              <div class="wallet-option-desc">Connect any named NEAR account for testing</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 4px;">
+            <input type="text" id="custom-account-input" placeholder="e.g. yourname.testnet" class="form-input" style="font-size: 12px; padding: 6px 10px; height: 32px;" onkeydown="if(event.key==='Enter') connectCustomAccount()" />
+            <button class="btn-action primary" style="padding: 4px 14px; font-size: 12px; height: 32px; white-space: nowrap;" onclick="connectCustomAccount()">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="wallet-modal-footer">
+        <span>Network: <strong>NEAR Testnet</strong></span>
+        <a href="https://testnet.mynearwallet.com/create" target="_blank" style="color: var(--accent); text-decoration: underline; font-weight: 600;">Create free Testnet wallet ↗</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Slide-out Drawer / Mobile Bottom Sheet -->
   <div id="drawer" class="drawer-overlay" onclick="closeDrawer(event)">
@@ -1949,6 +2193,121 @@
         localStorage.removeItem(STORAGE_KEY);
         window.location.reload();
       }
+    }
+
+    // NEAR Wallet Selector Integration (Bug 2)
+    function openWalletModal() {
+      document.getElementById('wallet-modal').classList.add('active');
+    }
+
+    function hideWalletModal() {
+      document.getElementById('wallet-modal').classList.remove('active');
+    }
+
+    function closeWalletModal(e) {
+      if (e.target.id === 'wallet-modal') hideWalletModal();
+    }
+
+    function updateWalletUi() {
+      const connectBtn = document.getElementById('btn-wallet-connect');
+      const pill = document.getElementById('wallet-connected-pill');
+      const acctDisp = document.getElementById('wallet-account-display');
+      const tierBadge = document.getElementById('wallet-tier-badge');
+      const personaSelect = document.getElementById('persona-select');
+
+      if (state.connectedWallet) {
+        if (connectBtn) connectBtn.style.display = 'none';
+        if (pill) pill.classList.add('active');
+        if (acctDisp) acctDisp.innerText = state.connectedWallet.accountId;
+
+        const p = state.personas[state.connectedWallet.accountId] || { trust: 0 };
+        const tier = p.trust >= 50 ? 'Tier 1' : p.trust >= 20 ? 'Tier 2' : 'Tier 3';
+        if (tierBadge) tierBadge.innerText = `${p.trust.toFixed(1)} pts • ${tier}`;
+
+        if (personaSelect) {
+          let opt = Array.from(personaSelect.options).find(o => o.value === state.connectedWallet.accountId);
+          if (!opt) {
+            opt = document.createElement('option');
+            opt.value = state.connectedWallet.accountId;
+            opt.innerText = `${state.connectedWallet.accountId} (Connected)`;
+            personaSelect.appendChild(opt);
+          }
+          personaSelect.value = state.connectedWallet.accountId;
+        }
+      } else {
+        if (connectBtn) connectBtn.style.display = 'flex';
+        if (pill) pill.classList.remove('active');
+        if (personaSelect && state.activePersona) {
+          personaSelect.value = state.activePersona;
+        }
+      }
+    }
+
+    function connectWallet(type, explicitAccountId) {
+      let accountId = explicitAccountId;
+      if (!accountId) {
+        if (type === 'mynearwallet') {
+          accountId = prompt('Enter your MyNearWallet testnet account:', 'alex.testnet') || 'alex.testnet';
+        } else if (type === 'meteor') {
+          accountId = prompt('Enter your Meteor Wallet testnet account:', 'chen.testnet') || 'chen.testnet';
+        } else if (type === 'here') {
+          accountId = prompt('Enter your Here Wallet testnet account:', 'maria.testnet') || 'maria.testnet';
+        } else {
+          accountId = 'alex.testnet';
+        }
+      }
+
+      accountId = accountId.trim().toLowerCase();
+      if (!accountId) return;
+
+      state.connectedWallet = {
+        accountId: accountId,
+        walletType: type,
+        connectedAt: Date.now()
+      };
+
+      if (!state.personas[accountId]) {
+        state.personas[accountId] = {
+          trust: 0.0,
+          completed: 0,
+          isCouncil: accountId.includes('council') || accountId.includes('admin')
+        };
+        state.contributors.push({
+          account: accountId,
+          trust: 0.0,
+          completed: 0,
+          role: 'Community Contributor',
+          earned: '0.0 NEAR',
+          tier: 'Tier 3 (DAO)',
+          badge: 'Active'
+        });
+      }
+
+      state.activePersona = accountId;
+      persistState();
+      updateWalletUi();
+      renderBounties();
+      renderContributors();
+      hideWalletModal();
+    }
+
+    function connectCustomAccount() {
+      const input = document.getElementById('custom-account-input');
+      const val = input ? input.value.trim().toLowerCase() : '';
+      if (!val) {
+        alert('Please enter a valid NEAR testnet account (e.g. yourname.testnet)');
+        return;
+      }
+      connectWallet('direct', val);
+    }
+
+    function disconnectWallet() {
+      state.connectedWallet = null;
+      state.activePersona = 'alex.testnet';
+      persistState();
+      updateWalletUi();
+      renderBounties();
+      renderContributors();
     }
 
     function computeTierForPersona(amount, personaId) {
@@ -2498,6 +2857,7 @@
 
     renderBounties();
     renderContributors();
+    updateWalletUi();
   </script>
 </body>
 
