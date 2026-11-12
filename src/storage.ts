@@ -17,8 +17,13 @@ export class PactStorage {
   private isCloud: boolean = false;
 
   constructor(options?: { supabaseUrl?: string; supabaseKey?: string; localFilePath?: string }) {
-    this.supabaseUrl = options?.supabaseUrl || process.env.SUPABASE_URL || null;
-    this.supabaseKey = options?.supabaseKey || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || null;
+    const isTest = process.env.NODE_ENV === 'test' || process.argv.some(arg => arg.includes('test'));
+
+    // In unit test runs, isolate to local test storage unless explicitly passed in options
+    if (!isTest || options?.supabaseUrl) {
+      this.supabaseUrl = options?.supabaseUrl || process.env.SUPABASE_URL || null;
+      this.supabaseKey = options?.supabaseKey || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || null;
+    }
     this.localFilePath = options?.localFilePath || path.resolve(process.cwd(), 'data', 'pact-store.json');
 
     if (this.supabaseUrl && this.supabaseKey) {
