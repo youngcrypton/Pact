@@ -4,10 +4,13 @@
 
 [![NEAR Protocol](https://img.shields.io/badge/NEAR-Testnet%20%7C%20Mainnet-000000.svg)](https://near.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
-[![Tests](https://img.shields.io/badge/Tests-11%20Passing-brightgreen.svg)](https://github.com/youngcrypton/Pact)
+[![Tests](https://img.shields.io/badge/Tests-33%20Passing-brightgreen.svg)](https://github.com/youngcrypton/Pact)
+[![Cloudflare Pages](https://img.shields.io/badge/Deployed-pactt.xyz-orange.svg?logo=cloudflare)](https://pactt.xyz)
+[![Supabase](https://img.shields.io/badge/Database-Supabase%20PostgreSQL-3ECF8E.svg?logo=supabase)](https://supabase.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 * **Track:** Social Money (`social`)
+* **Live Custom Domain:** [https://pactt.xyz](https://pactt.xyz)
 * **Target Ecosystem:** Shared community budgets, programmable rewards, and reputation-based access on Sputnik DAO and Trezu.
 * **Repository:** [https://github.com/youngcrypton/Pact](https://github.com/youngcrypton/Pact)
 
@@ -129,11 +132,11 @@ npm install
 ```bash
 npm test
 ```
-All 11 unit and integration tests run in under 2 seconds:
-* Verifies Tier 3 Sputnik DAO proposal creation for large tasks and new contributors.
-* Verifies Tier 2 single-council expedited sign-off.
-* Verifies Tier 1 zero-delay auto-approval for trusted contributors.
-* Validates REST API endpoints and error handling.
+All **33 unit and integration tests** pass across four comprehensive suites:
+* **Pact API Server Integration (13 tests):** Validates all REST API endpoints, CORS, escrow metrics, and storage engine reporting.
+* **Bug 1: Resilient Storage & Persistence (3 tests):** Validates PostgreSQL PostgREST sync and durable offline disk hydration across simulated crashes.
+* **Tiered Approvals & Earned Trust Engine (13 tests):** Validates Tier 1 instant payouts, Tier 2 council sign-off, Tier 3 Sputnik DAO escalations, exact yoctoNEAR $10^{24}$ BigInt precision (Bug 7), atomic claim locks (Bug 4), deliverable deduplication (Bug 3), 24h velocity cap (Bug 6), and council dispute/slashing windows (Bug 6).
+* **Bug 2: NEAR Wallet Selector & Cryptographic Auth (4 tests):** Validates NEP-413 auth challenge generation, Ed25519 signature signing and verification via `near-api-js`, and account naming rules.
 
 ### 3. Run End-to-End Simulation
 ```bash
@@ -141,25 +144,37 @@ npm run demo
 ```
 Executes a full terminal simulation demonstrating the end-to-end lifecycle across all three tiers, printing the resulting contributor leaderboard and NEAR Social badge payloads.
 
-### 4. Start Local REST API
+### 4. Start Local REST API & Preview Server
 ```bash
+# Start API Server (Port 3001)
 npm run api
+
+# Or run complete preview with reverse proxy (Port 3000)
+node dist/preview/server.mjs
 ```
-Starts the native HTTP API server on `http://localhost:3001` with CORS enabled to serve frontend clients.
+
+### 5. Build for Cloudflare Pages (`pactt.xyz`)
+```bash
+npm run build
+```
+Creates a zero-dependency static edge distribution bundle in `./dist` configured with `_redirects` and `_headers` for custom domain hosting.
 
 ---
 
 ## REST API Reference
 
-The backend exposes a lightweight REST interface on port `3001`:
+The backend exposes a lightweight REST interface on port `3001` (also available via Cloudflare Pages edge functions):
 
 | Endpoint | Method | Purpose | Request Body |
 | :--- | :---: | :--- | :--- |
 | `/api/bounties` | `GET` | List active and historical bounties | None |
-| `/api/bounties` | `POST` | Create a new bounty | `{ title, description, rewardNear, category, deadlineDays }` |
-| `/api/bounties/:id/claim` | `POST` | Claim an open bounty | `{ accountId }` |
-| `/api/bounties/:id/submit`| `POST` | Submit work proof and trigger tier routing | `{ accountId, proofUrl }` |
-| `/api/bounties/:id/approve`| `POST`| Single-council sign-off (Tier 2) | `{ councilAccountId }` |
+| `/api/bounties` | `POST` | Create a new bounty | `{ title, description, amount_formatted, category, created_by }` |
+| `/api/bounties/:id/claim` | `POST` | Claim an open bounty (Atomic lock guard) | `{ account_id }` |
+| `/api/bounties/:id/submit`| `POST` | Submit deliverable proof & trigger tier routing | `{ contributor_id, proof_url, notes }` |
+| `/api/bounties/:id/approve`| `POST`| Single-council sign-off (Tier 2) | `{ council_account_id }` |
+| `/api/bounties/:id/challenge`| `POST`| 24h council dispute & reputation slash (Bug 6) | `{ council_account_id, reason, slash_points }` |
+| `/api/escrow` | `GET` | Vault metrics & yoctoNEAR custody breakdown (Bug 5) | None |
+| `/api/storage` | `GET` | Storage engine status (Supabase cloud vs local) | None |
 | `/api/leaderboard` | `GET` | Retrieve contributor reputation rankings | None |
 | `/api/health` | `GET` | System health and network status | None |
 
