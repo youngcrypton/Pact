@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Bounty, ContributorProfile } from './types.js';
@@ -190,9 +191,15 @@ export class PactStorage {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      const tmpPath = `${this.localFilePath}.${Date.now()}.tmp`;
+      const tmpPath = `${this.localFilePath}.${Date.now()}.${Math.random().toString(36).substring(7)}.tmp`;
       fs.writeFileSync(tmpPath, JSON.stringify(snapshot, null, 2), 'utf-8');
-      fs.renameSync(tmpPath, this.localFilePath);
+      try {
+        fs.renameSync(tmpPath, this.localFilePath);
+      } catch {
+        // Safe fallback for Windows file locks (EPERM / EBUSY)
+        fs.copyFileSync(tmpPath, this.localFilePath);
+        try { fs.unlinkSync(tmpPath); } catch {}
+      }
     } catch (err: any) {
       console.error(`[PactStorage] Local file write failed: ${err.message}`);
     }
@@ -296,3 +303,4 @@ export class PactStorage {
     }
   }
 }
+
