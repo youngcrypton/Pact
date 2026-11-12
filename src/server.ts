@@ -113,18 +113,26 @@ const server = http.createServer((req, res) => {
     return sendJson(200, contract.get_tier_policy());
   }
 
+  // GET /api/escrow (Escrow Vault Metrics - Bug 5)
+  if (req.method === 'GET' && pathname === '/api/escrow') {
+    return sendJson(200, contract.get_escrow_metrics());
+  }
+
   // POST /api/bounties (Create)
   if (req.method === 'POST' && pathname === '/api/bounties') {
     readBody().then(body => {
-      if (!body.title || !body.amount_formatted) {
+      if (!body.title || (!body.amount_formatted && !body.amount_near)) {
         return sendJson(400, { error: 'Missing title or amount_formatted' });
       }
       const bounty = contract.create_bounty({
         title: body.title,
         description: body.description || '',
-        amount_formatted: Number(body.amount_formatted),
+        amount_formatted: Number(body.amount_formatted || 0),
+        amount_near: body.amount_near,
         category: body.category || 'DEV',
-        created_by: body.created_by || 'community.sputnik-dao.testnet'
+        created_by: body.created_by || 'community.sputnik-dao.testnet',
+        escrow_status: body.escrow_status,
+        escrow_tx_hash: body.escrow_tx_hash
       });
       return sendJson(201, bounty);
     });
@@ -140,6 +148,29 @@ const server = http.createServer((req, res) => {
         const bounty = contract.claim_bounty(id, body.account_id);
         return sendJson(200, bounty);
       } catch (err: any) {
+        // Bug 4: Return 409 Conflict if race condition occurred
+        if (err.message && err.message.startsWith('Conflict:')) {
+          return sendJson(409, { error: err.message });
+        }
+        // Bug 5: Return 402 Payment Required if unfunded
+        if (err.message && err.message.startsWith('EscrowRequired:')) {
+          return sendJson(402, { error: err.message });
+        }
+        return sendJson(400, { error: err.message });
+      }
+    });
+    return;
+  }
+
+  // POST /api/bounties/:id/cancel
+  if (req.method === 'POST' && pathname.match(/\/api\/bounties\/[^/]+\/cancel/)) {
+    const id = pathname.split('/')[3];
+    readBody().then(body => {
+      if (!body.caller_account_id) return sendJson(400, { error: 'Missing caller_account_id' });
+      try {
+        const bounty = contract.cancel_bounty(id, body.caller_account_id);
+        return sendJson(200, bounty);
+      } catch (err: any) {
         return sendJson(400, { error: err.message });
       }
     });
@@ -149,15 +180,15 @@ const server = http.createServer((req, res) => {
   // POST /api/bounties/:id/submit
   if (req.method === 'POST' && pathname.match(/\/api\/bounties\/[^/]+\/submit/)) {
     const id = pathname.split('/')[3];
-    readBody().then(body => {
+    readBody().then(async (body) => {
       if (!body.contributor_id || !body.proof_url) {
         return sendJson(400, { error: 'Missing contributor_id or proof_url' });
       }
 
-      // Verify GitHub format
-      const ghCheck = gitHubVerifier.parseProofUrl(body.proof_url);
-      if (!ghCheck.isValid) {
-        return sendJson(400, { error: ghCheck.error });
+      // Bug 3: Live GitHub verification (checks merged status, author, and syntax)
+      const ghCheck = await gitHubVerifier.verifyMergedPullRequest(body.proof_url, body.github_handle);
+      if (!ghCheck.isVerified && !ghCheck.isFallback) {
+        return sendJson(400, { error: ghCheck.error || 'Invalid or unmerged GitHub Pull Request' });
       }
 
       try {
@@ -166,6 +197,28 @@ const server = http.createServer((req, res) => {
           contributor_id: body.contributor_id,
           proof_url: body.proof_url,
           submission_notes: body.notes
+        });
+        return sendJson(200, { ...result, githubVerification: ghCheck });
+      } catch (err: any) {
+        return sendJson(400, { error: err.message });
+      }
+    });
+    return;
+  }
+
+  // POST /api/bounties/:id/challenge (Bug 6: Council Dispute Window)
+  if (req.method === 'POST' && pathname.match(/\/api\/bounties\/[^/]+\/challenge/)) {
+    const id = pathname.split('/')[3];
+    readBody().then(body => {
+      if (!body.council_account_id || !body.reason) {
+        return sendJson(400, { error: 'Missing council_account_id or reason' });
+      }
+      try {
+        const result = contract.challenge_submission({
+          bounty_id: id,
+          council_account_id: body.council_account_id,
+          reason: body.reason,
+          slash_points: body.slash_points ? Number(body.slash_points) : undefined
         });
         return sendJson(200, result);
       } catch (err: any) {

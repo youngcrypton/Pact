@@ -40,7 +40,8 @@ export class TrustEngine {
    */
   public recordCompletion(
     profile: ContributorProfile,
-    bounty: Bounty
+    bounty: Bounty,
+    isAutoTier1: boolean = false
   ): { updatedProfile: ContributorProfile; pointsAwarded: number } {
     const points = this.calculatePointsAwarded(bounty.amount_formatted);
 
@@ -48,12 +49,18 @@ export class TrustEngine {
       bounty_id: bounty.id,
       points_awarded: points,
       timestamp: Date.now(),
-      reason: `Completed Bounty: ${bounty.title} (${bounty.amount_formatted} NEAR)`
+      reason: `Completed Bounty: ${bounty.title} (${bounty.amount_formatted} NEAR)`,
+      is_auto_tier1: isAutoTier1
     };
 
     const newTrustScore = profile.trust_score + points;
     const newCount = profile.completed_bounties_count + 1;
     const newTotalEarned = profile.total_earned_formatted + bounty.amount_formatted;
+
+    // Strict yoctoNEAR BigInt accumulation (Bug 7 fix)
+    const currentYocto = BigInt(profile.total_earned_yocto || '0');
+    const bountyYocto = BigInt(bounty.amount_near || '0');
+    const newTotalYocto = (currentYocto + bountyYocto).toString();
 
     // Determine trust badge tier
     let currentTier: ContributorProfile['current_tier'] = 'NEWBIE';
@@ -67,6 +74,7 @@ export class TrustEngine {
       ...profile,
       trust_score: newTrustScore,
       completed_bounties_count: newCount,
+      total_earned_yocto: newTotalYocto,
       total_earned_formatted: newTotalEarned,
       current_tier: currentTier,
       near_social_badge_minted: newTrustScore >= 50, // Qualifies for on-chain social badge
@@ -74,6 +82,47 @@ export class TrustEngine {
     };
 
     return { updatedProfile, pointsAwarded: points };
+  }
+
+  /**
+   * Bug 6: Count instant auto-payouts received in the last 24 hours
+   */
+  public getDailyAutoPayoutCount(profile: ContributorProfile, windowMs: number = 24 * 60 * 60 * 1000): number {
+    const cutoff = Date.now() - windowMs;
+    return profile.history.filter(e => e.timestamp >= cutoff && e.is_auto_tier1 === true).length;
+  }
+
+  /**
+   * Bug 6: Council Challenge Slash
+   */
+  public recordSlash(
+    profile: ContributorProfile,
+    bounty: Bounty,
+    slashPoints: number,
+    reason: string
+  ): ContributorProfile {
+    const newTrust = Math.max(0, profile.trust_score - slashPoints);
+    let currentTier: ContributorProfile['current_tier'] = 'NEWBIE';
+    if (newTrust >= 100) {
+      currentTier = 'TRUSTED_CORE';
+    } else if (newTrust >= 20) {
+      currentTier = 'CONTRIBUTOR';
+    }
+
+    const slashEvent: TrustEvent = {
+      bounty_id: bounty.id,
+      points_awarded: -slashPoints,
+      timestamp: Date.now(),
+      reason: `Council Slash: ${reason}`
+    };
+
+    return {
+      ...profile,
+      trust_score: newTrust,
+      current_tier: currentTier,
+      near_social_badge_minted: newTrust >= 50,
+      history: [...profile.history, slashEvent]
+    };
   }
 }
 

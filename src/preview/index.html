@@ -1,0 +1,2433 @@
+S
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Pactt — Earned Trust Coordination Layer</title>
+  <style>
+    /* LAVENDER EDITORIAL THEME (Default) */
+    :root {
+      --bg: #ece7f5;
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 17.5 L22.5 20 L20 22.5 L17.5 20 Z' fill='%232a2438' fill-opacity='0.18'/%3E%3C/svg%3E");
+      --bg-gradient: radial-gradient(circle at 50% -10%, #f7f4fc 0%, #ece7f5 60%, #e2daf0 100%);
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-card: #ffffff;
+      --surface-hover: #f8f6fc;
+      --surface-active: #f1edfa;
+      --border: rgba(0, 0, 0, 0.1);
+      --border-sharp: #000000;
+      --border-subtle: rgba(0, 0, 0, 0.05);
+      --text-primary: #000000;
+      --text-secondary: #4a4656;
+      --text-tertiary: #767285;
+      --hero-bg: #000000;
+      --hero-text: #ffffff;
+      --hero-subtext: #a8a4b6;
+      --hero-border: #000000;
+      --badge-bg: #000000;
+      --badge-text: #ffffff;
+      --logo-frame-bg: #000000;
+      --logo-glyph-main: #ffffff;
+      --logo-glyph-counter: #000000;
+      --card-shadow: 0 4px 20px rgba(74, 58, 105, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    }
+
+    /* DARK MIDNIGHT LAVENDER THEME */
+    body.theme-midnight {
+      --bg: #120f1b;
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 17.5 L22.5 20 L20 22.5 L17.5 20 Z' fill='%23ffffff' fill-opacity='0.12'/%3E%3C/svg%3E");
+      --bg-gradient: radial-gradient(circle at 50% -10%, #1e182e 0%, #120f1b 60%, #0b0912 100%);
+      --surface: rgba(26, 21, 36, 0.88);
+      --surface-card: #1a1526;
+      --surface-hover: #241d33;
+      --surface-active: #2e2540;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-sharp: #ffffff;
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --text-primary: #ffffff;
+      --text-secondary: #aba4bc;
+      --text-tertiary: #787188;
+      --hero-bg: #000000;
+      --hero-text: #ffffff;
+      --hero-subtext: #9f99b0;
+      --hero-border: rgba(255, 255, 255, 0.2);
+      --badge-bg: #ffffff;
+      --badge-text: #000000;
+      --logo-frame-bg: #ffffff;
+      --logo-glyph-main: #000000;
+      --logo-glyph-counter: #ffffff;
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: var(--bg-pattern), var(--bg-gradient);
+      background-repeat: repeat, no-repeat;
+      background-position: center top, center top;
+      background-attachment: fixed, scroll;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Minimalist Splash Screen */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg);
+      background-image: var(--bg-pattern), var(--bg-gradient);
+      background-repeat: repeat, no-repeat;
+      background-position: center center, center center;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #splash-screen.fade-out {
+      opacity: 0;
+      transform: scale(1.02);
+      pointer-events: none;
+    }
+
+    .splash-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      animation: splashAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .splash-logo-frame {
+      width: 58px;
+      height: 58px;
+      background: var(--logo-frame-bg);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      transition: background 0.25s ease;
+    }
+
+    .logo-glyph-main {
+      fill: var(--logo-glyph-main);
+      transition: fill 0.25s ease;
+    }
+
+    .logo-glyph-counter {
+      fill: var(--logo-glyph-counter);
+      transition: fill 0.25s ease;
+    }
+
+    .splash-title {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: var(--text-primary);
+    }
+
+    .splash-tagline {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .splash-progress-track {
+      width: 120px;
+      height: 2.5px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    body.theme-midnight .splash-progress-track {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .splash-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #000000;
+      animation: splashProgress 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    body.theme-midnight .splash-progress-bar {
+      background: #ffffff;
+    }
+
+    @keyframes splashAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.96);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes splashProgress {
+      0% {
+        width: 0%;
+      }
+
+      60% {
+        width: 75%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    /* Masthead Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(236, 231, 245, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s ease;
+    }
+
+    body.theme-midnight header {
+      background: rgba(18, 15, 27, 0.88);
+    }
+
+    .header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-frame {
+      width: 30px;
+      height: 30px;
+      background: var(--logo-frame-bg);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s ease, background 0.25s ease;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+    }
+
+    .live-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #000000;
+    }
+
+    body.theme-midnight .pulse-dot {
+      background-color: #ffffff;
+    }
+
+    /* Segmented Navigation (Desktop) */
+    nav.nav-segmented {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-btn.active {
+      color: #ffffff;
+      background: #000000;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    body.theme-midnight .nav-btn.active {
+      color: #000000;
+      background: #ffffff;
+    }
+
+    .nav-count {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      padding: 1px 5px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      color: inherit;
+    }
+
+    /* Right Controls */
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Moon / Sun Icon Theme Button */
+    .theme-icon-btn {
+      width: 34px;
+      height: 34px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-icon-btn:hover {
+      border-color: var(--border-sharp);
+      transform: translateY(-1px);
+    }
+
+    .persona-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px 8px;
+      height: 34px;
+    }
+
+    .persona-avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #000000;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    body.theme-midnight .persona-avatar {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .persona-select {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 12px;
+      font-family: var(--font-mono);
+      outline: none;
+      cursor: pointer;
+      max-width: 150px;
+    }
+
+    .btn-connect {
+      background: #000000;
+      border: 1px solid #000000;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 0 14px;
+      height: 34px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    body.theme-midnight .btn-connect {
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      color: #000000;
+    }
+
+    .btn-connect:hover {
+      opacity: 0.9;
+    }
+
+    /* Mobile Subnav Strip */
+    .mobile-subnav {
+      display: none;
+      overflow-x: auto;
+      padding: 8px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      gap: 6px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .mobile-subnav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .m-nav-pill {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .m-nav-pill.active {
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
+    }
+
+    body.theme-midnight .m-nav-pill.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1380px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+    }
+
+    /* BENTO TELEMETRY GRID */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .bento-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Stark Inverted Hero Bento Card */
+    .bento-card.bento-hero {
+      background-color: var(--hero-bg);
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 17.5 L22.5 20 L20 22.5 L17.5 20 Z' fill='%23ffffff' fill-opacity='0.08'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      color: var(--hero-text);
+      border: 1px solid var(--hero-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bento-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #000000;
+      background: #ffffff;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    body.theme-midnight .bento-badge {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .bento-headline {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.25;
+      color: inherit;
+      margin-bottom: 8px;
+    }
+
+    .bento-subtext {
+      font-size: 13px;
+      color: var(--hero-subtext);
+      line-height: 1.5;
+      max-width: 660px;
+      margin-bottom: 18px;
+    }
+
+    .bento-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-bento-primary {
+      background: #ffffff;
+      color: #000000;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-bento-primary:hover {
+      background: transparent;
+      color: #ffffff;
+    }
+
+    .btn-bento-subtle {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-bento-subtle:hover {
+      border-color: #ffffff;
+    }
+
+    /* Bento Stat Card */
+    .bento-stat-label {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .bento-stat-num {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .bento-stat-num span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+
+    /* Velocity Stacked Bar */
+    .velocity-bar-wrap {
+      width: 100%;
+      height: 7px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    body.theme-midnight .velocity-bar-wrap {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .v-seg.seg-auto {
+      width: 70%;
+      background: #000000;
+    }
+
+    body.theme-midnight .v-seg.seg-auto {
+      background: #ffffff;
+    }
+
+    .v-seg.seg-council {
+      width: 20%;
+      background: #666666;
+    }
+
+    body.theme-midnight .v-seg.seg-council {
+      background: #888888;
+    }
+
+    .v-seg.seg-dao {
+      width: 10%;
+      background: #cccccc;
+    }
+
+    body.theme-midnight .v-seg.seg-dao {
+      background: #444444;
+    }
+
+    .velocity-legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .v-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .v-box {
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+    }
+
+    .bento-stat-caption {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-top: 8px;
+    }
+
+    /* Filter Controls */
+    .workspace-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-right: 2px;
+    }
+
+    .glass-pill {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .glass-pill:hover {
+      border-color: var(--border-sharp);
+      color: var(--text-primary);
+    }
+
+    .glass-pill.active {
+      background: #000000;
+      border-color: #000000;
+      color: #ffffff;
+    }
+
+    body.theme-midnight .glass-pill.active {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #000000;
+    }
+
+    .search-glass {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 7px 12px;
+      font-size: 12.5px;
+      border-radius: 8px;
+      outline: none;
+      min-width: 260px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: all 0.15s ease;
+    }
+
+    .search-glass:focus {
+      border-color: var(--border-sharp);
+    }
+
+    /* Desktop Table Container */
+    .bounty-card-container {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .bounty-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .bounty-table th {
+      background: rgba(0, 0, 0, 0.02);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+    }
+
+    body.theme-midnight .bounty-table th {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .bounty-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
+    .bounty-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .bounty-table tr:hover td {
+      background: var(--surface-hover);
+    }
+
+    .bounty-title-cell {
+      max-width: 420px;
+    }
+
+    .bounty-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .bounty-id-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-weight: 600;
+    }
+
+    .bounty-title-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+      line-height: 1.35;
+    }
+
+    .bounty-sponsor-id {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    /* Discipline & Route Badges */
+    .discipline-chip {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      border: 1px solid var(--border-sharp);
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .route-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+      white-space: nowrap;
+      border: 1px solid var(--border-sharp);
+    }
+
+    .route-badge.tier1 {
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
+    }
+
+    body.theme-midnight .route-badge.tier1 {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .route-badge.tier2 {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--border-sharp);
+    }
+
+    .route-badge.tier3 {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px dashed var(--border-sharp);
+    }
+
+    .reward-near {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .reward-unit {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-left: 2px;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .s-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #000000;
+    }
+
+    body.theme-midnight .s-dot {
+      background: #ffffff;
+    }
+
+    .btn-action {
+      background: transparent;
+      border: 1px solid var(--border-sharp);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-action:hover {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    body.theme-midnight .btn-action:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .btn-action.primary {
+      background: #000000;
+      border-color: #000000;
+      color: #ffffff;
+    }
+
+    body.theme-midnight .btn-action.primary {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #000000;
+    }
+
+    /* MOBILE NATIVE CARDS (Shown on small screens) */
+    .mobile-cards-wrap {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .m-bounty-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .m-bounty-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .m-bounty-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .m-bounty-sponsor {
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .m-bounty-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Slide-out Drawer / Bottom Sheet */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 16, 28, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: flex-end;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .drawer-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .drawer-panel {
+      width: 100%;
+      max-width: 580px;
+      height: 100vh;
+      background: var(--surface-card);
+      border-left: 1px solid var(--border-sharp);
+      padding: 28px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: -16px 0 48px rgba(0, 0, 0, 0.15);
+      transform: translateX(30px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .drawer-overlay.active .drawer-panel {
+      transform: translateX(0);
+    }
+
+    .drawer-grab-handle {
+      display: none;
+      width: 40px;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      margin: 0 auto 10px;
+    }
+
+    body.theme-midnight .drawer-grab-handle {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .drawer-close {
+      background: var(--surface);
+      border: 1px solid var(--border-sharp);
+      color: var(--text-primary);
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .panel-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .panel-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+
+    .routing-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: var(--font-mono);
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--border-sharp);
+    }
+
+    .result-alert {
+      border: 1px solid var(--border-sharp);
+      background: var(--surface-card);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .json-code {
+      background: #000000;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #ffffff;
+      overflow-x: auto;
+      white-space: pre;
+      margin-top: 8px;
+    }
+
+    .view-content {
+      display: none;
+    }
+
+    .view-content.active {
+      display: block;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    footer a {
+      color: var(--text-primary);
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE BREAKPOINTS (Mobile Optimization) */
+    @media (max-width: 860px) {
+      .header-inner {
+        padding: 0 14px;
+      }
+
+      .live-status-pill {
+        display: none;
+      }
+
+      nav.nav-segmented {
+        display: none;
+      }
+
+      .mobile-subnav {
+        display: flex;
+      }
+
+      .persona-chip {
+        max-width: 110px;
+      }
+
+      .persona-select {
+        max-width: 70px;
+      }
+
+      .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .bento-card.bento-hero {
+        padding: 18px;
+      }
+
+      .bento-headline {
+        font-size: 20px;
+      }
+
+      .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-glass {
+        min-width: 100%;
+      }
+
+      .bounty-card-container {
+        display: none;
+      }
+
+      .mobile-cards-wrap {
+        display: flex;
+      }
+
+      main {
+        padding: 16px 14px 48px;
+      }
+
+      /* Convert Drawer into Mobile Bottom Sheet */
+      .drawer-overlay {
+        align-items: flex-end;
+      }
+
+      .drawer-panel {
+        max-width: 100%;
+        height: auto;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
+        border-left: none;
+        border-top: 1px solid var(--border-sharp);
+        transform: translateY(100%);
+        padding: 20px;
+      }
+
+      .drawer-overlay.active .drawer-panel {
+        transform: translateY(0);
+      }
+
+      .drawer-grab-handle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Minimalist Splash Screen -->
+  <div id="splash-screen">
+    <div class="splash-content">
+      <div class="splash-logo-frame">
+        <!-- Orchestrated Bespoke Vector Monogram for Pactt -->
+        <svg width="34" height="34" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="logo-glyph-main"
+            d="M12 11C12 9.89543 12.8954 9 14 9H25C30.5228 9 35 13.4772 35 19C35 24.5228 30.5228 29 25 29H18V37C18 38.1046 17.1046 39 16 39H14C12.8954 39 12 38.1046 12 37V11Z"
+            fill="var(--logo-glyph-main)" />
+          <path class="logo-glyph-counter" d="M18 15H25C27.2091 15 29 16.7909 29 19C29 21.2091 27.2091 23 25 23H18V15Z"
+            fill="var(--logo-glyph-counter)" />
+          <!-- Intersecting Double-T Coordination Knot -->
+          <path class="logo-glyph-main"
+            d="M28 27H35V29H32V38C32 38.5523 31.5523 39 31 39H29C28.4477 39 28 38.5523 28 38V27Z"
+            fill="var(--logo-glyph-main)" />
+          <path class="logo-glyph-main"
+            d="M34 27H41V29H38V38C38 38.5523 37.5523 39 37 39H35C34.4477 39 34 38.5523 34 38V27Z"
+            fill="var(--logo-glyph-main)" />
+        </svg>
+      </div>
+
+      <div class="splash-title">Pactt</div>
+      <div class="splash-tagline">Earned Trust Coordination on NEAR</div>
+
+      <div class="splash-progress-track">
+        <div class="splash-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-group" onclick="replaySplash()" title="Click to replay splash">
+        <div class="brand-logo-frame">
+          <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="logo-glyph-main"
+              d="M12 11C12 9.89543 12.8954 9 14 9H25C30.5228 9 35 13.4772 35 19C35 24.5228 30.5228 29 25 29H18V37C18 38.1046 17.1046 39 16 39H14C12.8954 39 12 38.1046 12 37V11Z"
+              fill="var(--logo-glyph-main)" />
+            <path class="logo-glyph-counter"
+              d="M18 15H25C27.2091 15 29 16.7909 29 19C29 21.2091 27.2091 23 25 23H18V15Z"
+              fill="var(--logo-glyph-counter)" />
+            <!-- Intersecting Double-T Coordination Knot -->
+            <path class="logo-glyph-main"
+              d="M28 27H35V29H32V38C32 38.5523 31.5523 39 31 39H29C28.4477 39 28 38.5523 28 38V27Z"
+              fill="var(--logo-glyph-main)" />
+            <path class="logo-glyph-main"
+              d="M34 27H41V29H38V38C38 38.5523 37.5523 39 37 39H35C34.4477 39 34 38.5523 34 38V27Z"
+              fill="var(--logo-glyph-main)" />
+          </svg>
+        </div>
+        <div class="brand-title">Pactt</div>
+        <div class="live-status-pill">
+          <span class="pulse-dot"></span>
+          NEAR Testnet
+        </div>
+      </div>
+
+      <!-- Desktop Segmented Nav -->
+      <nav class="nav-segmented">
+        <button class="nav-btn active" onclick="switchView('bounties', this)">
+          Bounties <span class="nav-count" id="bounty-count-badge">8</span>
+        </button>
+        <button class="nav-btn" onclick="switchView('leaderboard', this)">
+          Trust Registry
+        </button>
+        <button class="nav-btn" onclick="switchView('proofs', this)">
+          On-Chain Proofs
+        </button>
+        <button class="nav-btn" onclick="switchView('policy', this)">
+          Sputnik DAO Policy
+        </button>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="top-actions">
+        <!-- Moon Icon Theme Switcher -->
+        <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle Theme (Moon)">
+          <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <div class="persona-chip">
+          <div class="persona-avatar">A</div>
+          <select id="persona-select" class="persona-select" onchange="onPersonaChanged()">
+            <option value="alex.testnet" selected>alex.testnet (Tier 1)</option>
+            <option value="maria.testnet">maria.testnet (Tier 2)</option>
+            <option value="chen.testnet">chen.testnet (Tier 1)</option>
+            <option value="newuser.testnet">newuser.testnet (Tier 3)</option>
+            <option value="council.testnet">council.testnet (Council)</option>
+          </select>
+        </div>
+
+        <button class="btn-connect" onclick="alert('Connected to NEAR Testnet via MyNearWallet')">
+          Connect
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Subnav Strip -->
+  <div class="mobile-subnav">
+    <button class="m-nav-pill active" onclick="switchViewMobile('bounties', this)">Bounties (8)</button>
+    <button class="m-nav-pill" onclick="switchViewMobile('leaderboard', this)">Trust Registry</button>
+    <button class="m-nav-pill" onclick="switchViewMobile('proofs', this)">Proofs</button>
+    <button class="m-nav-pill" onclick="switchViewMobile('policy', this)">Sputnik Policy</button>
+  </div>
+
+  <!-- Main View -->
+  <main>
+
+    <!-- VIEW 1: BOUNTIES -->
+    <div id="view-bounties" class="view-content active">
+
+      <!-- BENTO TELEMETRY GRID -->
+      <div class="bento-grid">
+        <!-- Stark Inverted Hero Bento Card -->
+        <div class="bento-card bento-hero">
+          <div>
+            <div class="bento-badge">
+              Sputnik DAO Acceleration
+            </div>
+            <h1 class="bento-headline">Earned trust eliminates 80% of DAO voting friction.</h1>
+            <p class="bento-subtext">
+              Pactt dynamically coordinates deliverables across Sputnik DAOs. Micro-tasks settle autonomously upon
+              verified deliverable proofs, reserving multi-sig votes strictly for high-capital allocations.
+            </p>
+          </div>
+          <div class="bento-actions">
+            <button class="btn-bento-primary" onclick="openDrawer('bounty-1')">
+              Inspect Tasks ↗
+            </button>
+            <a href="https://testnet.nearblocks.io/address/pact-dao-064783.testnet" target="_blank"
+              class="btn-bento-subtle">
+              On-Chain Vault ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Bento Metric 1: Capital Velocity -->
+        <div class="bento-card">
+          <div class="bento-stat-label">Capital Velocity & Escrow</div>
+          <div class="bento-stat-num">142.50<span>NEAR</span></div>
+          <div class="velocity-bar-wrap">
+            <div class="v-seg seg-auto"></div>
+            <div class="v-seg seg-council"></div>
+            <div class="v-seg seg-dao"></div>
+          </div>
+          <div class="velocity-legend">
+            <div class="v-item"><span class="v-box" style="background: currentColor;"></span> Auto (70%)</div>
+            <div class="v-item"><span class="v-box" style="background: #777;"></span> 1-Council (20%)</div>
+            <div class="v-item"><span class="v-box" style="background: #ccc;"></span> Multi-Sig</div>
+          </div>
+          <div class="bento-stat-caption">
+            Average payout latency: <strong>4.2 seconds</strong> (vs. 8.4 days on standard Sputnik DAO).
+          </div>
+        </div>
+
+        <!-- Bento Metric 2: Reputation Pulse -->
+        <div class="bento-card">
+          <div class="bento-stat-label">NEAR Social Reputation</div>
+          <div class="bento-stat-num">18<span>Badges</span></div>
+          <div
+            style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-primary); font-weight:700; margin-bottom: 6px;">
+            ● SocialDB v1 Synchronized
+          </div>
+          <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">
+            Permanent trust credentials indexed on <code>v1.social08.testnet</code>.
+          </div>
+          <a href="https://testnet.nearblocks.io/txns/ExWvUsgiL5yb6Wwr7NuxAn637oufojuu7XkCWuAjFaJ8" target="_blank"
+            style="display:inline-block; margin-top:8px; font-size:11.5px; font-family:var(--font-mono); color:var(--text-primary); font-weight:700; text-decoration:underline;">
+            View Tx ExWvUsgi... ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Workspace Filters -->
+      <div class="workspace-controls">
+        <div class="controls-row">
+          <div class="filter-group">
+            <span class="filter-label">Tier:</span>
+            <button class="glass-pill active" onclick="filterTier('ALL', this)">All</button>
+            <button class="glass-pill" onclick="filterTier('TIER_1', this)">Tier 1 (&lt; 5 NEAR)</button>
+            <button class="glass-pill" onclick="filterTier('TIER_2', this)">Tier 2 (5–25 NEAR)</button>
+            <button class="glass-pill" onclick="filterTier('TIER_3', this)">Tier 3 (&gt; 25 NEAR)</button>
+          </div>
+
+          <input type="text" id="search-box" class="search-glass" placeholder="Search tasks or sponsors..."
+            oninput="onSearchInput()" />
+        </div>
+
+        <div class="controls-row">
+          <div class="filter-group">
+            <span class="filter-label">Discipline:</span>
+            <button class="glass-pill active" onclick="filterCategory('ALL', this)">All</button>
+            <button class="glass-pill" onclick="filterCategory('DESIGN', this)">Design</button>
+            <button class="glass-pill" onclick="filterCategory('CONTENT', this)">Content</button>
+            <button class="glass-pill" onclick="filterCategory('COMMUNITY', this)">Community</button>
+            <button class="glass-pill" onclick="filterCategory('RESEARCH', this)">Research</button>
+            <button class="glass-pill" onclick="filterCategory('DEV', this)">Engineering</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Table -->
+      <div class="bounty-card-container">
+        <table class="bounty-table">
+          <thead>
+            <tr>
+              <th>Task & Sponsor DAO</th>
+              <th>Discipline</th>
+              <th>Route</th>
+              <th>Escrow Reward</th>
+              <th>Status</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="bounty-rows">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Native Cards Container (Auto-switches on mobile) -->
+      <div class="mobile-cards-wrap" id="mobile-bounty-cards">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- VIEW 2: CONTRIBUTORS & TRUST -->
+    <div id="view-leaderboard" class="view-content">
+      <div class="bento-card" style="margin-bottom: 16px;">
+        <h1 class="bento-headline" style="color:var(--text-primary)">Earned Trust Registry</h1>
+        <p class="bento-subtext" style="color:var(--text-secondary)">
+          Algorithmic trust is earned through delivered utility: <strong>10 base points + 5 points per NEAR
+            escrowed</strong>. Trust unlocks autonomous settlement privileges across all Sputnik DAOs and permanently
+          writes reputation to NEAR Social.
+        </p>
+      </div>
+
+      <div class="bounty-card-container" id="leaderboard-desktop-wrap">
+        <table class="bounty-table">
+          <thead>
+            <tr>
+              <th style="width: 40px;">Rank</th>
+              <th>Contributor</th>
+              <th>Trust Score</th>
+              <th>Completed</th>
+              <th>Role</th>
+              <th>Earned</th>
+              <th>Tier</th>
+              <th>Badge</th>
+            </tr>
+          </thead>
+          <tbody id="contributor-rows">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Contributor Cards -->
+      <div class="mobile-cards-wrap" id="mobile-contributor-cards">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- VIEW 3: ON-CHAIN PROOFS -->
+    <div id="view-proofs" class="view-content">
+      <div class="bento-card" style="margin-bottom: 16px;">
+        <h1 class="bento-headline" style="color:var(--text-primary)">Cryptographic On-Chain Verification</h1>
+        <p class="bento-subtext" style="color:var(--text-secondary)">
+          Pactt state changes, contributor badges, and settlement escalations broadcast real verifiable transactions to
+          NEAR Testnet.
+        </p>
+      </div>
+
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px;">
+        <div class="bento-card">
+          <div class="bento-stat-label">Protocol Account</div>
+          <p
+            style="font-size: 15px; font-weight: 800; margin-bottom: 6px; font-family: var(--font-mono); color:var(--text-primary);">
+            pact-dao-064783.testnet
+          </p>
+          <a href="https://testnet.nearblocks.io/address/pact-dao-064783.testnet" target="_blank"
+            class="btn-action primary" style="display: inline-block;">
+            NearBlocks Explorer ↗
+          </a>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-stat-label">SocialDB Badge Mint</div>
+          <p
+            style="font-size: 15px; font-weight: 800; margin-bottom: 6px; font-family: var(--font-mono); color:var(--text-primary);">
+            v1.social08.testnet
+          </p>
+          <a href="https://testnet.nearblocks.io/txns/ExWvUsgiL5yb6Wwr7NuxAn637oufojuu7XkCWuAjFaJ8" target="_blank"
+            class="btn-action primary" style="display: inline-block;">
+            View Tx ExWvUsgi... ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="bento-card">
+        <div class="bento-stat-label">NEAR Social DB Payload Structure</div>
+        <div class="json-code">{
+          "pact-dao-064783.testnet": {
+          "badge": {
+          "pactt_verified_contributor": {
+          "metadata": {
+          "name": "Pactt Verified Contributor",
+          "description": "Earned trust on-chain coordination badge across Sputnik DAOs",
+          "image": { "url": "https://pactt.social/badges/contributor-v1.svg" },
+          "trust_score": 142.5
+          }
+          }
+          }
+          }
+          }</div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: SPUTNIK DAO POLICY -->
+    <div id="view-policy" class="view-content">
+      <div class="bento-card" style="margin-bottom: 16px;">
+        <h1 class="bento-headline" style="color:var(--text-primary)">Sputnik DAO Policy</h1>
+        <p class="bento-subtext" style="color:var(--text-secondary)">
+          Pactt maps verified trust against capital risk. Council multi-sig votes are reserved strictly for high-risk or
+          unvetted tasks.
+        </p>
+      </div>
+
+      <div class="bounty-card-container">
+        <table class="bounty-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Threshold</th>
+              <th>Min Trust</th>
+              <th>Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="route-badge tier1">Tier 1: Auto</span></td>
+              <td>&le; 5.0 NEAR</td>
+              <td>50+ pts</td>
+              <td>Automated transfer upon deliverable verification</td>
+            </tr>
+            <tr>
+              <td><span class="route-badge tier2">Tier 2: Council</span></td>
+              <td>5.0 – 25.0 NEAR</td>
+              <td>20+ pts</td>
+              <td>Single council signoff</td>
+            </tr>
+            <tr>
+              <td><span class="route-badge tier3">Tier 3: Sputnik</span></td>
+              <td>&gt; 25.0 NEAR</td>
+              <td>None</td>
+              <td>Full Sputnik DAO proposal (M-of-N council vote)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Slide-out Drawer / Mobile Bottom Sheet -->
+  <div id="drawer" class="drawer-overlay" onclick="closeDrawer(event)">
+    <div class="drawer-panel" onclick="event.stopPropagation()">
+      <div class="drawer-grab-handle"></div>
+      <div class="drawer-header">
+        <div>
+          <div id="drawer-bounty-id" class="bounty-id-tag">#B-101</div>
+          <h2 id="drawer-title" class="bounty-title-text" style="font-size: 17px;">Task Title</h2>
+        </div>
+        <button class="drawer-close" onclick="hideDrawer()">✕</button>
+      </div>
+
+      <div class="panel-block">
+        <div class="panel-title">Specification</div>
+        <p id="drawer-desc"
+          style="color: var(--text-secondary); font-size: 13px; line-height: 1.5; margin-bottom: 10px;"></p>
+        <div style="display: flex; gap: 16px; font-family: var(--font-mono); font-size: 12px; flex-wrap: wrap;">
+          <div><span style="color: var(--text-tertiary);">Discipline:</span> <span id="drawer-category"
+              class="discipline-chip"></span></div>
+          <div><span style="color: var(--text-tertiary);">Sponsor:</span> <span id="drawer-sponsor"
+              style="color: var(--text-primary); font-weight:700;"></span></div>
+          <div><span style="color: var(--text-tertiary);">Reward:</span> <span id="drawer-amount"
+              style="color: var(--text-primary); font-weight:800;"></span></div>
+          <div><span style="color: var(--text-tertiary);">Escrow Vault:</span> <span id="drawer-escrow"
+              style="color: var(--text-primary); font-weight:700;"></span></div>
+        </div>
+      </div>
+
+      <div class="panel-block">
+        <div class="panel-title">Dynamic Route</div>
+        <div class="routing-box">
+          <div>
+            <div style="font-size: 11px; color: var(--text-tertiary);">Settlement Route:</div>
+            <div id="drawer-route-text" style="font-weight: 700; font-size: 12.5px; margin-top: 2px;"></div>
+          </div>
+          <span id="drawer-route-badge" class="route-badge"></span>
+        </div>
+      </div>
+
+      <div class="panel-block" id="drawer-action-block">
+        <!-- Injected via JS -->
+      </div>
+
+      <div id="drawer-result" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    Pactt · NEAR Hackathon 2026 · Social Money Track · Contract: <a
+      href="https://testnet.nearblocks.io/address/pact-dao-064783.testnet" target="_blank">pact-dao-064783.testnet</a>
+  </footer>
+
+  <script>
+    // Splash screen autohide
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash-screen');
+        if (splash) splash.classList.add('fade-out');
+      }, 1000);
+    });
+
+    function replaySplash() {
+      const splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.classList.remove('fade-out');
+        const bar = splash.querySelector('.splash-progress-bar');
+        if (bar) {
+          bar.style.animation = 'none';
+          void bar.offsetWidth;
+          bar.style.animation = 'splashProgress 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        }
+        setTimeout(() => {
+          splash.classList.add('fade-out');
+        }, 1000);
+      }
+    }
+
+    // Moon / Sun Theme Toggle
+    function toggleTheme() {
+      const isMidnight = document.body.classList.toggle('theme-midnight');
+      const icon = document.getElementById('theme-icon');
+      if (icon) {
+        if (isMidnight) {
+          // Render Sun icon
+          icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        } else {
+          // Render Moon icon
+          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+      }
+    }
+
+    // State Store
+    const state = {
+      activeView: 'bounties',
+      filterTier: 'ALL',
+      filterCategory: 'ALL',
+      searchQuery: '',
+      activePersona: 'alex.testnet',
+      personas: {
+        'alex.testnet': { trust: 142.5, completed: 6, isCouncil: false },
+        'maria.testnet': { trust: 24.0, completed: 2, isCouncil: false },
+        'chen.testnet': { trust: 65.5, completed: 4, isCouncil: false },
+        'newuser.testnet': { trust: 0.0, completed: 0, isCouncil: false },
+        'council.testnet': { trust: 210.0, completed: 9, isCouncil: true }
+      },
+      selectedBountyId: null,
+      usedProofUrls: {
+        'https://github.com/near/core-contracts/pull/412': 'bounty-5',
+        'https://github.com/pactt-protocol/audit/pull/5': 'bounty-6'
+      },
+      dailyAutoPayouts: {
+        'alex.testnet': 1
+      },
+      bounties: [
+        {
+          id: 'bounty-1',
+          code: 'B-101',
+          title: 'BOS / NEAR Social Profile Component Card Kit',
+          description: 'Design pixel-perfect SVG and React preview cards for displaying earned trust reputation badges on near.social profile headers.',
+          amount: 8.0,
+          category: 'DESIGN',
+          sponsor: 'creatives.sputnik-dao.testnet',
+          claimedBy: null,
+          status: 'OPEN',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_2',
+          proofUrl: null,
+          deliverableType: 'Figma File / Design Link',
+          placeholder: 'https://www.figma.com/design/4a8c90...'
+        },
+        {
+          id: 'bounty-2',
+          code: 'B-102',
+          title: 'Deep-Dive Thread: Why NEAR Chain Abstraction Matters',
+          description: 'Author a high-impact 8-tweet educational thread breaking down account aggregation and decentralized relayer networks for Web3 newcomers.',
+          amount: 4.5,
+          category: 'CONTENT',
+          sponsor: 'marketing.sputnik-dao.testnet',
+          claimedBy: null,
+          status: 'OPEN',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_1',
+          proofUrl: null,
+          deliverableType: 'X (Twitter) Thread or Article URL',
+          placeholder: 'https://x.com/contributor/status/185293...'
+        },
+        {
+          id: 'bounty-3',
+          code: 'B-103',
+          title: 'Translate Developer Quickstart to Spanish & Portuguese',
+          description: 'Complete verified localization of the official NEAR 2.0 developer onboarding documentation for the Latin America developer guild.',
+          amount: 4.0,
+          category: 'COMMUNITY',
+          sponsor: 'devhub.sputnik-dao.testnet',
+          claimedBy: 'maria.testnet',
+          status: 'CLAIMED',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_1',
+          proofUrl: null,
+          deliverableType: 'Crowdin / GitHub / Google Docs Link',
+          placeholder: 'https://docs.google.com/document/d/14a...'
+        },
+        {
+          id: 'bounty-4',
+          code: 'B-104',
+          title: 'Comparative Research: Sputnik DAO vs. Aragon & Moloch',
+          description: 'Author a comprehensive 6-page research report evaluating capital efficiency, multi-sig latency, and reputation models across major DAO frameworks.',
+          amount: 15.0,
+          category: 'RESEARCH',
+          sponsor: 'policy.sputnik-dao.testnet',
+          claimedBy: null,
+          status: 'OPEN',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_2',
+          proofUrl: null,
+          deliverableType: 'Research Report (Notion, Mirror, or PDF)',
+          placeholder: 'https://mirror.xyz/contributor/sputnik-analysis'
+        },
+        {
+          id: 'bounty-5',
+          code: 'B-105',
+          title: 'Implement NEP-171 NFT Metadata Parser',
+          description: 'Write a zero-dependency TypeScript parser for standard NEAR NFT NEP-171 metadata specifications with full typing and schema validation.',
+          amount: 3.5,
+          category: 'DEV',
+          sponsor: 'devhub.sputnik-dao.testnet',
+          claimedBy: 'alex.testnet',
+          status: 'APPROVED',
+          disputeStatus: 'NONE',
+          approvedAt: Date.now() - 3600000,
+          defaultTier: 'TIER_1',
+          proofUrl: 'https://github.com/near/core-contracts/pull/412',
+          deliverableType: 'GitHub Pull Request URL',
+          placeholder: 'https://github.com/near/core-contracts/pull/412'
+        },
+        {
+          id: 'bounty-6',
+          code: 'B-106',
+          title: 'Audit FastAuth Session Key Invalidation Logic',
+          description: 'Perform formal verification and manual code audit on testnet FastAuth session key rotation and storage deposit refunds.',
+          amount: 18.0,
+          category: 'SECURITY',
+          sponsor: 'security.sputnik-dao.testnet',
+          claimedBy: 'chen.testnet',
+          status: 'IN_REVIEW',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_2',
+          proofUrl: 'https://github.com/pactt-protocol/audit/pull/5',
+          deliverableType: 'Audit Report / GitHub Review',
+          placeholder: 'https://github.com/org/repo/pull/123'
+        },
+        {
+          id: 'bounty-7',
+          code: 'B-107',
+          title: 'Host Virtual AMA on BOS Composability & DAOs',
+          description: 'Organize, moderate, and record a 45-minute live Twitter Space / Discord stage on decentralized frontends with guest speakers from Creatives DAO.',
+          amount: 6.5,
+          category: 'COMMUNITY',
+          sponsor: 'community.sputnik-dao.testnet',
+          claimedBy: null,
+          status: 'OPEN',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_2',
+          proofUrl: null,
+          deliverableType: 'Recording Link / Event Summary',
+          placeholder: 'https://twitter.com/i/spaces/1mnGe...'
+        },
+        {
+          id: 'bounty-8',
+          code: 'B-108',
+          title: 'Build Full Cross-Chain Intent Relayer',
+          description: 'Architect a production-grade intent relayer listening to NEAR cross-chain settlement contracts for 10 NEAR/ETH atomic swaps.',
+          amount: 50.0,
+          category: 'DEV',
+          sponsor: 'intents.sputnik-dao.testnet',
+          claimedBy: null,
+          status: 'OPEN',
+          disputeStatus: 'NONE',
+          defaultTier: 'TIER_3',
+          proofUrl: null,
+          deliverableType: 'GitHub Repository & Deployed Contract',
+          placeholder: 'https://github.com/org/intents-relayer'
+        }
+      ],
+      contributors: [
+        { account: 'alex.testnet', trust: 142.5, completed: 6, role: 'Full-Stack Dev', earned: '31.2 NEAR', tier: 'Tier 1 (Instant)', badge: 'Verified Gold' },
+        { account: 'chen.testnet', trust: 65.5, completed: 4, role: 'Security Auditor', earned: '19.5 NEAR', tier: 'Tier 1 (Instant)', badge: 'Verified Silver' },
+        { account: 'sarah.testnet', trust: 48.0, completed: 3, role: 'UI/UX Designer', earned: '12.0 NEAR', tier: 'Tier 2 (Council)', badge: 'Verified Bronze' },
+        { account: 'maria.testnet', trust: 24.0, completed: 2, role: 'Community Lead', earned: '8.0 NEAR', tier: 'Tier 2 (Council)', badge: 'Verified Bronze' },
+        { account: 'elena.testnet', trust: 35.0, completed: 3, role: 'Content Writer', earned: '9.5 NEAR', tier: 'Tier 2 (Council)', badge: 'Verified Bronze' },
+        { account: 'bob.testnet', trust: 15.0, completed: 1, role: 'Researcher', earned: '3.0 NEAR', tier: 'Tier 3 (DAO)', badge: 'Unclaimed' },
+        { account: 'newuser.testnet', trust: 0.0, completed: 0, role: 'New Contributor', earned: '0.0 NEAR', tier: 'Tier 3 (DAO)', badge: 'Unclaimed' }
+      ]
+    };
+
+    function computeTierForPersona(amount, personaId) {
+      const p = state.personas[personaId] || { trust: 0 };
+      if (amount <= 5.0 && p.trust >= 50.0) {
+        return { tier: 'TIER_1', label: 'Tier 1: Instant Auto-Payout', class: 'tier1' };
+      } else if (amount <= 25.0 && p.trust >= 20.0) {
+        return { tier: 'TIER_2', label: 'Tier 2: Single Council Review', class: 'tier2' };
+      } else {
+        return { tier: 'TIER_3', label: 'Tier 3: Sputnik DAO Proposal', class: 'tier3' };
+      }
+    }
+
+    function renderBounties() {
+      const tbody = document.getElementById('bounty-rows');
+      const mobileWrap = document.getElementById('mobile-bounty-cards');
+      tbody.innerHTML = '';
+      mobileWrap.innerHTML = '';
+
+      let list = state.bounties.filter(b => {
+        if (state.filterTier !== 'ALL' && b.defaultTier !== state.filterTier) return false;
+        if (state.filterCategory !== 'ALL' && b.category !== state.filterCategory) return false;
+        if (state.searchQuery) {
+          const q = state.searchQuery.toLowerCase();
+          return b.title.toLowerCase().includes(q) || b.sponsor.toLowerCase().includes(q) || b.category.toLowerCase().includes(q);
+        }
+        return true;
+      });
+
+      list.forEach(b => {
+        let tClass = 'tier1';
+        let tLabel = 'Tier 1: Auto';
+        if (b.defaultTier === 'TIER_2') { tClass = 'tier2'; tLabel = 'Tier 2: 1-Council'; }
+        if (b.defaultTier === 'TIER_3') { tClass = 'tier3'; tLabel = 'Tier 3: Sputnik'; }
+
+        let sLabel = 'Open';
+        let sDotStyle = '';
+        if (b.status === 'CLAIMED') { sLabel = 'Claimed (' + b.claimedBy + ')'; }
+        if (b.status === 'IN_REVIEW') { sLabel = 'In Review'; sDotStyle = 'background: #eab308;'; }
+        if (b.status === 'APPROVED') {
+          if (b.disputeStatus === 'CHALLENGED') {
+            sLabel = 'Challenged (Slashed)';
+            sDotStyle = 'background: #dc2626;';
+          } else {
+            sLabel = 'Paid Out';
+            sDotStyle = 'background: #16a34a;';
+          }
+        }
+
+        let actionBtnText = 'Inspect';
+        let isPrimary = false;
+        if (b.status === 'OPEN') { actionBtnText = 'Inspect & Claim'; isPrimary = true; }
+        else if (b.status === 'CLAIMED' && b.claimedBy === state.activePersona) { actionBtnText = 'Submit Work'; isPrimary = true; }
+        else if (b.status === 'IN_REVIEW' && state.personas[state.activePersona].isCouncil) { actionBtnText = 'Signoff'; isPrimary = true; }
+        else if (b.status === 'APPROVED' && state.personas[state.activePersona].isCouncil) { actionBtnText = 'Audit / Dispute'; isPrimary = true; }
+
+        // 1. Desktop Table Row
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="bounty-title-cell">
+            <div class="bounty-meta-line">
+              <span class="bounty-id-tag">#${b.code}</span>
+              <span class="discipline-chip">${b.category}</span>
+            </div>
+            <div class="bounty-title-text">${b.title}</div>
+            <div class="bounty-sponsor-id">${b.sponsor}</div>
+          </td>
+          <td><span class="discipline-chip">${b.category}</span></td>
+          <td>
+            <span class="route-badge ${tClass}">${tLabel}</span>
+          </td>
+          <td>
+            <span class="reward-near">${b.amount.toFixed(2)}</span><span class="reward-unit">NEAR</span>
+          </td>
+          <td>
+            <span class="status-indicator">
+              <span class="s-dot" ${sDotStyle ? `style="${sDotStyle}"` : ''}></span>
+              ${sLabel}
+            </span>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn-action ${isPrimary ? 'primary' : ''}" onclick="openDrawer('${b.id}')">
+              ${actionBtnText}
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+
+        // 2. Mobile Native Card
+        const mCard = document.createElement('div');
+        mCard.className = 'm-bounty-card';
+        mCard.innerHTML = `
+          <div class="m-bounty-top">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="bounty-id-tag">#${b.code}</span>
+              <span class="discipline-chip">${b.category}</span>
+            </div>
+            <div class="reward-near">${b.amount.toFixed(2)}<span class="reward-unit">NEAR</span></div>
+          </div>
+          <div class="m-bounty-title">${b.title}</div>
+          <div class="m-bounty-sponsor">${b.sponsor}</div>
+          <div class="m-bounty-bottom">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="route-badge ${tClass}">${tLabel}</span>
+              <span class="status-indicator"><span class="s-dot" ${sDotStyle ? `style="${sDotStyle}"` : ''}></span> ${sLabel}</span>
+            </div>
+            <button class="btn-action ${isPrimary ? 'primary' : ''}" onclick="openDrawer('${b.id}')">
+              ${actionBtnText}
+            </button>
+          </div>
+        `;
+        mobileWrap.appendChild(mCard);
+      });
+    }
+
+    function renderContributors() {
+      const tbody = document.getElementById('contributor-rows');
+      const mobileWrap = document.getElementById('mobile-contributor-cards');
+      tbody.innerHTML = '';
+      mobileWrap.innerHTML = '';
+
+      state.contributors.forEach((c, idx) => {
+        // Desktop Row
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-family: var(--font-mono); font-size: 12px; font-weight: 800;">${idx + 1}</td>
+          <td style="font-family: var(--font-mono); font-weight: 700;">${c.account}</td>
+          <td><span style="font-family: var(--font-mono); font-weight: 800;">${c.trust.toFixed(1)}</span></td>
+          <td>${c.completed}</td>
+          <td><span style="font-size: 12px; color: var(--text-secondary); font-weight:600;">${c.role}</span></td>
+          <td style="font-family: var(--font-mono); font-weight: 700;">${c.earned}</td>
+          <td><span style="font-size: 12px; font-weight:600;">${c.tier}</span></td>
+          <td>
+            <span style="font-family: var(--font-mono); font-size: 11px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border-sharp); font-weight:700;">
+              ${c.badge}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Mobile Card
+        const mCard = document.createElement('div');
+        mCard.className = 'm-bounty-card';
+        mCard.innerHTML = `
+          <div class="m-bounty-top">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-weight:900; font-size:14px; font-family:var(--font-mono)">#${idx + 1}</span>
+              <span style="font-family:var(--font-mono); font-weight:800; font-size:14px;">${c.account}</span>
+            </div>
+            <span style="font-family:var(--font-mono); font-weight:900; font-size:15px;">${c.trust.toFixed(1)} pts</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary);">
+            <span>${c.role}</span>
+            <span>Earned: <strong>${c.earned}</strong></span>
+          </div>
+          <div class="m-bounty-bottom">
+            <span style="font-size:12px; font-weight:600;">${c.tier}</span>
+            <span style="font-family:var(--font-mono); font-size:11px; padding:2px 7px; border:1px solid var(--border-sharp); border-radius:4px; font-weight:700;">${c.badge}</span>
+          </div>
+        `;
+        mobileWrap.appendChild(mCard);
+      });
+    }
+
+    function openDrawer(bountyId) {
+      state.selectedBountyId = bountyId;
+      const b = state.bounties.find(x => x.id === bountyId);
+      if (!b) return;
+
+      document.getElementById('drawer-bounty-id').innerText = '#' + b.code;
+      document.getElementById('drawer-title').innerText = b.title;
+      document.getElementById('drawer-desc').innerText = b.description;
+      document.getElementById('drawer-sponsor').innerText = b.sponsor;
+      document.getElementById('drawer-amount').innerText = b.amount.toFixed(2) + ' NEAR';
+
+      const isDisbursed = b.status === 'APPROVED';
+      const escrowLabel = isDisbursed ? '✓ Disbursed to Claimant' : '🔒 Locked (Vault: pact-dao-933742.testnet)';
+      document.getElementById('drawer-escrow').innerText = escrowLabel;
+
+      const catBadge = document.getElementById('drawer-category');
+      catBadge.innerText = b.category;
+
+      const routing = computeTierForPersona(b.amount, state.activePersona);
+      document.getElementById('drawer-route-text').innerText = `${state.activePersona} (${state.personas[state.activePersona].trust} pts) → ${routing.label}`;
+      const badge = document.getElementById('drawer-route-badge');
+      badge.className = 'route-badge ' + routing.class;
+      badge.innerText = routing.tier;
+
+      document.getElementById('drawer-result').style.display = 'none';
+
+      const actionBlock = document.getElementById('drawer-action-block');
+      actionBlock.innerHTML = '';
+
+      if (b.status === 'OPEN') {
+        actionBlock.innerHTML = `
+          <div class="panel-title">Claim Task</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+            Claiming locks this task to your account (<strong>${state.activePersona}</strong>).
+          </p>
+          <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="claimCurrentBounty()">
+            Claim Task as ${state.activePersona}
+          </button>
+        `;
+      } else if (b.status === 'CLAIMED') {
+        actionBlock.innerHTML = `
+          <div class="panel-title">Submit Proof of Work</div>
+          <div class="form-group">
+            <label class="form-label">Contributor</label>
+            <input type="text" class="form-input" value="${b.claimedBy}" disabled />
+          </div>
+          <div class="form-group">
+            <label class="form-label">${b.deliverableType || 'Deliverable URL'}</label>
+            <input type="text" id="pr-url-input" class="form-input" value="${b.placeholder || ''}" placeholder="${b.placeholder || 'https://...'}" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes (Optional)</label>
+            <input type="text" id="pr-notes-input" class="form-input" placeholder="Deliverable completed." />
+          </div>
+          <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="submitWorkCurrentBounty()">
+            Submit for Settlement
+          </button>
+        `;
+      } else if (b.status === 'IN_REVIEW') {
+        const isCouncil = state.personas[state.activePersona].isCouncil;
+        actionBlock.innerHTML = `
+          <div class="panel-title">Council Review Pending</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">
+            Submitted by <strong>${b.claimedBy}</strong>: <br/>
+            <a href="${b.proofUrl || '#'}" target="_blank" style="color: var(--text-primary); font-family: var(--font-mono); font-size:11.5px; font-weight:700;">${b.proofUrl || 'Deliverable attached'} ↗</a>
+          </p>
+          ${isCouncil ? `
+            <p style="font-size: 12px; color: var(--text-primary); font-weight:700; margin-bottom: 12px;">
+              ✓ You are council. You have authority to release funds.
+            </p>
+            <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="councilApproveCurrentBounty()">
+              Authorize & Disburse ${b.amount.toFixed(2)} NEAR
+            </button>
+          ` : `
+            <p style="font-size: 12px; color: var(--text-tertiary);">
+              Awaiting signoff from an authorized council member.
+            </p>
+          `}
+        `;
+      } else if (b.status === 'APPROVED') {
+        const isCouncil = state.personas[state.activePersona] && state.personas[state.activePersona].isCouncil;
+        if (b.disputeStatus === 'CHALLENGED') {
+          actionBlock.innerHTML = `
+            <div class="panel-title">Dispute & Anti-Cheat Audit (Bug 6)</div>
+            <div class="result-alert" style="border: 1px solid #dc2626; background: rgba(220, 38, 38, 0.06);">
+              <div style="font-weight: 800; font-size: 13px; color: #dc2626; display: flex; align-items: center; gap: 6px;">
+                <span>🚨</span> Council Slashed Submission
+              </div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4;">
+                Challenged by <strong>${b.disputedBy || 'council.testnet'}</strong>: 
+                <span style="color: var(--text-primary); font-weight: 600;">"${b.disputeReason || 'Malicious / Plagiarized deliverable detected'}"</span>.
+              </p>
+              <div style="font-size: 11.5px; font-weight: 700; color: #dc2626; margin-top: 8px;">
+                ⚠️ 50 Reputation Points Slashed from ${b.claimedBy} on NEAR Social.
+              </div>
+              <div class="json-code">near-social slash: {
+  "${b.claimedBy}": {
+    "trust_slashed": -50,
+    "current_trust": ${state.personas[b.claimedBy] ? state.personas[b.claimedBy].trust : 0},
+    "disputed_by": "${b.disputedBy || 'council.testnet'}",
+    "reason": "MALICIOUS_SUBMISSION_SLASHEVENT"
+  }
+}</div>
+            </div>
+          `;
+        } else {
+          actionBlock.innerHTML = `
+            <div class="panel-title">Settlement & Verification Integrity</div>
+            <div class="result-alert">
+              <div style="font-weight: 800; font-size: 13px; color: #16a34a; display: flex; align-items: center; gap: 6px;">
+                <span>✓</span> Payout Disbursed & Escrow Released
+              </div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                <strong>${b.amount.toFixed(2)} NEAR</strong> transferred to <strong>${b.claimedBy}</strong>.
+              </p>
+              <div style="margin-top: 10px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border-sharp); border-radius: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
+                <span>⏱ 24h Council Dispute Cooldown</span>
+                <span style="color: var(--text-primary); font-weight: 700;">ACTIVE (Bug 6)</span>
+              </div>
+            </div>
+            ${isCouncil ? `
+              <div style="margin-top: 14px; padding: 14px; border: 1px dashed var(--border-sharp); border-radius: 8px; background: var(--surface);">
+                <div style="font-size: 12px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">
+                  Council Governance Action (Bug 6)
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                  As a council member, you have 24 hours to dispute fraudulent or spam submissions. Slashes 50 trust points from the contributor and revokes approval.
+                </p>
+                <button class="btn-action" id="btn-challenge-bounty" style="width: 100%; border-color: #dc2626; color: #dc2626; font-weight: 800; padding: 9px;" onclick="challengeCurrentBounty()">
+                  🚨 Dispute Submission & Slash 50 Trust Points
+                </button>
+              </div>
+            ` : ''}
+          `;
+        }
+      }
+
+      document.getElementById('drawer').classList.add('active');
+    }
+
+    function hideDrawer() {
+      document.getElementById('drawer').classList.remove('active');
+    }
+
+    function closeDrawer(e) {
+      if (e.target.id === 'drawer') hideDrawer();
+    }
+
+    function claimCurrentBounty() {
+      const b = state.bounties.find(x => x.id === state.selectedBountyId);
+      if (!b) return;
+
+      // Bug 4 & 5 Atomic and Escrow Locks
+      if (b.status !== 'OPEN' || b.claimedBy !== null) {
+        alert(`Conflict (Bug 4 Lock): Bounty #${b.code} is already claimed by ${b.claimedBy || 'another contributor'}. Duplicate claim rejected.`);
+        return;
+      }
+
+      b.claimedBy = state.activePersona;
+      b.status = 'CLAIMED';
+      renderBounties();
+      openDrawer(b.id);
+    }
+
+    function submitWorkCurrentBounty() {
+      const b = state.bounties.find(x => x.id === state.selectedBountyId);
+      if (!b) return;
+
+      const prUrlInput = document.getElementById('pr-url-input');
+      const prUrl = prUrlInput ? prUrlInput.value.trim() : '';
+      if (!prUrl) {
+        alert('Please enter a deliverable or Pull Request URL.');
+        return;
+      }
+
+      // Bug 3: Deliverable Link Deduplication
+      if (state.usedProofUrls[prUrl] && state.usedProofUrls[prUrl] !== b.id) {
+        const priorBounty = state.usedProofUrls[prUrl];
+        alert(`Security Rejection (Bug 3 Deduplication):\n\nThis deliverable link has already been verified and locked to bounty #${priorBounty}.\n\nDeliverable links cannot be recycled across multiple bounties.`);
+        return;
+      }
+
+      const routing = computeTierForPersona(b.amount, state.activePersona);
+      const resBox = document.getElementById('drawer-result');
+      resBox.style.display = 'block';
+
+      // Bug 6: Rolling 24-Hour Velocity Cap (Max 2 instant auto-payouts per day)
+      const currentDailyCount = state.dailyAutoPayouts[state.activePersona] || 0;
+      let effectiveTier = routing.tier;
+      let velocityExceeded = false;
+
+      if (routing.tier === 'TIER_1' && currentDailyCount >= 2) {
+        effectiveTier = 'TIER_2';
+        velocityExceeded = true;
+      }
+
+      // Lock proof URL
+      state.usedProofUrls[prUrl] = b.id;
+      b.proofUrl = prUrl;
+
+      if (effectiveTier === 'TIER_1') {
+        b.status = 'APPROVED';
+        b.disputeStatus = 'NONE';
+        b.approvedAt = Date.now();
+        state.dailyAutoPayouts[state.activePersona] = currentDailyCount + 1;
+
+        const points = 10 + Math.round(5 * b.amount);
+        state.personas[state.activePersona].trust += points;
+        state.personas[state.activePersona].completed += 1;
+
+        const c = state.contributors.find(x => x.account === state.activePersona);
+        if (c) {
+          c.trust = state.personas[state.activePersona].trust;
+          c.completed += 1;
+        }
+
+        resBox.innerHTML = `
+          <div class="result-alert">
+            <div style="font-weight: 800; font-size: 13px; color: #16a34a;">✓ Tier 1 Auto-Approved! (Daily Velocity: ${currentDailyCount + 1}/2)</div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+              Deliverable verified via GitHub REST API. <strong>+${points} trust points</strong> awarded.
+            </div>
+            <div style="margin-top: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-tertiary);">
+              ⏱ 24-Hour Council Challenge Window Started
+            </div>
+            <div class="json-code">near-social set: {
+  "${state.activePersona}": {
+    "badge": { "pactt_contributor": { "discipline": "${b.category}", "points": ${state.personas[state.activePersona].trust} } }
+  }
+}</div>
+          </div>
+        `;
+      } else if (effectiveTier === 'TIER_2') {
+        b.status = 'IN_REVIEW';
+        if (velocityExceeded) {
+          resBox.innerHTML = `
+            <div class="result-alert" style="border-left: 3px solid #eab308;">
+              <div style="font-weight: 800; font-size: 13px; color: #ca8a04;">⚡ Velocity Limit Reached (Bug 6 Anti-Cheat)</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                You reached the daily maximum of <strong>2 instant auto-payouts</strong>. To protect the DAO treasury from flash drain exploits, this task has been safely routed to <strong>Tier 2 Single-Council Review</strong>.
+              </div>
+            </div>
+          `;
+        } else {
+          resBox.innerHTML = `
+            <div class="result-alert">
+              <div style="font-weight: 800; font-size: 13px;">→ Routed to Tier 2 Single-Council Review</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                One council member must sign off before escrow is released.
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        b.status = 'IN_REVIEW';
+        const propId = Math.floor(Math.random() * 800) + 100;
+        resBox.innerHTML = `
+          <div class="result-alert">
+            <div style="font-weight: 800; font-size: 13px;">→ Escalated to Sputnik DAO Proposal #${propId}</div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+              Sputnik proposal #${propId} registered for multi-sig council vote.
+            </div>
+          </div>
+        `;
+      }
+
+      renderBounties();
+      renderContributors();
+    }
+
+    function challengeCurrentBounty() {
+      const b = state.bounties.find(x => x.id === state.selectedBountyId);
+      if (!b) return;
+
+      const reason = prompt('Specify dispute reason for council slash:', 'Plagiarized deliverable / empty submission');
+      if (!reason) return;
+
+      b.disputeStatus = 'CHALLENGED';
+      b.disputedBy = state.activePersona;
+      b.disputeReason = reason;
+
+      const claimant = b.claimedBy;
+      if (claimant && state.personas[claimant]) {
+        state.personas[claimant].trust = Math.max(0, state.personas[claimant].trust - 50);
+        const c = state.contributors.find(x => x.account === claimant);
+        if (c) {
+          c.trust = state.personas[claimant].trust;
+        }
+      }
+
+      renderBounties();
+      renderContributors();
+      openDrawer(b.id);
+    }
+
+    function councilApproveCurrentBounty() {
+      const b = state.bounties.find(x => x.id === state.selectedBountyId);
+      if (!b) return;
+      b.status = 'APPROVED';
+      const points = 10 + Math.round(5 * b.amount);
+      if (state.personas[b.claimedBy]) {
+        state.personas[b.claimedBy].trust += points;
+        state.personas[b.claimedBy].completed += 1;
+      }
+      renderBounties();
+      renderContributors();
+      openDrawer(b.id);
+    }
+
+    function onPersonaChanged() {
+      state.activePersona = document.getElementById('persona-select').value;
+      renderBounties();
+      if (state.selectedBountyId) openDrawer(state.selectedBountyId);
+    }
+
+    function switchView(viewName, btn) {
+      state.activeView = viewName;
+      document.querySelectorAll('.view-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('view-' + viewName).classList.add('active');
+
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      if (viewName === 'leaderboard') renderContributors();
+    }
+
+    function switchViewMobile(viewName, btn) {
+      document.querySelectorAll('.m-nav-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      switchView(viewName, null);
+    }
+
+    function filterTier(tier, btn) {
+      state.filterTier = tier;
+      btn.parentElement.querySelectorAll('.glass-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBounties();
+    }
+
+    function filterCategory(cat, btn) {
+      state.filterCategory = cat;
+      btn.parentElement.querySelectorAll('.glass-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBounties();
+    }
+
+    function onSearchInput() {
+      state.searchQuery = document.getElementById('search-box').value;
+      renderBounties();
+    }
+
+    renderBounties();
+    renderContributors();
+  </script>
+</body>
+
+</html>
