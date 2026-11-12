@@ -146,3 +146,4 @@ If testing against the local Node.js backend:
 | **`carol.testnet`** | **25 pts** | **Contributor** | Submitting a mid-size bounty queues for **1 council member sign-off**. |
 | **`bob.testnet`** | **0 pts** | **Newbie** | Submitting any bounty escalates to **Sputnik DAO council quorum**. |
 | **`council.testnet`** | — | **Council Member** | Can click the single-click **Approve** button on Tier 2 bounties. |
+

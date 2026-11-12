@@ -40,6 +40,20 @@ Pact resolves these frictions without transferring treasury custody away from th
 
 ---
 
+## Live On-Chain Verification (NEAR Testnet)
+
+Pact interacts directly with the live NEAR Testnet ledger and NEAR Social (SocialDB). Inspect the live on-chain transactions and minted reputation badges directly on NEARBlocks Explorer:
+
+| Action | Target Contract | Method | Transaction Hash | Explorer Link |
+| :--- | :--- | :---: | :--- | :--- |
+| **Mint Contributor Badge** | `v1.social08.testnet` | `set` | `ExWvUsgiL5yb6Wwr7NuxAn637oufojuu7XkCWuAjFaJ8` | [View on NearBlocks](https://testnet.nearblocks.io/txns/ExWvUsgiL5yb6Wwr7NuxAn637oufojuu7XkCWuAjFaJ8) |
+| **Account Creation & Funding** | `testnet` | `CreateAccount` | `Bf1P7pZpdgCVd76ooY9mF77wmPQpX3Z42JF5j2cCCHDT` | [View on NearBlocks](https://testnet.nearblocks.io/txns/Bf1P7pZpdgCVd76ooY9mF77wmPQpX3Z42JF5j2cCCHDT) |
+
+* **Live Protocol Account:** [`pact-dao-064783.testnet`](https://testnet.nearblocks.io/address/pact-dao-064783.testnet)
+* Anyone can re-run the live broadcast script locally at any time: `npx tsx scripts/broadcast-testnet.ts`
+
+---
+
 ## Problem Analysis
 
 An audit of the official Sputnik DAO v2 smart contract source code (`near-daos/sputnik-dao-contract`) reveals three structural governance constraints:

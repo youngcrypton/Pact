@@ -55,3 +55,4 @@ VALUES
   ('carol.testnet', 25, 'CONTRIBUTOR', 1, 8.0, '[{"title": "Pact Verified Contributor (Tier 2)", "awardedAt": "2026-11-10"}]'::jsonb),
   ('bob.testnet', 0, 'NEWBIE', 0, 0, '[]'::jsonb)
 ON CONFLICT (account_id) DO NOTHING;
+

@@ -9,6 +9,7 @@
     "test": "tsx --test tests/**/*.test.ts",
     "seed": "tsx scripts/seed-bounties.ts",
     "demo": "tsx scripts/demo-simulation.ts",
+    "broadcast": "tsx scripts/broadcast-testnet.ts",
     "dev": "tsx src/index.ts",
     "api": "tsx src/server.ts",
     "start": "tsx src/server.ts"
