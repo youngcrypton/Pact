@@ -1340,10 +1340,6 @@
           <span class="pulse-dot"></span>
           NEAR Testnet
         </div>
-        <div class="live-status-pill" id="storage-status-pill" title="Phase 3: Persistence Engine Status" style="background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.25); color: #10b981;">
-          <span class="pulse-dot" id="storage-dot" style="background: #10b981;"></span>
-          <span id="storage-mode-text">Local Durable Store Active</span>
-        </div>
       </div>
 
       <!-- Desktop Segmented Nav -->
@@ -1955,37 +1951,6 @@
       }
     }
 
-    async function checkStorageHealth() {
-      const pill = document.getElementById('storage-status-pill');
-      const dot = document.getElementById('storage-dot');
-      const text = document.getElementById('storage-mode-text');
-      if (!pill || !text) return;
-
-      try {
-        const res = await fetch('/api/storage');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.mode === 'supabase' && data.isCloudActive) {
-            text.innerText = 'Supabase Cloud Synced';
-            pill.style.borderColor = 'rgba(6, 182, 212, 0.4)';
-            pill.style.color = '#06b6d4';
-            pill.style.background = 'rgba(6, 182, 212, 0.08)';
-            if (dot) dot.style.background = '#06b6d4';
-          } else {
-            text.innerText = 'Local Durable Store Active';
-            pill.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-            pill.style.color = '#10b981';
-            pill.style.background = 'rgba(16, 185, 129, 0.08)';
-            if (dot) dot.style.background = '#10b981';
-          }
-        } else {
-          text.innerText = 'Durable Browser Cache Active';
-        }
-      } catch {
-        text.innerText = 'Durable Browser Cache Active';
-      }
-    }
-
     function computeTierForPersona(amount, personaId) {
       const p = state.personas[personaId] || { trust: 0 };
       if (amount <= 5.0 && p.trust >= 50.0) {
@@ -2533,7 +2498,6 @@
 
     renderBounties();
     renderContributors();
-    checkStorageHealth();
   </script>
 </body>
 
