@@ -23,3 +23,4 @@ fs.writeFileSync(
 );
 
 console.log('[Build] Cloudflare Pages distribution bundle prepared successfully in ./dist');
+

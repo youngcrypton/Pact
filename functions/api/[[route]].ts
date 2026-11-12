@@ -71,3 +71,4 @@ export const onRequest = async (context: { request: Request; env: Env }): Promis
 
   return new Response(JSON.stringify({ error: 'Route not found' }), { headers: corsHeaders, status: 404 });
 };
+

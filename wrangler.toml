@@ -6,3 +6,4 @@ pages_build_output_dir = "dist"
 NEAR_NETWORK_ID = "testnet"
 SPUTNIK_DAO_CONTRACT_ID = "dev-community.sputnik-dao.testnet"
 PACT_CONTRACT_ID = "pact.testnet"
+

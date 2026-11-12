@@ -68,3 +68,4 @@ test('Bug 2: NEAR Wallet Selector & Cryptographic Authentication', async (t) => 
     assert.ok(meteorUrl.startsWith('https://wallet.meteorwallet.app/login/'));
   });
 });
+
