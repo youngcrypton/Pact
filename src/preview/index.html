@@ -5,67 +5,74 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Pactt — Earned Trust Coordination Layer</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk (Razor-Sharp Modern Typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* CRYPTON CYBER-MONOCHROME DESIGN SYSTEM (Default) */
+    /* CRYPTON CYBER-MONOCHROME BLADE DESIGN SYSTEM (Default OLED Jet-Black) */
     :root {
-      --bg: #06070a;
-      --bg-pattern: radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.18) 0%, rgba(6, 7, 10, 0) 70%),
-                    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-      --bg-gradient: #06070a;
-      --surface: rgba(12, 13, 18, 0.9);
-      --surface-card: #0c0e14;
-      --surface-hover: #131622;
-      --surface-active: #181d2c;
-      --surface-secondary: #08090d;
-      --border: rgba(255, 255, 255, 0.10);
-      --border-sharp: rgba(255, 255, 255, 0.22);
-      --border-subtle: rgba(255, 255, 255, 0.06);
+      --bg: #000000;
+      --bg-pattern: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      --bg-gradient: #000000;
+      --surface: #07080a;
+      --surface-card: #0d0e12;
+      --surface-hover: #14161f;
+      --surface-active: #1b1e2a;
+      --surface-secondary: #050507;
+      --border: rgba(255, 255, 255, 0.14);
+      --border-sharp: rgba(255, 255, 255, 0.28);
+      --border-subtle: rgba(255, 255, 255, 0.07);
       --border-faint: rgba(255, 255, 255, 0.04);
-      --border-focus: #10b981;
+      --border-blade: rgba(255, 255, 255, 0.40);
+      --border-focus: #ffffff;
       --text-primary: #ffffff;
-      --text-secondary: #f1f5f9;  /* Razor-sharp crisp luminous silver-white (was dull #94a3b8) */
-      --text-tertiary: #cbd5e1;   /* High-contrast silver steel (was dull #64748b) */
+      --text-secondary: #f1f5f9;  /* Razor-sharp luminous silver-white (high contrast) */
+      --text-tertiary: #cbd5e1;   /* High-contrast titanium steel */
       --text-muted: #94a3b8;      /* Clean muted silver */
-      --hero-bg: #08090d;
+      --hero-bg: #000000;
       --hero-text: #ffffff;
-      --hero-subtext: #f1f5f9;    /* Razor-sharp high contrast (was #94a3b8) */
-      --hero-border: rgba(255, 255, 255, 0.16);
+      --hero-subtext: #f1f5f9;
+      --hero-border: rgba(255, 255, 255, 0.22);
       --badge-bg: #ffffff;
       --badge-text: #000000;
       --logo-frame-bg: #ffffff;
       --logo-glyph-main: #000000;
       --logo-glyph-counter: #ffffff;
-      --card-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 1px rgba(255, 255, 255, 0.10);
-      --accent: #10b981;
-      --accent-glow: rgba(16, 185, 129, 0.35);
+      --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 1px rgba(255, 255, 255, 0.12);
+      --accent: #ffffff;
+      --accent-glow: rgba(255, 255, 255, 0.25);
       --emerald-neon: #10b981;
       --emerald-light: #34d399;
       --emerald-dark: #059669;
-      --emerald-glow: 0 0 24px rgba(16, 185, 129, 0.32);
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+      --emerald-glow: 0 0 20px rgba(16, 185, 129, 0.25);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'Space Grotesk', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     }
 
     /* HIGH-CONTRAST STUDIO LIGHT THEME */
     body.theme-light {
       --bg: #f8fafc;
-      --bg-pattern: radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.08) 0%, rgba(248, 250, 252, 0) 70%),
-                    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      --bg-pattern: linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
       --bg-gradient: #f8fafc;
-      --surface: rgba(255, 255, 255, 0.95);
+      --surface: #ffffff;
       --surface-card: #ffffff;
       --surface-hover: #f1f5f9;
       --surface-active: #e2e8f0;
       --surface-secondary: #f8fafc;
-      --border: rgba(0, 0, 0, 0.10);
-      --border-sharp: rgba(0, 0, 0, 0.22);
-      --border-subtle: rgba(0, 0, 0, 0.05);
+      --border: rgba(0, 0, 0, 0.12);
+      --border-sharp: rgba(0, 0, 0, 0.24);
+      --border-subtle: rgba(0, 0, 0, 0.06);
       --border-faint: rgba(0, 0, 0, 0.03);
+      --border-blade: rgba(0, 0, 0, 0.38);
+      --border-focus: #020617;
       --text-primary: #020617;
       --text-secondary: #1e293b;  /* Crisp dark charcoal */
-      --text-tertiary: #334155;   /* High-contrast slate */
+      --text-tertiary: #475569;   /* High-contrast slate */
       --text-muted: #64748b;
       --hero-bg: #020617;
       --hero-text: #ffffff;
@@ -76,9 +83,9 @@
       --logo-frame-bg: #020617;
       --logo-glyph-main: #ffffff;
       --logo-glyph-counter: #020617;
-      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-      --accent: #059669;
-      --accent-glow: rgba(5, 150, 105, 0.2);
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+      --accent: #020617;
+      --accent-glow: rgba(0, 0, 0, 0.15);
     }
 
     * {
@@ -2212,504 +2219,603 @@
       box-shadow: 0 0 20px rgba(16, 185, 129, 0.55);
     }
 
-    /* CRYPTON HIGH-VALUE LANDING PAGE SYSTEM */
-    .landing-hero {
+    /* CRYPTON BLADE & HEADER MODE ARCHITECTURE */
+    .app-only-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-blade-header-launch {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      color: #000000;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 7px 15px;
+      border-radius: 7px;
+      border: 1px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.22);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-blade-header-launch:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+    }
+    body.theme-light .btn-blade-header-launch {
+      background: #020617;
+      color: #ffffff;
+      border-color: #020617;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    body.theme-light .btn-blade-header-launch:hover {
+      background: #0f172a;
+    }
+
+    .btn-back-landing {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #f1f5f9;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
+    .btn-back-landing:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+    }
+    body.theme-light .btn-back-landing {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.15);
+      color: #1e293b;
+    }
+    body.theme-light .btn-back-landing:hover {
+      background: rgba(0, 0, 0, 0.08);
+      color: #020617;
+    }
+
+    /* LANDING MODE: CLEAN PROFESSIONAL LANDING PAGE (NO INTERNAL TABS OR MOBILE SUBNAV) */
+    body.landing-mode #app-nav-segmented,
+    body.landing-mode #app-mobile-subnav,
+    body.landing-mode .mobile-subnav,
+    body.landing-mode #app-only-actions,
+    body.landing-mode #btn-back-landing {
+      display: none !important;
+    }
+    body.landing-mode #btn-landing-nav-launch {
+      display: inline-flex !important;
+    }
+
+    /* APP MODE: FULL DAPP WORKSPACE */
+    body.app-mode #btn-landing-nav-launch {
+      display: none !important;
+    }
+    body.app-mode #app-only-actions {
+      display: flex !important;
+    }
+    body.app-mode #btn-back-landing {
+      display: inline-flex !important;
+    }
+    @media (min-width: 901px) {
+      body.app-mode #app-nav-segmented {
+        display: flex !important;
+      }
+      body.app-mode #app-mobile-subnav,
+      body.app-mode .mobile-subnav {
+        display: none !important;
+      }
+    }
+    @media (max-width: 900px) {
+      body.app-mode #app-nav-segmented {
+        display: none !important;
+      }
+      body.app-mode #app-mobile-subnav,
+      body.app-mode .mobile-subnav {
+        display: flex !important;
+      }
+    }
+
+    /* BLADE BUTTONS */
+    .btn-blade-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #000000;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding: 11px 22px;
+      border-radius: 8px;
+      border: 1px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 8px 20px rgba(255, 255, 255, 0.15);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .btn-blade-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+    .btn-blade-primary:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px #ffffff, 0 12px 28px rgba(255, 255, 255, 0.25);
+    }
+    .btn-blade-primary:hover::after {
+      left: 140%;
+    }
+    body.theme-light .btn-blade-primary {
+      background: #020617;
+      color: #ffffff;
+      border-color: #020617;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    body.theme-light .btn-blade-primary:hover {
+      background: #0f172a;
+    }
+
+    .btn-blade-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0d0e12;
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 11px 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-top: 1px solid rgba(255, 255, 255, 0.36);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+    .btn-blade-secondary:hover {
+      background: #151720;
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-1px);
+      color: #ffffff;
+    }
+    body.theme-light .btn-blade-secondary {
+      background: #ffffff;
+      color: #020617;
+      border-color: rgba(0, 0, 0, 0.16);
+      border-top-color: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    body.theme-light .btn-blade-secondary:hover {
+      background: #f1f5f9;
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    /* RAZOR-SHARP BLADE LANDING PAGE */
+    .blade-landing-hero {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 72px 24px 52px;
-      background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.22) 0%, rgba(6, 7, 10, 0) 70%),
-                  linear-gradient(to bottom, rgba(12, 14, 20, 0.8), rgba(6, 7, 10, 0.95));
-      border: 1px solid var(--border-sharp);
-      border-radius: 18px;
-      margin-bottom: 24px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
+      padding: 56px 20px 36px;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-top: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85);
+    }
+    body.theme-light .blade-landing-hero {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.12);
+      border-top-color: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
     }
 
-    body.theme-light .landing-hero {
-      background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.12) 0%, rgba(248, 250, 252, 0) 70%),
-                  linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95));
-    }
-
-    .landing-badge {
+    .blade-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.10);
-      border: 1px solid rgba(16, 185, 129, 0.4);
+      gap: 7px;
+      background: #0a0b0e;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 11px;
+      padding: 5px 14px;
+      font-size: 10.5px;
       font-family: var(--font-mono);
       font-weight: 700;
       letter-spacing: 0.08em;
-      color: #34d399;
-      margin-bottom: 24px;
-      box-shadow: 0 0 24px rgba(16, 185, 129, 0.22);
-    }
-
-    .landing-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
-
-    .landing-title {
-      font-size: 52px;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 1.08;
       color: #ffffff;
-      max-width: 940px;
       margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
-
-    body.theme-light .landing-title {
+    body.theme-light .blade-badge {
+      background: #f1f5f9;
+      border-color: rgba(0, 0, 0, 0.12);
+      border-top-color: rgba(0, 0, 0, 0.22);
       color: #020617;
     }
 
-    .gradient-text-emerald {
-      background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #ffffff 100%);
+    .blade-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 8px #ffffff;
+    }
+    body.theme-light .blade-badge-dot {
+      background: #020617;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .blade-hero-title {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: #ffffff;
+      max-width: 820px;
+      margin-bottom: 16px;
+    }
+    body.theme-light .blade-hero-title {
+      color: #020617;
+    }
+
+    .blade-hero-accent {
+      background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline;
     }
-
-    body.theme-light .gradient-text-emerald {
-      background: linear-gradient(135deg, #059669 0%, #10b981 50%, #020617 100%);
+    body.theme-light .blade-hero-accent {
+      background: linear-gradient(135deg, #020617 30%, #334155 70%, #64748b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .landing-subtitle {
-      font-size: 17px;
-      line-height: 1.6;
+    .blade-hero-desc {
+      font-size: 15px;
+      line-height: 1.55;
       color: var(--text-secondary);
-      max-width: 780px;
-      margin-bottom: 34px;
+      max-width: 660px;
+      margin-bottom: 26px;
       font-weight: 400;
     }
 
-    .landing-cta-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 34px;
-    }
-
-    .btn-landing-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: #ffffff;
-      color: #000000;
-      font-size: 14px;
-      font-weight: 800;
-      padding: 13px 26px;
-      border-radius: 9px;
-      border: 1px solid #ffffff;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2), 0 0 30px rgba(16, 185, 129, 0.35);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn-landing-primary:hover {
-      background: #10b981;
-      border-color: #10b981;
-      color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
-    }
-
-    body.theme-light .btn-landing-primary {
-      background: #020617;
-      border-color: #020617;
-      color: #ffffff;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    }
-    body.theme-light .btn-landing-primary:hover {
-      background: #059669;
-      border-color: #059669;
-    }
-
-    .btn-landing-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 13px 22px;
-      border-radius: 9px;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn-landing-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: #ffffff;
-      transform: translateY(-2px);
-    }
-
-    body.theme-light .btn-landing-secondary {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.15);
-      color: #020617;
-    }
-    body.theme-light .btn-landing-secondary:hover {
-      background: #f1f5f9;
-      border-color: #020617;
-    }
-
-    .btn-landing-subtle {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #34d399;
-      font-size: 13.5px;
-      font-weight: 700;
-      padding: 13px 20px;
-      border-radius: 9px;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn-landing-subtle:hover {
-      background: rgba(16, 185, 129, 0.14);
-      border-color: #10b981;
-      transform: translateY(-2px);
-    }
-
-    .landing-meta-strip {
+    .blade-hero-actions {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
-      font-size: 12px;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .blade-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 11.5px;
       font-family: var(--font-mono);
       color: var(--text-tertiary);
-      padding-top: 18px;
+      padding-top: 16px;
       border-top: 1px solid var(--border-subtle);
       width: 100%;
-      max-width: 860px;
+      max-width: 760px;
     }
-
-    .landing-meta-strip code {
-      color: #34d399;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 2px 7px;
+    .blade-meta-row code {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1px 6px;
       border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    body.theme-light .blade-meta-row code {
+      color: #020617;
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    .blade-meta-sep {
+      color: var(--border-sharp);
     }
 
-    /* Landing 4-Card Bento Telemetry Grid */
-    .landing-telemetry-grid {
+    /* 3 COMPACT METRICS BAR */
+    .blade-metrics-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
-    .landing-kpi-card {
-      background: var(--surface-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      box-shadow: var(--card-shadow);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    .blade-metric-card {
+      background: #0d0e12;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 12px;
+      padding: 16px 14px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      transition: all 0.18s ease;
     }
-    .landing-kpi-card:hover {
-      border-color: rgba(255, 255, 255, 0.22);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    .blade-metric-card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+    body.theme-light .blade-metric-card {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.12);
+      border-top-color: rgba(0, 0, 0, 0.22);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
     }
 
-    .kpi-label {
+    .blade-metric-num {
+      font-size: 26px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    body.theme-light .blade-metric-num {
+      color: #020617;
+    }
+
+    .blade-metric-unit {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+    }
+
+    .blade-metric-lbl {
       font-size: 11px;
       font-family: var(--font-mono);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       color: var(--text-tertiary);
     }
 
-    .kpi-val {
-      font-size: 34px;
-      font-weight: 900;
-      font-family: var(--font-mono);
-      letter-spacing: -0.04em;
-      color: var(--text-primary);
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }
-
-    .kpi-val span {
-      font-size: 15px;
-      font-weight: 700;
-      color: #10b981;
-    }
-
-    .kpi-desc {
-      font-size: 12.5px;
-      color: var(--text-secondary);
-      line-height: 1.45;
-    }
-
-    /* 3 Architectural Pillars Bento */
-    .landing-pillars-grid {
+    /* 3 CONCISE FEATURE CARDS */
+    .blade-features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
-    .pillar-card {
-      background: var(--surface-card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      box-shadow: var(--card-shadow);
-      position: relative;
-      overflow: hidden;
-    }
-    .pillar-card:hover {
-      border-color: rgba(16, 185, 129, 0.4);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 20px rgba(16, 185, 129, 0.15);
-    }
-
-    .pillar-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10.5px;
-      font-family: var(--font-mono);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: var(--text-secondary);
-      width: fit-content;
-    }
-
-    .pillar-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text-primary);
-      line-height: 1.3;
-    }
-
-    .pillar-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .pillar-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.45;
-    }
-
-    .pillar-bullet {
-      width: 16px;
-      height: 16px;
-      min-width: 16px;
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 50%;
-      color: #10b981;
-    }
-
-    /* Interactive Simulator */
-    .simulator-card {
-      background: #0c0e14;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 28px rgba(16, 185, 129, 0.15);
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: center;
-    }
-
-    body.theme-light .simulator-card {
-      background: #ffffff;
-      border-color: rgba(5, 150, 105, 0.3);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-    }
-
-    .sim-slider-row {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .sim-range-input {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 6px;
-      border-radius: 3px;
-      background: rgba(255, 255, 255, 0.15);
-      outline: none;
-      transition: background 0.2s;
-    }
-    .sim-range-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #10b981;
-      cursor: pointer;
-      box-shadow: 0 0 12px #10b981;
-      border: 2px solid #ffffff;
-    }
-
-    .sim-tier-selector {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .sim-tier-btn {
-      background: rgba(255, 255, 255, 0.04);
+    .blade-feature-card {
+      background: #0d0e12;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 8px;
-      padding: 10px;
-      color: var(--text-secondary);
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s ease;
-    }
-    .sim-tier-btn.active {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: #10b981;
-      color: #ffffff;
-      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
-    }
-
-    .sim-result-box {
-      background: #08090d;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top: 1px solid rgba(255, 255, 255, 0.32);
       border-radius: 12px;
-      padding: 22px;
+      padding: 20px 18px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      transition: all 0.18s ease;
     }
-
-    body.theme-light .sim-result-box {
-      background: #f8fafc;
+    .blade-feature-card:hover {
+      border-color: rgba(255, 255, 255, 0.32);
+      transform: translateY(-1px);
+    }
+    body.theme-light .blade-feature-card {
+      background: #ffffff;
       border-color: rgba(0, 0, 0, 0.12);
+      border-top-color: rgba(0, 0, 0, 0.22);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
     }
 
-    .sim-res-row {
+    .blade-feature-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .blade-feature-num {
+      font-family: var(--font-mono);
       font-size: 13px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .sim-res-row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
+      font-weight: 700;
+      color: var(--text-muted);
     }
 
-    /* Comparison Table */
-    .landing-comparison-card {
-      background: var(--surface-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 24px;
-      box-shadow: var(--card-shadow);
+    .blade-feature-tag {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #f1f5f9;
+    }
+    body.theme-light .blade-feature-tag {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #020617;
     }
 
-    /* Bottom Conversion Hero */
-    .landing-conversion-card {
-      background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.20) 0%, rgba(6, 7, 10, 0.95) 70%);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 18px;
-      padding: 52px 24px;
-      text-align: center;
+    .blade-feature-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+    body.theme-light .blade-feature-title {
+      color: #020617;
+    }
+
+    .blade-feature-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* COMPACT BOTTOM CONVERSION STRIP */
+    .blade-cta-strip {
+      background: #0a0b0e;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-top: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 14px;
+      padding: 24px 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+    }
+    body.theme-light .blade-cta-strip {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.12);
+      border-top-color: rgba(0, 0, 0, 0.22);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .blade-cta-inner {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(16, 185, 129, 0.2);
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 900px) {
-      .landing-title {
-        font-size: 36px;
-      }
-      .landing-telemetry-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .landing-pillars-grid {
-        grid-template-columns: 1fr;
-      }
-      .simulator-card {
-        grid-template-columns: 1fr;
-        padding: 22px;
-      }
+    .blade-cta-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    body.theme-light .blade-cta-title {
+      color: #020617;
     }
 
-    @media (max-width: 540px) {
-      .landing-title {
-        font-size: 28px;
+    .blade-cta-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      max-width: 580px;
+      line-height: 1.45;
+    }
+
+    /* MOBILE-FIRST COMPACT OVERRIDES (max-width: 600px) */
+    @media (max-width: 600px) {
+      .blade-landing-hero {
+        padding: 26px 14px 20px;
+        border-radius: 14px;
+        margin-bottom: 12px;
       }
-      .landing-subtitle {
-        font-size: 14px;
+      .blade-badge {
+        font-size: 9px;
+        padding: 4px 10px;
+        margin-bottom: 14px;
       }
-      .landing-telemetry-grid {
-        grid-template-columns: 1fr;
+      .blade-hero-title {
+        font-size: 24px;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 12px;
       }
-      .landing-cta-row {
+      .blade-hero-desc {
+        font-size: 12.5px;
+        line-height: 1.45;
+        margin-bottom: 18px;
+      }
+      .blade-hero-actions {
         flex-direction: column;
-        width: 100%;
+        gap: 8px;
+        margin-bottom: 16px;
       }
-      .btn-landing-primary, .btn-landing-secondary, .btn-landing-subtle {
+      .btn-blade-primary,
+      .btn-blade-secondary {
         width: 100%;
         justify-content: center;
+        height: 44px;
+        font-size: 13px;
+        padding: 0 16px;
+      }
+      .blade-meta-row {
+        font-size: 10px;
+        padding-top: 12px;
+        gap: 6px;
+      }
+      .blade-metrics-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .blade-metric-card {
+        padding: 10px 6px;
+        border-radius: 10px;
+      }
+      .blade-metric-num {
+        font-size: 16px;
+        margin-bottom: 2px;
+      }
+      .blade-metric-unit {
+        font-size: 10px;
+      }
+      .blade-metric-lbl {
+        font-size: 8.5px;
+      }
+      .blade-features-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .blade-feature-card {
+        padding: 13px 14px;
+        border-radius: 10px;
+        gap: 6px;
+      }
+      .blade-feature-title {
+        font-size: 14px;
+      }
+      .blade-feature-desc {
+        font-size: 11.5px;
+        line-height: 1.4;
+      }
+      .blade-cta-strip {
+        padding: 16px 14px;
+        border-radius: 12px;
+        margin-bottom: 16px;
+      }
+      .blade-cta-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .blade-cta-title {
+        font-size: 15px;
+      }
+      .blade-cta-desc {
+        font-size: 12px;
       }
     }
   </style>
@@ -2750,7 +2856,7 @@
   <!-- Header -->
   <header>
     <div class="header-inner">
-      <div class="brand-group" onclick="switchView('landing', document.getElementById('nav-btn-landing'))" title="Return to Overview / Landing Page">
+      <div class="brand-group" onclick="returnToLanding()" title="Return to Overview / Landing Page">
         <div class="brand-logo-frame">
           <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path class="logo-glyph-main"
@@ -2775,12 +2881,15 @@
         </div>
       </div>
 
-      <!-- Desktop Segmented Nav -->
-      <nav class="nav-segmented">
-        <button class="nav-btn active" id="nav-btn-landing" onclick="switchView('landing', this)">
-          Overview
-        </button>
-        <button class="nav-btn" id="nav-btn-bounties" onclick="switchView('bounties', this)">
+      <!-- App Mode Only: Back to Landing button -->
+      <button class="btn-back-landing" id="btn-back-landing" onclick="returnToLanding()" title="Return to Landing Page">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <span>Landing</span>
+      </button>
+
+      <!-- Desktop Segmented Nav (Visible ONLY in App Mode) -->
+      <nav class="nav-segmented" id="app-nav-segmented">
+        <button class="nav-btn active" id="nav-btn-bounties" onclick="switchView('bounties', this)">
           Bounties <span class="nav-count" id="bounty-count-badge">8</span>
         </button>
         <button class="nav-btn" id="nav-btn-leaderboard" onclick="switchView('leaderboard', this)">
@@ -2796,49 +2905,58 @@
 
       <!-- Right Actions -->
       <div class="top-actions">
-        <!-- Live Supabase Cloud Sync Badge (Upgrade 2) -->
-        <div class="cloud-sync-badge" id="cloud-sync-badge" title="Live Supabase Cloud Sync Active (Click to sync)" onclick="syncWithCloud()">
-          <span class="cloud-sync-dot"></span>
-          <span id="cloud-sync-text">Supabase Active</span>
-        </div>
-
-        <!-- Quick Tour Button -->
-        <button class="tour-header-btn" onclick="startQuickTour()" id="tour-header-btn" title="Take Interactive Quick Tour">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-          <span class="tour-btn-text">Tour</span>
+        <!-- Landing Mode Only: Direct "Launch Protocol" Blade Action -->
+        <button class="btn-blade-header-launch" id="btn-landing-nav-launch" onclick="enterAppAndPromptWallet('bounties')" title="Launch Protocol & Connect Wallet">
+          <span>Launch Protocol</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </button>
 
-        <!-- Sun / Moon Theme Switcher (Cyber-Monochrome vs Studio Light) -->
-        <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Switch to Studio Light Theme">
+        <!-- App Mode Only Actions: Cloud Sync, Tour, Wallet -->
+        <div class="app-only-actions" id="app-only-actions">
+          <!-- Live Supabase Cloud Sync Badge (Upgrade 2) -->
+          <div class="cloud-sync-badge" id="cloud-sync-badge" title="Live Supabase Cloud Sync Active (Click to sync)" onclick="syncWithCloud()">
+            <span class="cloud-sync-dot"></span>
+            <span id="cloud-sync-text">Supabase Active</span>
+          </div>
+
+          <!-- Quick Tour Button -->
+          <button class="tour-header-btn" onclick="startQuickTour()" id="tour-header-btn" title="Take Interactive Quick Tour">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            <span class="tour-btn-text">Tour</span>
+          </button>
+
+          <!-- Connected Wallet Badge (Bug 2) -->
+          <div class="wallet-connected-pill" id="wallet-connected-pill">
+            <span class="wallet-status-dot"></span>
+            <span id="wallet-account-display">alex.testnet</span>
+            <span class="wallet-tier-badge" id="wallet-tier-badge">Tier 1</span>
+            <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet" style="display:inline-flex; align-items:center; justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <!-- Connect Wallet Button (Bug 2) -->
+          <button class="btn-connect" id="btn-wallet-connect" onclick="openWalletModal()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+            Connect Wallet
+          </button>
+        </div>
+
+        <!-- Sun / Moon Theme Switcher (Available everywhere) -->
+        <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Switch Theme">
           <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
-
-        <!-- Connected Wallet Badge (Bug 2) -->
-        <div class="wallet-connected-pill" id="wallet-connected-pill">
-          <span class="wallet-status-dot"></span>
-          <span id="wallet-account-display">alex.testnet</span>
-          <span class="wallet-tier-badge" id="wallet-tier-badge">Tier 1</span>
-          <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet" style="display:inline-flex; align-items:center; justify-content:center;">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
-
-        <!-- Connect Wallet Button (Bug 2) -->
-        <button class="btn-connect" id="btn-wallet-connect" onclick="openWalletModal()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-          Connect Wallet
-        </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Subnav Strip -->
-  <div class="mobile-subnav">
-    <button class="m-nav-pill active" id="m-nav-landing" onclick="switchViewMobile('landing', this)">Overview</button>
-    <button class="m-nav-pill" id="m-nav-bounties" onclick="switchViewMobile('bounties', this)">Bounties (8)</button>
+  <!-- Mobile Subnav Strip (Visible ONLY in App Mode) -->
+  <div class="mobile-subnav" id="app-mobile-subnav">
+    <button class="m-nav-pill" id="m-nav-back-landing" onclick="returnToLanding()">&larr; Landing</button>
+    <button class="m-nav-pill active" id="m-nav-bounties" onclick="switchViewMobile('bounties', this)">Bounties (8)</button>
     <button class="m-nav-pill" id="m-nav-leaderboard" onclick="switchViewMobile('leaderboard', this)">Trust Registry</button>
     <button class="m-nav-pill" id="m-nav-proofs" onclick="switchViewMobile('proofs', this)">Proofs</button>
     <button class="m-nav-pill" id="m-nav-policy" onclick="switchViewMobile('policy', this)">Sputnik Policy</button>
