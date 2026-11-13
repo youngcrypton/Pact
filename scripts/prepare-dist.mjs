@@ -18,6 +18,13 @@ fs.copyFileSync(srcHtml, destRootHtml);
 fs.copyFileSync(srcHtml, destFallbackHtml);
 fs.copyFileSync(srcHtml, destPreviewHtml);
 
+// Copy demo HTML
+const srcDemoHtml = path.resolve(process.cwd(), 'src', 'preview', 'demo.html');
+const destDemoHtml = path.resolve(distDir, 'demo.html');
+if (fs.existsSync(srcDemoHtml)) {
+  fs.copyFileSync(srcDemoHtml, destDemoHtml);
+}
+
 
 // Copy preview server if present
 const srcPreviewServer = path.resolve(process.cwd(), 'src', 'preview', 'server.mjs');

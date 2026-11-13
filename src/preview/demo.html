@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pactt — 90s Motion Graphics Demo Player</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --border: #E5E7EB;
+      --border-dark: #1F2937;
+      --text: #0A0A0A;
+      --muted: #6B7280;
+      --emerald: #10B981;
+      --emerald-dark: #059669;
+      --emerald-glow: rgba(16, 185, 129, 0.12);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'Space Grotesk', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(248, 249, 250, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: #0A0A0A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    .brand-title {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--emerald-glow);
+      color: var(--emerald-dark);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      background: #F3F4F6;
+      border-color: #D1D5DB;
+    }
+
+    .nav-btn.primary {
+      background: #0A0A0A;
+      color: #FFFFFF;
+      border-color: #0A0A0A;
+    }
+
+    .nav-btn.primary:hover {
+      background: #262626;
+    }
+
+    main {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-meta h1 {
+      font-family: var(--font-serif);
+      font-size: 38px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0A0A0A;
+    }
+
+    .hero-meta h1 span {
+      font-style: italic;
+      color: var(--emerald-dark);
+    }
+
+    .hero-meta p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    .player-container {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .player-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .video-viewport {
+      background: #0A0A0A;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      position: relative;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-viewport video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .panel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .panel-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .scene-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .scene-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .scene-item:hover {
+      border-color: var(--emerald);
+      background: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .scene-item.active {
+      border-color: var(--emerald-dark);
+      background: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+    }
+
+    .scene-time {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      background: #E5E7EB;
+      color: #374151;
+      padding: 4px 6px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .scene-item.active .scene-time {
+      background: var(--emerald);
+      color: #FFFFFF;
+    }
+
+    .scene-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .scene-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .scene-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .specs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .spec-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .spec-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .spec-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .transcript-box {
+      background: #FAFAFA;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #374151;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .transcript-line {
+      margin-bottom: 8px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .transcript-line.highlight {
+      background: #D1FAE5;
+      color: #065F46;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand-wrap">
+      <div class="brand-logo">P</div>
+      <div>
+        <div class="brand-title">Pactt</div>
+      </div>
+      <div class="brand-badge">NEAR Hackathon 2026</div>
+    </div>
+    <div class="nav-links">
+      <a href="/" class="nav-btn">Open Live App</a>
+      <a href="https://pactt.xyz" target="_blank" rel="noreferrer" class="nav-btn">pactt.xyz</a>
+      <a href="https://github.com/youngcrypton/Pactt" target="_blank" rel="noreferrer" class="nav-btn primary">GitHub Code</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-meta">
+      <h1>Motion Graphics <span>Demo Video</span></h1>
+      <p>
+        Strictly adhering to Hackathon specifications: 16:9 widescreen, 90 seconds (2700 frames @ 30fps), Swiss Instrument light mode palette, natural neural voiceover synthesis, and zero slide decks.
+      </p>
+    </div>
+
+    <div class="player-container">
+      <div>
+        <div class="video-viewport">
+          <video id="demoVideo" controls preload="metadata" poster="/out/landing.png">
+            <source src="/out/demo.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+
+        <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--muted);" id="timeDisplay">
+            0:00 / 1:30 (Frame 0 / 2700)
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <a href="/out/demo.mp4" download="pactt-demo-90s.mp4" class="nav-btn" style="font-size: 12px; padding: 6px 12px;">
+              Download MP4
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-header">
+          <span class="panel-title">Acts & Scene Breakdown</span>
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--emerald-dark); font-weight: 700;">5 SCENES</span>
+        </div>
+
+        <div class="scene-list" id="sceneList">
+          <button class="scene-item active" data-start="0" data-end="22.5">
+            <span class="scene-time">0:00</span>
+            <div class="scene-info">
+              <div class="scene-name">1. Problem & Landing Transition</div>
+              <div class="scene-sub">Sputnik DAO voting fatigue on micro-tasks</div>
+            </div>
+          </button>
+
+          <button class="scene-item" data-start="22.5" data-end="42.0">
+            <span class="scene-time">0:22</span>
+            <div class="scene-info">
+              <div class="scene-name">2. The Magic Moment</div>
+              <div class="scene-sub">Tier 1 instant 4.2s auto-disbursement</div>
+            </div>
+          </button>
+
+          <button class="scene-item" data-start="42.0" data-end="60.0">
+            <span class="scene-time">0:42</span>
+            <div class="scene-info">
+              <div class="scene-name">3. High-Capital Safety</div>
+              <div class="scene-sub">Tier 3 Sputnik DAO multi-sig consensus</div>
+            </div>
+          </button>
+
+          <button class="scene-item" data-start="60.0" data-end="76.0">
+            <span class="scene-time">1:00</span>
+            <div class="scene-info">
+              <div class="scene-name">4. NEAR's Role & SocialDB</div>
+              <div class="scene-sub">Anti-cheat caps & v1.social08 credentials</div>
+            </div>
+          </button>
+
+          <button class="scene-item" data-start="76.0" data-end="90.0">
+            <span class="scene-time">1:16</span>
+            <div class="scene-info">
+              <div class="scene-name">5. Production Outro</div>
+              <div class="scene-sub">Call to action & live URLs</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="panel-header" style="margin-top: 8px;">
+          <span class="panel-title">Synchronized Spoken Line</span>
+        </div>
+
+        <div class="transcript-box" id="transcriptBox">
+          <div class="transcript-line" id="t1" data-start="0" data-end="22.5">
+            "Decentralized autonomous organizations on NEAR face a massive coordination bottleneck: voting fatigue. Routine micro-tasks require full council voting, while completed records are discarded upon payout. Pactt fixes this."
+          </div>
+          <div class="transcript-line" id="t2" data-start="22.5" data-end="42.0">
+            "Pactt introduces Dynamic Approvals. When Alex, a trusted contributor with 142 trust points, submits a routine deliverable, Pactt verifies deliverable integrity and settles payout instantly — in just 4.2 seconds."
+          </div>
+          <div class="transcript-line" id="t3" data-start="42.0" data-end="60.0">
+            "Custody never leaves the DAO. When a newcomer submits work or a reward exceeds 25 NEAR, Pactt escalates automatically to Sputnik DAO v2 council consensus, keeping treasury funds protected."
+          </div>
+          <div class="transcript-line" id="t4" data-start="60.0" data-end="76.0">
+            "Pactt protects treasuries with 24-hour velocity caps and dispute slashing. Best of all, completed work is permanently minted to NEAR Social as a portable Web3 credential."
+          </div>
+          <div class="transcript-line" id="t5" data-start="76.0" data-end="90.0">
+            "Earned trust. Zero council delays. Try Pactt today on NEAR Testnet at pactt.xyz."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="specs-grid">
+      <div class="spec-card">
+        <div class="spec-label">Target Duration</div>
+        <div class="spec-value">90.0 Seconds</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Framerate & Canvas</div>
+        <div class="spec-value">30 FPS / 1920x1080 (16:9)</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Voiceover Engine</div>
+        <div class="spec-value">Christopher Neural (HD)</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Live App URL</div>
+        <div class="spec-value"><a href="https://pactt.xyz" target="_blank" style="color: var(--emerald-dark); text-decoration: none;">https://pactt.xyz</a></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const video = document.getElementById('demoVideo');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const sceneButtons = document.querySelectorAll('.scene-item');
+    const transcriptLines = document.querySelectorAll('.transcript-line');
+
+    sceneButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const start = parseFloat(btn.dataset.start);
+        video.currentTime = start;
+        video.play();
+      });
+    });
+
+    video.addEventListener('timeupdate', () => {
+      const cur = video.currentTime;
+      const total = video.duration || 90;
+      const curM = Math.floor(cur / 60);
+      const curS = Math.floor(cur % 60).toString().padStart(2, '0');
+      const totM = Math.floor(total / 60);
+      const totS = Math.floor(total % 60).toString().padStart(2, '0');
+      const frame = Math.floor(cur * 30);
+      timeDisplay.textContent = `${curM}:${curS} / ${totM}:${totS} (Frame ${frame} / 2700)`;
+
+      sceneButtons.forEach(btn => {
+        const start = parseFloat(btn.dataset.start);
+        const end = parseFloat(btn.dataset.end);
+        if (cur >= start && cur < end) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      transcriptLines.forEach(line => {
+        const start = parseFloat(line.dataset.start);
+        const end = parseFloat(line.dataset.end);
+        if (cur >= start && cur < end) {
+          line.classList.add('highlight');
+          line.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          line.classList.remove('highlight');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

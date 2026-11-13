@@ -49,6 +49,63 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (url.pathname === '/demo' || url.pathname === '/demo.html') {
+    try {
+      const demoPath = path.join(__dirname, 'demo.html');
+      const html = fs.readFileSync(demoPath, 'utf-8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Error loading demo HTML: ' + err.message);
+    }
+    return;
+  }
+
+  // Serve static out files (e.g., demo.mp4, stills) with Range support for video seeking
+  if (url.pathname.startsWith('/out/')) {
+    const filePath = path.join(path.dirname(__dirname), '..', url.pathname.slice(1));
+    if (!fs.existsSync(filePath)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('File not found: ' + url.pathname);
+      return;
+    }
+
+    const stat = fs.statSync(filePath);
+    const range = req.headers.range;
+    const ext = path.extname(filePath).toLowerCase();
+    const mimeTypes = {
+      '.mp4': 'video/mp4',
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.svg': 'image/svg+xml'
+    };
+    const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+    if (range) {
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : stat.size - 1;
+      const chunksize = (end - start) + 1;
+      const file = fs.createReadStream(filePath, { start, end });
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${stat.size}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': contentType,
+      });
+      file.pipe(res);
+    } else {
+      res.writeHead(200, {
+        'Content-Length': stat.size,
+        'Content-Type': contentType,
+        'Accept-Ranges': 'bytes',
+      });
+      fs.createReadStream(filePath).pipe(res);
+    }
+    return;
+  }
+
   if (url.pathname === '/' || url.pathname === '/index.html') {
     try {
       const html = fs.readFileSync(HTML_PATH, 'utf-8');
