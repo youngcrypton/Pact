@@ -89,7 +89,7 @@
       --text-muted: #475569;
       --hero-bg: #020617;
       --hero-text: #ffffff;
-      --hero-subtext: #1e293b;
+      --hero-subtext: #e2e8f0;
       --hero-border: #020617;
       --badge-bg: #020617;
       --badge-text: #ffffff;
@@ -1317,20 +1317,58 @@
       transform: translateY(-2px);
     }
 
-    /* Stark Inverted Hero Bento Card */
-    .bento-card.bento-hero {
-      background-color: var(--hero-bg);
+    /* Stark Inverted Hero Bento Card (Always Dark & High Contrast in Both Themes) */
+    .bento-card.bento-hero,
+    body.theme-light .bento-card.bento-hero {
+      background-color: #020617 !important;
       background-image: radial-gradient(circle at 85% 20%, rgba(16, 185, 129, 0.14) 0%, transparent 60%),
         linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
       background-size: 100% 100%, 36px 36px, 36px 36px;
       background-repeat: repeat;
-      color: var(--hero-text);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.16) !important;
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), inset 0 0 40px rgba(16, 185, 129, 0.04);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    .bento-card.bento-hero .bento-headline,
+    body.theme-light .bento-card.bento-hero .bento-headline {
+      color: #ffffff !important;
+    }
+
+    .bento-card.bento-hero .bento-subtext,
+    body.theme-light .bento-card.bento-hero .bento-subtext,
+    .bento-card.bento-hero p,
+    body.theme-light .bento-card.bento-hero p {
+      color: #e2e8f0 !important;
+      opacity: 1 !important;
+      font-size: 14px !important;
+      line-height: 1.62 !important;
+    }
+
+    .bento-card.bento-hero .bento-badge,
+    body.theme-light .bento-card.bento-hero .bento-badge {
+      background: rgba(16, 185, 129, 0.16) !important;
+      border: 1px solid rgba(16, 185, 129, 0.35) !important;
+      color: #34d399 !important;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+    }
+
+    .bento-card.bento-hero .btn-bento-primary,
+    body.theme-light .bento-card.bento-hero .btn-bento-primary {
+      background: #ffffff !important;
+      color: #000000 !important;
+      border: 1px solid #ffffff !important;
+    }
+
+    .bento-card.bento-hero .btn-bento-subtle,
+    body.theme-light .bento-card.bento-hero .btn-bento-subtle {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
     }
 
     .bento-badge {
@@ -1691,10 +1729,35 @@
       color: #ffffff !important;
     }
 
-    body.theme-light .bounty-table td {
-      color: #020617 !important;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    .bounty-table td,
+    .bounty-table td > span,
+    .bounty-table td > div,
+    .bounty-table td strong {
+      color: #ffffff !important;
     }
+
+    body.theme-light .bounty-table td,
+    body.theme-light .bounty-table td > span,
+    body.theme-light .bounty-table td > div,
+    body.theme-light .bounty-table td strong {
+      color: #020617 !important;
+      border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+    }
+
+    /* Preserve distinct route and badge colors inside table rows */
+    .bounty-table .route-badge.tier1 { color: #10b981 !important; }
+    .bounty-table .route-badge.tier2 { color: #fbbf24 !important; }
+    .bounty-table .route-badge.tier3 { color: #f1f5f9 !important; }
+    body.theme-light .bounty-table .route-badge.tier1 { color: #059669 !important; }
+    body.theme-light .bounty-table .route-badge.tier2 { color: #b45309 !important; }
+    body.theme-light .bounty-table .route-badge.tier3 { color: #020617 !important; }
+
+    .bounty-table .btn-badge-inspect.gold { color: #fbbf24 !important; }
+    .bounty-table .btn-badge-inspect.silver { color: #f1f5f9 !important; }
+    .bounty-table .btn-badge-inspect.bronze { color: #f59e0b !important; }
+    body.theme-light .bounty-table .btn-badge-inspect.gold { color: #ca8a04 !important; }
+    body.theme-light .bounty-table .btn-badge-inspect.silver { color: #334155 !important; }
+    body.theme-light .bounty-table .btn-badge-inspect.bronze { color: #b45309 !important; }
 
     .bounty-table tr:last-child td {
       border-bottom: none;
@@ -2181,21 +2244,27 @@
       }
 
       .live-status-pill {
-        display: none;
+        display: none !important;
       }
 
-      nav.nav-segmented {
-        display: none;
+      nav.nav-segmented,
+      #app-nav-segmented {
+        display: none !important;
       }
 
-      .mobile-subnav {
-        display: flex;
+      .mobile-subnav,
+      #app-mobile-subnav {
+        display: none !important;
       }
 
-      .cloud-sync-badge {
-        padding: 0 8px;
-        height: 32px;
-        font-size: 11px;
+      /* Clean mobile top deck */
+      body.app-mode .cloud-sync-badge,
+      body.app-mode #tour-header-btn {
+        display: none !important;
+      }
+
+      body.app-mode #mobile-hamburger-btn {
+        display: inline-flex !important;
       }
 
       .btn-connect {
@@ -2209,6 +2278,22 @@
         padding: 0 8px;
         height: 32px;
         font-size: 11.5px;
+        max-width: 140px;
+      }
+
+      #wallet-account-display {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .wallet-tier-badge {
+        display: none;
+      }
+
+      .theme-icon-btn {
+        width: 32px;
+        height: 32px;
       }
 
       @media (max-width: 440px) {
@@ -2560,45 +2645,312 @@
       background: #0f172a;
     }
 
+    /* LANDING BUTTON REMOVED IN FAVOR OF CLEAN WORKSPACE FLOW */
+    #btn-back-landing,
     .btn-back-landing {
-      display: none;
-      align-items: center;
-      gap: 5px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 7px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #f1f5f9;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-      margin-left: 6px;
+      display: none !important;
     }
 
-    .btn-back-landing:hover {
+    /* 3-LINE STAGGERED HAMBURGER MENU BUTTON (FRAMER CYBER AESTHETIC) */
+    .mobile-hamburger-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 9px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-left: 2px;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .mobile-hamburger-btn:hover {
       background: rgba(255, 255, 255, 0.12);
       border-color: rgba(255, 255, 255, 0.35);
       color: #ffffff;
+      transform: scale(1.04);
     }
 
-    body.theme-light .btn-back-landing {
-      background: rgba(0, 0, 0, 0.04);
-      border-color: rgba(0, 0, 0, 0.15);
-      color: #1e293b;
+    body.theme-light .mobile-hamburger-btn {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      color: #020617;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
-    body.theme-light .btn-back-landing:hover {
-      background: rgba(0, 0, 0, 0.08);
+    body.theme-light .mobile-hamburger-btn:hover {
+      background: #f1f5f9;
+      border-color: rgba(0, 0, 0, 0.28);
+    }
+
+    /* MOBILE SLIDE-OUT NAVIGATION DRAWER */
+    .mobile-drawer-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9998;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .mobile-drawer-backdrop.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .mobile-nav-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 86%;
+      max-width: 340px;
+      background: #080a0f;
+      border-left: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: -16px 0 45px rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    body.theme-light .mobile-nav-drawer {
+      background: #ffffff;
+      border-left: 1px solid rgba(0, 0, 0, 0.14);
+      box-shadow: -16px 0 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .mobile-nav-drawer.open {
+      transform: translateX(0);
+    }
+
+    .mobile-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 16px;
+    }
+
+    body.theme-light .mobile-drawer-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .drawer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .drawer-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .btn-drawer-close {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    body.theme-light .btn-drawer-close {
+      background: #f1f5f9;
+      border-color: rgba(0, 0, 0, 0.1);
       color: #020617;
     }
 
-    /* LANDING MODE: CLEAN PROFESSIONAL LANDING PAGE (NO INTERNAL TABS OR MOBILE SUBNAV) */
+    .mobile-drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .drawer-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-primary);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+
+    .drawer-nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body.theme-light .drawer-nav-item:hover {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .drawer-nav-item.active {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: inset 3px 0 0 #ffffff;
+    }
+
+    body.theme-light .drawer-nav-item.active {
+      background: #f1f5f9;
+      border-color: rgba(0, 0, 0, 0.15);
+      box-shadow: inset 3px 0 0 #020617;
+    }
+
+    .drawer-item-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    body.theme-light .drawer-item-icon {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: #020617;
+    }
+
+    .drawer-item-text {
+      flex: 1;
+    }
+
+    .drawer-item-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .drawer-item-subtitle {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 1px;
+    }
+
+    .drawer-item-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .mobile-drawer-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: auto;
+    }
+
+    body.theme-light .mobile-drawer-footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .drawer-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-drawer-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    body.theme-light .btn-drawer-action {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #020617;
+    }
+
+    .drawer-account-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9px;
+      padding: 10px 12px;
+    }
+
+    body.theme-light .drawer-account-box {
+      background: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .drawer-account-name {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    .btn-drawer-disconnect {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* LANDING MODE: CLEAN PROFESSIONAL LANDING PAGE */
     body.landing-mode #app-nav-segmented,
     body.landing-mode #app-mobile-subnav,
     body.landing-mode .mobile-subnav,
     body.landing-mode #app-only-actions,
+    body.landing-mode #mobile-hamburger-btn,
     body.landing-mode #btn-back-landing {
       display: none !important;
     }
@@ -2616,17 +2968,18 @@
       display: flex !important;
     }
 
-    body.app-mode #btn-back-landing {
-      display: inline-flex !important;
-    }
-
     @media (min-width: 901px) {
       body.app-mode #app-nav-segmented {
         display: flex !important;
       }
 
+      #mobile-hamburger-btn {
+        display: none !important;
+      }
+
       body.app-mode #app-mobile-subnav,
-      body.app-mode .mobile-subnav {
+      body.app-mode .mobile-subnav,
+      .mobile-subnav {
         display: none !important;
       }
     }
@@ -2636,9 +2989,14 @@
         display: none !important;
       }
 
+      body.app-mode #mobile-hamburger-btn {
+        display: inline-flex !important;
+      }
+
       body.app-mode #app-mobile-subnav,
-      body.app-mode .mobile-subnav {
-        display: flex !important;
+      body.app-mode .mobile-subnav,
+      .mobile-subnav {
+        display: none !important;
       }
     }
 
@@ -3355,7 +3713,7 @@
   <!-- Header -->
   <header>
     <div class="header-inner">
-      <div class="brand-group" onclick="returnToLanding()" title="Return to Overview / Landing Page">
+      <div class="brand-group" title="Pactt Protocol">
         <div class="brand-logo-frame">
           <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path class="logo-glyph-main"
@@ -3379,14 +3737,6 @@
           NEAR Testnet
         </div>
       </div>
-
-      <!-- App Mode Only: Back to Landing button -->
-      <button class="btn-back-landing" id="btn-back-landing" onclick="returnToLanding()" title="Return to Landing Page">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-        <span>Landing</span>
-      </button>
 
       <!-- Desktop Segmented Nav (Visible ONLY in App Mode) -->
       <nav class="nav-segmented" id="app-nav-segmented">
@@ -3476,20 +3826,138 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
+
+        <!-- 3-Line Staggered Mobile Menu (Framer Cyber Style) -->
+        <button class="mobile-hamburger-btn" id="mobile-hamburger-btn" onclick="toggleMobileNavMenu()" aria-label="Open Navigation Menu" title="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="8" y1="6" x2="22" y2="6"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="8" y1="18" x2="22" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Subnav Strip (Visible ONLY in App Mode) -->
-  <div class="mobile-subnav" id="app-mobile-subnav">
-    <button class="m-nav-pill" id="m-nav-back-landing" onclick="returnToLanding()">&larr; Landing</button>
-    <button class="m-nav-pill active" id="m-nav-bounties" onclick="switchViewMobile('bounties', this)">Bounties
-      (8)</button>
-    <button class="m-nav-pill" id="m-nav-leaderboard" onclick="switchViewMobile('leaderboard', this)">Trust
-      Registry</button>
-    <button class="m-nav-pill" id="m-nav-proofs" onclick="switchViewMobile('proofs', this)">Proofs</button>
-    <button class="m-nav-pill" id="m-nav-policy" onclick="switchViewMobile('policy', this)">Sputnik Policy</button>
-  </div>
+  <!-- Mobile Navigation Drawer & Backdrop (App Mode) -->
+  <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" onclick="closeMobileNavMenu()"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <div class="drawer-brand">
+        <div class="brand-logo-frame">
+          <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="logo-glyph-main"
+              d="M12 11C12 9.89543 12.8954 9 14 9H25C30.5228 9 35 13.4772 35 19C35 24.5228 30.5228 29 25 29H18V37C18 38.1046 17.1046 39 16 39H14C12.8954 39 12 38.1046 12 37V11Z"
+              fill="var(--logo-glyph-main)" />
+            <path class="logo-glyph-counter"
+              d="M18 15H25C27.2091 15 29 16.7909 29 19C29 21.2091 27.2091 23 25 23H18V15Z"
+              fill="var(--logo-glyph-counter)" />
+            <path class="logo-glyph-main"
+              d="M28 27H35V29H32V38C32 38.5523 31.5523 39 31 39H29C28.4477 39 28 38.5523 28 38V27Z"
+              fill="var(--logo-glyph-main)" />
+            <path class="logo-glyph-main"
+              d="M34 27H41V29H38V38C38 38.5523 37.5523 39 37 39H35C34.4477 39 34 38.5523 34 38V27Z"
+              fill="var(--logo-glyph-main)" />
+          </svg>
+        </div>
+        <div class="brand-title">Pactt</div>
+        <span class="drawer-tag">Testnet</span>
+      </div>
+      <button class="btn-drawer-close" onclick="closeMobileNavMenu()" aria-label="Close Navigation Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mobile-drawer-nav">
+      <button class="drawer-nav-item active" id="drawer-nav-bounties" onclick="navigateFromDrawer('bounties')">
+        <div class="drawer-item-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">Bounties Board</div>
+          <div class="drawer-item-subtitle">Live tasks &amp; micro-settlements</div>
+        </div>
+        <span class="drawer-item-badge" id="drawer-bounties-badge">8</span>
+      </button>
+
+      <button class="drawer-nav-item" id="drawer-nav-leaderboard" onclick="navigateFromDrawer('leaderboard')">
+        <div class="drawer-item-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+          </svg>
+        </div>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">Trust Registry</div>
+          <div class="drawer-item-subtitle">Reputation &amp; SocialDB proofs</div>
+        </div>
+      </button>
+
+      <button class="drawer-nav-item" id="drawer-nav-proofs" onclick="navigateFromDrawer('proofs')">
+        <div class="drawer-item-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </div>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">On-Chain Proofs</div>
+          <div class="drawer-item-subtitle">Verifiable testnet state logs</div>
+        </div>
+      </button>
+
+      <button class="drawer-nav-item" id="drawer-nav-policy" onclick="navigateFromDrawer('policy')">
+        <div class="drawer-item-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">Sputnik DAO Policy</div>
+          <div class="drawer-item-subtitle">Escrow rules &amp; tier thresholds</div>
+        </div>
+      </button>
+    </nav>
+
+    <div class="mobile-drawer-footer">
+      <div class="drawer-actions-grid">
+        <button class="btn-drawer-action" onclick="closeMobileNavMenu(); startQuickTour();">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+          </svg>
+          <span>Take Tour</span>
+        </button>
+        <button class="btn-drawer-action" onclick="closeMobileNavMenu(); syncWithCloud();">
+          <span class="cloud-sync-dot" style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#10b981;"></span>
+          <span>Sync Cloud</span>
+        </button>
+      </div>
+
+      <div class="drawer-account-box" id="drawer-account-box">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="wallet-status-dot"></span>
+            <span class="drawer-account-name" id="drawer-account-name">alex.testnet</span>
+          </div>
+          <span class="wallet-tier-badge" id="drawer-account-tier" style="display:inline-block;">Tier 1</span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; font-size:11.5px; color:var(--text-secondary); margin-top:6px;">
+          <span>Score: <strong style="color:var(--text-primary);" id="drawer-account-score">142.5 pts</strong></span>
+          <button class="btn-drawer-disconnect" onclick="closeMobileNavMenu(); disconnectWallet();">Disconnect</button>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- Main View -->
   <main>
@@ -3922,6 +4390,48 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Mobile Policy Cards -->
+      <div class="mobile-cards-wrap" id="mobile-policy-cards">
+        <div class="m-bounty-card">
+          <div class="m-bounty-top">
+            <span class="route-badge tier1">Tier 1: Auto</span>
+            <span style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: var(--text-primary);">&le; 5.0 NEAR</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-secondary); margin: 4px 0;">
+            Min Trust: <strong style="color: var(--text-primary);">50+ pts</strong>
+          </div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.45;">
+            Automated transfer upon deliverable verification (0 council signatures required).
+          </div>
+        </div>
+
+        <div class="m-bounty-card">
+          <div class="m-bounty-top">
+            <span class="route-badge tier2">Tier 2: Council</span>
+            <span style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: var(--text-primary);">5.0 &ndash; 25.0 NEAR</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-secondary); margin: 4px 0;">
+            Min Trust: <strong style="color: var(--text-primary);">20+ pts</strong>
+          </div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.45;">
+            Single council signoff (67% faster quorum velocity).
+          </div>
+        </div>
+
+        <div class="m-bounty-card">
+          <div class="m-bounty-top">
+            <span class="route-badge tier3">Tier 3: Sputnik</span>
+            <span style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: var(--text-primary);">&gt; 25.0 NEAR</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-secondary); margin: 4px 0;">
+            Min Trust: <strong style="color: var(--text-primary);">None required</strong>
+          </div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.45;">
+            Full Sputnik DAO proposal (M-of-N council multi-sig vote).
+          </div>
+        </div>
       </div>
     </div>
 
@@ -6156,8 +6666,8 @@
         }
       });
 
-      document.querySelectorAll('.m-nav-pill').forEach(b => {
-        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${viewName}'`)) {
+      document.querySelectorAll('.drawer-nav-item').forEach(b => {
+        if (b.id === 'drawer-nav-' + viewName) {
           b.classList.add('active');
         } else {
           b.classList.remove('active');
@@ -6168,14 +6678,55 @@
       persistState();
     }
 
+    function toggleMobileNavMenu() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      if (!drawer) return;
+      if (drawer.classList.contains('open')) {
+        closeMobileNavMenu();
+      } else {
+        openMobileNavMenu();
+      }
+    }
+
+    function openMobileNavMenu() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-drawer-backdrop');
+      if (drawer) drawer.classList.add('open');
+      if (backdrop) backdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      const accDisplay = document.getElementById('wallet-account-display');
+      const tierDisplay = document.getElementById('wallet-tier-badge');
+      const drawerAcc = document.getElementById('drawer-account-name');
+      const drawerTier = document.getElementById('drawer-account-tier');
+      const drawerScore = document.getElementById('drawer-account-score');
+      if (drawerAcc && accDisplay) drawerAcc.innerText = accDisplay.innerText;
+      if (drawerTier && tierDisplay) drawerTier.innerText = tierDisplay.innerText;
+      if (drawerScore && state.personas && state.personas[state.connectedAccount]) {
+        drawerScore.innerText = state.personas[state.connectedAccount].trust.toFixed(1) + ' pts';
+      }
+    }
+
+    function closeMobileNavMenu() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-drawer-backdrop');
+      if (drawer) drawer.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navigateFromDrawer(viewName) {
+      closeMobileNavMenu();
+      switchView(viewName, null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function returnToLanding() {
       switchView('landing', null);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function switchViewMobile(viewName, btn) {
-      document.querySelectorAll('.m-nav-pill').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
       switchView(viewName, null);
     }
 
@@ -6301,7 +6852,7 @@
         target = document.getElementById('mobile-bounty-cards');
       }
       if (step.targetId === 'nav-btn-leaderboard' && (!target || target.offsetWidth === 0)) {
-        target = document.getElementById('m-nav-leaderboard');
+        target = document.getElementById('mobile-hamburger-btn');
       }
 
       const badge = document.getElementById('tour-step-badge');
