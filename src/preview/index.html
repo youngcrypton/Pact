@@ -9,14 +9,16 @@
   <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk (Razor-Sharp Modern Typography) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     /* CRYPTON CYBER-MONOCHROME BLADE DESIGN SYSTEM (Default OLED Jet-Black) */
     :root {
       --bg: #000000;
       --bg-pattern: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
       --bg-gradient: #000000;
       --surface: #07080a;
       --surface-card: #0d0e12;
@@ -30,9 +32,12 @@
       --border-blade: rgba(255, 255, 255, 0.40);
       --border-focus: #ffffff;
       --text-primary: #ffffff;
-      --text-secondary: #f1f5f9;  /* Razor-sharp luminous silver-white (high contrast) */
-      --text-tertiary: #cbd5e1;   /* High-contrast titanium steel */
-      --text-muted: #94a3b8;      /* Clean muted silver */
+      --text-secondary: #f8fafc;
+      /* Razor-sharp luminous pure-white (maximum contrast) */
+      --text-tertiary: #e2e8f0;
+      /* High-contrast silver-white */
+      --text-muted: #cbd5e1;
+      /* Crisp light slate */
       --hero-bg: #000000;
       --hero-text: #ffffff;
       --hero-subtext: #f1f5f9;
@@ -57,7 +62,7 @@
     body.theme-light {
       --bg: #f8fafc;
       --bg-pattern: linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
       --bg-gradient: #f8fafc;
       --surface: #ffffff;
       --surface-card: #ffffff;
@@ -71,9 +76,11 @@
       --border-blade: rgba(0, 0, 0, 0.38);
       --border-focus: #020617;
       --text-primary: #020617;
-      --text-secondary: #1e293b;  /* Crisp dark charcoal */
-      --text-tertiary: #475569;   /* High-contrast slate */
-      --text-muted: #64748b;
+      --text-secondary: #0f172a;
+      /* Crisp jet charcoal */
+      --text-tertiary: #334155;
+      /* High-contrast deep slate */
+      --text-muted: #475569;
       --hero-bg: #020617;
       --hero-text: #ffffff;
       --hero-subtext: #1e293b;
@@ -172,9 +179,11 @@
     body.theme-light .splash-logo-frame {
       background: #000000;
     }
+
     body.theme-light .logo-glyph-main {
       fill: #ffffff;
     }
+
     body.theme-light .logo-glyph-counter {
       fill: #000000;
     }
@@ -220,6 +229,7 @@
         opacity: 0;
         transform: translateY(14px) scale(0.96);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -230,9 +240,11 @@
       0% {
         width: 0%;
       }
+
       60% {
         width: 75%;
       }
+
       100% {
         width: 100%;
       }
@@ -316,8 +328,19 @@
     }
 
     @keyframes emeraldPulse {
-      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(16, 185, 129, 0.7); }
-      50% { opacity: 0.4; transform: scale(0.85); box-shadow: 0 0 3px rgba(16, 185, 129, 0.2); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+        box-shadow: 0 0 3px rgba(16, 185, 129, 0.2);
+      }
     }
 
     /* Segmented Navigation (Desktop) */
@@ -438,6 +461,7 @@
       border-color: #020617;
       color: #ffffff;
     }
+
     body.theme-light .btn-connect:hover {
       background: #059669;
       border-color: #059669;
@@ -450,17 +474,26 @@
       gap: 8px;
       padding: 0 10px;
       height: 34px;
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 12px;
       font-family: var(--font-mono);
       color: var(--text-primary);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
+
+    body.theme-light .wallet-connected-pill {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.14) !important;
+      color: #020617 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    }
+
     .wallet-connected-pill.active {
       display: flex;
     }
+
     .wallet-status-dot {
       width: 7px;
       height: 7px;
@@ -468,6 +501,7 @@
       background: #10b981;
       box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
     }
+
     .wallet-tier-badge {
       font-size: 10px;
       font-weight: 700;
@@ -477,6 +511,7 @@
       color: #10b981;
       border: 1px solid rgba(16, 185, 129, 0.3);
     }
+
     .btn-wallet-disconnect {
       background: transparent;
       border: none;
@@ -489,6 +524,7 @@
       justify-content: center;
       transition: color 0.15s ease;
     }
+
     .btn-wallet-disconnect:hover {
       color: #f87171;
     }
@@ -510,11 +546,13 @@
       user-select: none;
       transition: all 0.15s ease;
     }
+
     .cloud-sync-badge:hover {
       border-color: #10b981;
       color: #ffffff;
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
     }
+
     .cloud-sync-dot {
       width: 7px;
       height: 7px;
@@ -523,9 +561,19 @@
       box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
       animation: pulse-dot 2.5s infinite ease-in-out;
     }
+
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
     }
 
     .wallet-modal-overlay {
@@ -542,10 +590,12 @@
       opacity: 0;
       transition: opacity 0.2s ease;
     }
+
     .wallet-modal-overlay.active {
       display: flex;
       opacity: 1;
     }
+
     .wallet-modal-card {
       width: 100%;
       max-width: 440px;
@@ -560,31 +610,37 @@
       transform: scale(0.96);
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .wallet-modal-overlay.active .wallet-modal-card {
       transform: scale(1);
     }
+
     .wallet-modal-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .wallet-modal-title {
       font-size: 16px;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-primary);
     }
+
     .wallet-modal-subtitle {
       font-size: 12px;
       color: var(--text-secondary);
       line-height: 1.4;
       margin-top: -6px;
     }
+
     .wallet-options-list {
       display: flex;
       flex-direction: column;
       gap: 9px;
     }
+
     .wallet-option-item {
       display: flex;
       align-items: center;
@@ -596,12 +652,14 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
+
     .wallet-option-item:hover {
       border-color: rgba(16, 185, 129, 0.45);
       background: rgba(16, 185, 129, 0.06);
       box-shadow: 0 0 16px rgba(16, 185, 129, 0.12);
       transform: translateY(-1px);
     }
+
     .wallet-option-icon {
       width: 34px;
       height: 34px;
@@ -616,23 +674,28 @@
       font-size: 15px;
       flex-shrink: 0;
     }
+
     body.theme-light .wallet-option-icon {
       background: #020617;
       color: #ffffff;
     }
+
     .wallet-option-details {
       flex: 1;
     }
+
     .wallet-option-name {
       font-size: 13px;
       font-weight: 700;
       color: var(--text-primary);
     }
+
     .wallet-option-desc {
       font-size: 11.5px;
       color: var(--text-secondary);
       margin-top: 2px;
     }
+
     .wallet-badge-tag {
       font-size: 10px;
       font-weight: 700;
@@ -643,6 +706,7 @@
       border-radius: 4px;
       font-family: var(--font-mono);
     }
+
     .wallet-modal-footer {
       display: flex;
       align-items: center;
@@ -652,12 +716,14 @@
       font-size: 11px;
       color: var(--text-tertiary);
     }
+
     .preset-pills-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 6px;
     }
+
     .btn-preset-pill {
       background: rgba(18, 20, 28, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.09);
@@ -672,12 +738,14 @@
       align-items: center;
       gap: 5px;
     }
+
     .btn-preset-pill:hover {
       border-color: #10b981;
       background: rgba(16, 185, 129, 0.1);
       color: #10b981;
       box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
     }
+
     .btn-preset-pill strong {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -701,6 +769,7 @@
       white-space: nowrap;
       box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
     }
+
     .btn-post-bounty:hover {
       background: #10b981;
       border-color: #10b981;
@@ -708,11 +777,13 @@
       box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
       transform: translateY(-1px);
     }
+
     body.theme-light .btn-post-bounty {
       background: #020617;
       color: #ffffff;
       border-color: #020617;
     }
+
     body.theme-light .btn-post-bounty:hover {
       background: #059669;
       border-color: #059669;
@@ -730,6 +801,7 @@
       gap: 14px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
+
     .sputnik-card-header {
       display: flex;
       align-items: center;
@@ -738,12 +810,14 @@
       padding-bottom: 10px;
       gap: 8px;
     }
+
     .sputnik-tag-group {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
+
     .sputnik-badge-pill {
       font-family: var(--font-mono);
       font-size: 10.5px;
@@ -755,11 +829,13 @@
       border-radius: 4px;
       letter-spacing: 0.03em;
     }
+
     .sputnik-treasury-tag {
       font-family: var(--font-mono);
       font-size: 11px;
       color: var(--text-secondary);
     }
+
     .sputnik-ext-link {
       font-size: 11px;
       font-weight: 700;
@@ -768,20 +844,24 @@
       white-space: nowrap;
       transition: all 0.15s ease;
     }
+
     .sputnik-ext-link:hover {
       text-decoration: underline;
       text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
     }
+
     .sputnik-meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px 12px;
     }
+
     .sputnik-meta-item {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
+
     .sputnik-meta-label {
       font-size: 9.5px;
       font-weight: 800;
@@ -789,11 +869,13 @@
       letter-spacing: 0.05em;
       color: var(--text-tertiary);
     }
+
     .sputnik-meta-val {
       font-size: 12px;
       font-weight: 700;
       color: var(--text-primary);
     }
+
     .quorum-meter-track {
       width: 100%;
       height: 8px;
@@ -803,24 +885,29 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       margin-top: 4px;
     }
+
     .quorum-meter-fill {
       height: 100%;
       transition: width 0.3s ease, background 0.3s ease;
     }
+
     .quorum-meter-fill.pending {
       background: #f59e0b;
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
     }
+
     .quorum-meter-fill.approved {
       background: #10b981;
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.7);
     }
+
     .council-ledger {
       display: flex;
       flex-direction: column;
       gap: 6px;
       margin-top: 4px;
     }
+
     .council-vote-row {
       display: flex;
       align-items: center;
@@ -831,15 +918,18 @@
       border-radius: 8px;
       font-size: 11.5px;
     }
+
     .council-vote-row.approved {
       border-color: rgba(16, 185, 129, 0.4);
       background: rgba(16, 185, 129, 0.06);
       box-shadow: inset 3px 0 0 #10b981;
     }
+
     .council-vote-row.pending {
       border-color: rgba(245, 158, 11, 0.35);
       background: rgba(245, 158, 11, 0.05);
     }
+
     .council-member-id {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -849,17 +939,21 @@
       align-items: center;
       gap: 6px;
     }
+
     .council-status-text {
       font-size: 10.5px;
       font-weight: 700;
       font-family: var(--font-mono);
     }
+
     .council-status-text.approved {
       color: #10b981;
     }
+
     .council-status-text.pending {
       color: #fbbf24;
     }
+
     .deliverable-attachment-box {
       padding: 10px 12px;
       background: rgba(14, 16, 24, 0.7);
@@ -869,6 +963,7 @@
       flex-direction: column;
       gap: 3px;
     }
+
     .attachment-label {
       font-size: 9.5px;
       font-weight: 800;
@@ -876,6 +971,7 @@
       letter-spacing: 0.05em;
       color: var(--text-tertiary);
     }
+
     .attachment-url {
       font-size: 11px;
       color: #10b981;
@@ -894,11 +990,13 @@
       flex-direction: column;
       gap: 5px;
     }
+
     .preview-badge-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .preview-badge-label {
       font-size: 9.5px;
       font-weight: 800;
@@ -906,6 +1004,7 @@
       letter-spacing: 0.05em;
       color: var(--text-tertiary);
     }
+
     .preview-explanation {
       font-size: 11.5px;
       color: var(--text-secondary);
@@ -930,6 +1029,7 @@
       transition: all 0.15s ease;
       white-space: nowrap;
     }
+
     .btn-badge-inspect:hover {
       background: rgba(16, 185, 129, 0.1);
       border-color: #10b981;
@@ -937,44 +1037,53 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
       transform: translateY(-1px);
     }
+
     .btn-badge-inspect.gold {
       background: rgba(245, 158, 11, 0.08);
       border-color: rgba(245, 158, 11, 0.35);
       color: #fbbf24;
     }
+
     .btn-badge-inspect.gold:hover {
       background: rgba(245, 158, 11, 0.16);
       border-color: #fbbf24;
       box-shadow: 0 0 14px rgba(245, 158, 11, 0.3);
     }
+
     .btn-badge-inspect.silver {
       background: rgba(226, 232, 240, 0.08);
       border-color: rgba(226, 232, 240, 0.3);
       color: #f1f5f9;
     }
+
     .btn-badge-inspect.silver:hover {
       background: rgba(226, 232, 240, 0.16);
       border-color: #ffffff;
       box-shadow: 0 0 14px rgba(226, 232, 240, 0.25);
     }
+
     .btn-badge-inspect.bronze {
       background: rgba(217, 119, 6, 0.08);
       border-color: rgba(217, 119, 6, 0.35);
       color: #f59e0b;
     }
+
     .btn-badge-inspect.bronze:hover {
       background: rgba(217, 119, 6, 0.16);
       border-color: #f59e0b;
       box-shadow: 0 0 12px rgba(217, 119, 6, 0.25);
     }
+
     body.theme-light .btn-badge-inspect.gold {
       color: #ca8a04;
       border-color: rgba(202, 138, 4, 0.3);
     }
+
     body.theme-light .btn-badge-inspect.silver {
       color: #475569;
       border-color: rgba(71, 85, 105, 0.3);
     }
+
     body.theme-light .btn-badge-inspect.bronze {
       color: #b45309;
       border-color: rgba(180, 83, 9, 0.3);
@@ -992,11 +1101,13 @@
       flex-direction: column;
       gap: 6px;
     }
+
     .velocity-cap-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .velocity-cap-title {
       font-size: 10px;
       font-weight: 800;
@@ -1007,17 +1118,20 @@
       align-items: center;
       gap: 5px;
     }
+
     .velocity-cap-val {
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 800;
     }
+
     .velocity-meter-bar {
       display: flex;
       gap: 5px;
       height: 6px;
       border-radius: 3px;
     }
+
     .velocity-meter-segment {
       flex: 1;
       height: 100%;
@@ -1025,14 +1139,17 @@
       border-radius: 2px;
       transition: all 0.3s ease;
     }
+
     .velocity-meter-segment.active-green {
       background: #10b981;
       box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
     }
+
     .velocity-meter-segment.active-warning {
       background: #f59e0b;
       box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
     }
+
     .velocity-cap-desc {
       font-size: 11px;
       color: var(--text-secondary);
@@ -1051,12 +1168,14 @@
       margin-top: 6px;
       animation: fadeIn 0.2s ease;
     }
+
     .dedup-feedback-box.collision {
       background: rgba(239, 68, 68, 0.08);
       border: 1px solid rgba(239, 68, 68, 0.35);
       color: #f87171;
       box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
     }
+
     .dedup-feedback-box.unique {
       background: rgba(16, 185, 129, 0.08);
       border: 1px solid rgba(16, 185, 129, 0.35);
@@ -1130,6 +1249,7 @@
       box-shadow: var(--card-shadow);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .bento-card:hover {
       border-color: rgba(255, 255, 255, 0.16);
       box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), 0 0 1px rgba(255, 255, 255, 0.12);
@@ -1140,8 +1260,8 @@
     .bento-card.bento-hero {
       background-color: var(--hero-bg);
       background-image: radial-gradient(circle at 85% 20%, rgba(16, 185, 129, 0.14) 0%, transparent 60%),
-                        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
       background-size: 100% 100%, 36px 36px, 36px 36px;
       background-repeat: repeat;
       color: var(--hero-text);
@@ -1231,6 +1351,7 @@
       color: #ffffff;
       border-color: #020617;
     }
+
     body.theme-light .btn-bento-primary:hover {
       background: #059669;
       border-color: #059669;
@@ -1318,9 +1439,11 @@
     body.theme-light .v-seg.seg-auto {
       background: #059669;
     }
+
     body.theme-light .v-seg.seg-council {
       background: #d97706;
     }
+
     body.theme-light .v-seg.seg-dao {
       background: #64748b;
     }
@@ -1652,6 +1775,7 @@
       border-color: #020617;
       color: #ffffff;
     }
+
     body.theme-light .btn-action.primary:hover {
       background: #059669;
       border-color: #059669;
@@ -1927,12 +2051,15 @@
         #cloud-sync-text {
           display: none;
         }
+
         .cloud-sync-badge {
           padding: 0 8px;
         }
+
         .tour-header-btn .tour-btn-text {
           display: none;
         }
+
         .tour-header-btn {
           padding: 0 8px;
         }
@@ -2015,16 +2142,19 @@
       transition: all 0.15s ease;
       white-space: nowrap;
     }
+
     .tour-header-btn:hover {
       border-color: #10b981;
       color: #ffffff;
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.28);
     }
+
     body.theme-light .tour-header-btn {
       background: #ffffff;
       border-color: rgba(0, 0, 0, 0.12);
       color: var(--text-secondary);
     }
+
     body.theme-light .tour-header-btn:hover {
       border-color: #059669;
       color: #059669;
@@ -2122,6 +2252,7 @@
       border-radius: 4px;
       transition: color 0.15s ease, background 0.15s ease;
     }
+
     .tour-close-btn:hover {
       color: #ffffff;
       background: rgba(255, 255, 255, 0.1);
@@ -2200,10 +2331,12 @@
       border-color: rgba(255, 255, 255, 0.14);
       color: var(--text-secondary);
     }
+
     .tour-btn-prev:hover:not(:disabled) {
       background: rgba(255, 255, 255, 0.14);
       color: #ffffff;
     }
+
     .tour-btn-prev:disabled {
       opacity: 0.35;
       cursor: not-allowed;
@@ -2214,6 +2347,7 @@
       color: #ffffff;
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
     }
+
     .tour-btn-next:hover {
       background: #059669;
       box-shadow: 0 0 20px rgba(16, 185, 129, 0.55);
@@ -2242,17 +2376,20 @@
       transition: all 0.15s ease;
       white-space: nowrap;
     }
+
     .btn-blade-header-launch:hover {
       background: #f1f5f9;
       transform: translateY(-1px);
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
     }
+
     body.theme-light .btn-blade-header-launch {
       background: #020617;
       color: #ffffff;
       border-color: #020617;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
     }
+
     body.theme-light .btn-blade-header-launch:hover {
       background: #0f172a;
     }
@@ -2273,16 +2410,19 @@
       white-space: nowrap;
       margin-left: 6px;
     }
+
     .btn-back-landing:hover {
       background: rgba(255, 255, 255, 0.12);
       border-color: rgba(255, 255, 255, 0.35);
       color: #ffffff;
     }
+
     body.theme-light .btn-back-landing {
       background: rgba(0, 0, 0, 0.04);
       border-color: rgba(0, 0, 0, 0.15);
       color: #1e293b;
     }
+
     body.theme-light .btn-back-landing:hover {
       background: rgba(0, 0, 0, 0.08);
       color: #020617;
@@ -2296,6 +2436,7 @@
     body.landing-mode #btn-back-landing {
       display: none !important;
     }
+
     body.landing-mode #btn-landing-nav-launch {
       display: inline-flex !important;
     }
@@ -2304,25 +2445,31 @@
     body.app-mode #btn-landing-nav-launch {
       display: none !important;
     }
+
     body.app-mode #app-only-actions {
       display: flex !important;
     }
+
     body.app-mode #btn-back-landing {
       display: inline-flex !important;
     }
+
     @media (min-width: 901px) {
       body.app-mode #app-nav-segmented {
         display: flex !important;
       }
+
       body.app-mode #app-mobile-subnav,
       body.app-mode .mobile-subnav {
         display: none !important;
       }
     }
+
     @media (max-width: 900px) {
       body.app-mode #app-nav-segmented {
         display: none !important;
       }
+
       body.app-mode #app-mobile-subnav,
       body.app-mode .mobile-subnav {
         display: flex !important;
@@ -2349,6 +2496,7 @@
       overflow: hidden;
       white-space: nowrap;
     }
+
     .btn-blade-primary::after {
       content: '';
       position: absolute;
@@ -2360,20 +2508,24 @@
       transform: skewX(-20deg);
       transition: left 0.5s ease;
     }
+
     .btn-blade-primary:hover {
       background: #f8fafc;
       transform: translateY(-1px);
       box-shadow: 0 0 0 1px #ffffff, 0 12px 28px rgba(255, 255, 255, 0.25);
     }
+
     .btn-blade-primary:hover::after {
       left: 140%;
     }
+
     body.theme-light .btn-blade-primary {
       background: #020617;
       color: #ffffff;
       border-color: #020617;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
+
     body.theme-light .btn-blade-primary:hover {
       background: #0f172a;
     }
@@ -2396,12 +2548,14 @@
       transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
     }
+
     .btn-blade-secondary:hover {
       background: #151720;
       border-color: rgba(255, 255, 255, 0.45);
       transform: translateY(-1px);
       color: #ffffff;
     }
+
     body.theme-light .btn-blade-secondary {
       background: #ffffff;
       color: #020617;
@@ -2409,6 +2563,7 @@
       border-top-color: rgba(0, 0, 0, 0.25);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
+
     body.theme-light .btn-blade-secondary:hover {
       background: #f1f5f9;
       border-color: rgba(0, 0, 0, 0.3);
@@ -2429,6 +2584,7 @@
       margin-bottom: 16px;
       box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85);
     }
+
     body.theme-light .blade-landing-hero {
       background: #ffffff;
       border-color: rgba(0, 0, 0, 0.12);
@@ -2453,6 +2609,7 @@
       margin-bottom: 20px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
     body.theme-light .blade-badge {
       background: #f1f5f9;
       border-color: rgba(0, 0, 0, 0.12);
@@ -2467,6 +2624,7 @@
       background: #ffffff;
       box-shadow: 0 0 8px #ffffff;
     }
+
     body.theme-light .blade-badge-dot {
       background: #020617;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
@@ -2481,6 +2639,7 @@
       max-width: 820px;
       margin-bottom: 16px;
     }
+
     body.theme-light .blade-hero-title {
       color: #020617;
     }
@@ -2491,6 +2650,7 @@
       -webkit-text-fill-color: transparent;
       display: inline;
     }
+
     body.theme-light .blade-hero-accent {
       background: linear-gradient(135deg, #020617 30%, #334155 70%, #64748b 100%);
       -webkit-background-clip: text;
@@ -2530,6 +2690,7 @@
       width: 100%;
       max-width: 760px;
     }
+
     .blade-meta-row code {
       color: #ffffff;
       background: rgba(255, 255, 255, 0.08);
@@ -2537,11 +2698,13 @@
       border-radius: 4px;
       border: 1px solid rgba(255, 255, 255, 0.14);
     }
+
     body.theme-light .blade-meta-row code {
       color: #020617;
       background: rgba(0, 0, 0, 0.04);
       border-color: rgba(0, 0, 0, 0.1);
     }
+
     .blade-meta-sep {
       color: var(--border-sharp);
     }
@@ -2564,10 +2727,12 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
       transition: all 0.18s ease;
     }
+
     .blade-metric-card:hover {
       border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
     }
+
     body.theme-light .blade-metric-card {
       background: #ffffff;
       border-color: rgba(0, 0, 0, 0.12);
@@ -2584,6 +2749,7 @@
       line-height: 1.1;
       margin-bottom: 4px;
     }
+
     body.theme-light .blade-metric-num {
       color: #020617;
     }
@@ -2623,10 +2789,12 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
       transition: all 0.18s ease;
     }
+
     .blade-feature-card:hover {
       border-color: rgba(255, 255, 255, 0.32);
       transform: translateY(-1px);
     }
+
     body.theme-light .blade-feature-card {
       background: #ffffff;
       border-color: rgba(0, 0, 0, 0.12);
@@ -2659,6 +2827,7 @@
       border: 1px solid rgba(255, 255, 255, 0.16);
       color: #f1f5f9;
     }
+
     body.theme-light .blade-feature-tag {
       background: rgba(0, 0, 0, 0.05);
       border-color: rgba(0, 0, 0, 0.12);
@@ -2671,6 +2840,7 @@
       color: #ffffff;
       line-height: 1.3;
     }
+
     body.theme-light .blade-feature-title {
       color: #020617;
     }
@@ -2691,6 +2861,7 @@
       margin-bottom: 20px;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
     }
+
     body.theme-light .blade-cta-strip {
       background: #ffffff;
       border-color: rgba(0, 0, 0, 0.12);
@@ -2713,6 +2884,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 4px;
     }
+
     body.theme-light .blade-cta-title {
       color: #020617;
     }
@@ -2731,27 +2903,32 @@
         border-radius: 14px;
         margin-bottom: 12px;
       }
+
       .blade-badge {
         font-size: 9px;
         padding: 4px 10px;
         margin-bottom: 14px;
       }
+
       .blade-hero-title {
         font-size: 24px;
         letter-spacing: -0.03em;
         line-height: 1.15;
         margin-bottom: 12px;
       }
+
       .blade-hero-desc {
         font-size: 12.5px;
         line-height: 1.45;
         margin-bottom: 18px;
       }
+
       .blade-hero-actions {
         flex-direction: column;
         gap: 8px;
         margin-bottom: 16px;
       }
+
       .btn-blade-primary,
       .btn-blade-secondary {
         width: 100%;
@@ -2760,60 +2937,74 @@
         font-size: 13px;
         padding: 0 16px;
       }
+
       .blade-meta-row {
         font-size: 10px;
         padding-top: 12px;
         gap: 6px;
       }
+
       .blade-metrics-row {
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
         margin-bottom: 12px;
       }
+
       .blade-metric-card {
         padding: 10px 6px;
         border-radius: 10px;
       }
+
       .blade-metric-num {
         font-size: 16px;
         margin-bottom: 2px;
       }
+
       .blade-metric-unit {
         font-size: 10px;
       }
+
       .blade-metric-lbl {
         font-size: 8.5px;
       }
+
       .blade-features-grid {
         grid-template-columns: 1fr;
         gap: 8px;
         margin-bottom: 12px;
       }
+
       .blade-feature-card {
         padding: 13px 14px;
         border-radius: 10px;
         gap: 6px;
       }
+
       .blade-feature-title {
         font-size: 14px;
       }
+
       .blade-feature-desc {
         font-size: 11.5px;
         line-height: 1.4;
       }
+
       .blade-cta-strip {
         padding: 16px 14px;
         border-radius: 12px;
         margin-bottom: 16px;
       }
+
       .blade-cta-inner {
         flex-direction: column;
         align-items: stretch;
         gap: 12px;
       }
+
       .blade-cta-title {
         font-size: 15px;
       }
+
       .blade-cta-desc {
         font-size: 12px;
       }
@@ -2883,7 +3074,9 @@
 
       <!-- App Mode Only: Back to Landing button -->
       <button class="btn-back-landing" id="btn-back-landing" onclick="returnToLanding()" title="Return to Landing Page">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
         <span>Landing</span>
       </button>
 
@@ -2906,22 +3099,31 @@
       <!-- Right Actions -->
       <div class="top-actions">
         <!-- Landing Mode Only: Direct "Launch Protocol" Blade Action -->
-        <button class="btn-blade-header-launch" id="btn-landing-nav-launch" onclick="enterAppAndPromptWallet('bounties')" title="Launch Protocol & Connect Wallet">
+        <button class="btn-blade-header-launch" id="btn-landing-nav-launch"
+          onclick="enterAppAndPromptWallet('bounties')" title="Launch Protocol & Connect Wallet">
           <span>Launch Protocol</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
         </button>
 
         <!-- App Mode Only Actions: Cloud Sync, Tour, Wallet -->
         <div class="app-only-actions" id="app-only-actions">
           <!-- Live Supabase Cloud Sync Badge (Upgrade 2) -->
-          <div class="cloud-sync-badge" id="cloud-sync-badge" title="Live Supabase Cloud Sync Active (Click to sync)" onclick="syncWithCloud()">
+          <div class="cloud-sync-badge" id="cloud-sync-badge" title="Live Supabase Cloud Sync Active (Click to sync)"
+            onclick="syncWithCloud()">
             <span class="cloud-sync-dot"></span>
             <span id="cloud-sync-text">Supabase Active</span>
           </div>
 
           <!-- Quick Tour Button -->
-          <button class="tour-header-btn" onclick="startQuickTour()" id="tour-header-btn" title="Take Interactive Quick Tour">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <button class="tour-header-btn" onclick="startQuickTour()" id="tour-header-btn"
+            title="Take Interactive Quick Tour">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
             <span class="tour-btn-text">Tour</span>
           </button>
 
@@ -2930,14 +3132,23 @@
             <span class="wallet-status-dot"></span>
             <span id="wallet-account-display">alex.testnet</span>
             <span class="wallet-tier-badge" id="wallet-tier-badge">Tier 1</span>
-            <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet" style="display:inline-flex; align-items:center; justify-content:center;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet"
+              style="display:inline-flex; align-items:center; justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
             </button>
           </div>
 
           <!-- Connect Wallet Button (Bug 2) -->
           <button class="btn-connect" id="btn-wallet-connect" onclick="openWalletModal()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              style="margin-right:5px;">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
             Connect Wallet
           </button>
         </div>
@@ -2946,7 +3157,15 @@
         <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Switch Theme">
           <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
       </div>
@@ -2956,8 +3175,10 @@
   <!-- Mobile Subnav Strip (Visible ONLY in App Mode) -->
   <div class="mobile-subnav" id="app-mobile-subnav">
     <button class="m-nav-pill" id="m-nav-back-landing" onclick="returnToLanding()">&larr; Landing</button>
-    <button class="m-nav-pill active" id="m-nav-bounties" onclick="switchViewMobile('bounties', this)">Bounties (8)</button>
-    <button class="m-nav-pill" id="m-nav-leaderboard" onclick="switchViewMobile('leaderboard', this)">Trust Registry</button>
+    <button class="m-nav-pill active" id="m-nav-bounties" onclick="switchViewMobile('bounties', this)">Bounties
+      (8)</button>
+    <button class="m-nav-pill" id="m-nav-leaderboard" onclick="switchViewMobile('leaderboard', this)">Trust
+      Registry</button>
     <button class="m-nav-pill" id="m-nav-proofs" onclick="switchViewMobile('proofs', this)">Proofs</button>
     <button class="m-nav-pill" id="m-nav-policy" onclick="switchViewMobile('policy', this)">Sputnik Policy</button>
   </div>
@@ -2981,16 +3202,23 @@
         </h1>
 
         <p class="blade-hero-desc">
-          Pactt replaces high-friction multi-sig voting on NEAR with algorithmic trust routing. Micro-bounties settle autonomously in 4.2 seconds; major milestones route to Sputnik DAO with Soulbound SocialDB credentials.
+          Pactt replaces high-friction multi-sig voting on NEAR with algorithmic trust routing. Micro-bounties settle
+          autonomously in 4.2 seconds; major milestones route to Sputnik DAO with Soulbound SocialDB credentials.
         </p>
 
         <div class="blade-hero-actions">
           <button class="btn-blade-primary" onclick="enterAppAndPromptWallet('bounties')">
             <span>Launch Protocol</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
           </button>
           <button class="btn-blade-secondary" onclick="startQuickTour()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
             <span>Take Quick Tour</span>
           </button>
         </div>
@@ -3029,7 +3257,8 @@
           </div>
           <h3 class="blade-feature-title">Autonomous Escrow Release</h3>
           <p class="blade-feature-desc">
-            Bounties under 5 NEAR disburse automatically in 4.2 seconds for Tier 1 trusted contributors with 0 council signatures required.
+            Bounties under 5 NEAR disburse automatically in 4.2 seconds for Tier 1 trusted contributors with 0 council
+            signatures required.
           </p>
         </div>
 
@@ -3040,7 +3269,8 @@
           </div>
           <h3 class="blade-feature-title">Sputnik DAO Multi-Sig Governance</h3>
           <p class="blade-feature-desc">
-            Major milestones (&gt; 25 NEAR) route automatically to Sputnik DAO multi-sig quorums with on-chain 2-of-3 council consensus.
+            Major milestones (&gt; 25 NEAR) route automatically to Sputnik DAO multi-sig quorums with on-chain 2-of-3
+            council consensus.
           </p>
         </div>
 
@@ -3051,7 +3281,8 @@
           </div>
           <h3 class="blade-feature-title">Soulbound SocialDB Credentials</h3>
           <p class="blade-feature-desc">
-            Every approved delivery mints verifiable NEP-177 badges and deterministic trust points directly to NEAR SocialDB.
+            Every approved delivery mints verifiable NEP-177 badges and deterministic trust points directly to NEAR
+            SocialDB.
           </p>
         </div>
       </section>
@@ -3061,11 +3292,15 @@
         <div class="blade-cta-inner">
           <div>
             <h3 class="blade-cta-title">Ready to coordinate on NEAR?</h3>
-            <p class="blade-cta-desc">Launch the protocol to explore active bounties, connect your testnet wallet, or inspect live proofs.</p>
+            <p class="blade-cta-desc">Launch the protocol to explore active bounties, connect your testnet wallet, or
+              inspect live proofs.</p>
           </div>
           <button class="btn-blade-primary" onclick="enterAppAndPromptWallet('bounties')">
             <span>Launch Protocol</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
           </button>
         </div>
       </section>
@@ -3109,9 +3344,12 @@
             <div class="v-seg seg-dao" id="v-seg-dao" style="width: 10%;"></div>
           </div>
           <div class="velocity-legend">
-            <div class="v-item"><span class="v-box" style="background: #10b981;"></span> Auto: <span id="pct-auto">33%</span></div>
-            <div class="v-item"><span class="v-box" style="background: #f59e0b;"></span> 1-Council: <span id="pct-council">56%</span></div>
-            <div class="v-item"><span class="v-box" style="background: #94a3b8;"></span> Multi-Sig: <span id="pct-multisig">11%</span></div>
+            <div class="v-item"><span class="v-box" style="background: #10b981;"></span> Auto: <span
+                id="pct-auto">33%</span></div>
+            <div class="v-item"><span class="v-box" style="background: #f59e0b;"></span> 1-Council: <span
+                id="pct-council">56%</span></div>
+            <div class="v-item"><span class="v-box" style="background: #94a3b8;"></span> Multi-Sig: <span
+                id="pct-multisig">11%</span></div>
           </div>
           <div class="bento-stat-caption" id="bento-escrow-caption">
             Average payout latency: <strong>4.2 seconds</strong> (vs. 8.4 days on standard Sputnik DAO).
@@ -3122,8 +3360,7 @@
         <div class="bento-card">
           <div class="bento-stat-label">NEAR Social Reputation</div>
           <div class="bento-stat-num">18<span>Badges</span></div>
-          <div
-            id="cloud-status-bento"
+          <div id="cloud-status-bento"
             style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-primary); font-weight:700; margin-bottom: 6px; display:flex; align-items:center; gap:6px;">
             <span class="cloud-sync-dot"></span>
             <span id="bento-cloud-sync-text">Supabase Cloud Sync · Active</span>
@@ -3153,7 +3390,8 @@
             oninput="onSearchInput()" />
         </div>
 
-        <div class="controls-row" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+        <div class="controls-row"
+          style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
           <div class="filter-group">
             <span class="filter-label">Discipline:</span>
             <button class="glass-pill active" onclick="filterCategory('ALL', this)">All</button>
@@ -3163,8 +3401,12 @@
             <button class="glass-pill" onclick="filterCategory('RESEARCH', this)">Research</button>
             <button class="glass-pill" onclick="filterCategory('DEV', this)">Engineering</button>
           </div>
-          <button class="btn-post-bounty" id="btn-post-bounty-trigger" onclick="openCreateBountyModal()" title="Deposit Escrow & Post New Task">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <button class="btn-post-bounty" id="btn-post-bounty-trigger" onclick="openCreateBountyModal()"
+            title="Deposit Escrow & Post New Task">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
             Post Bounty
           </button>
         </div>
@@ -3340,7 +3582,10 @@
       <div class="wallet-modal-header">
         <div class="wallet-modal-title">Connect NEAR Wallet</div>
         <button class="drawer-close" onclick="hideWalletModal()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
       <div class="wallet-modal-subtitle">
@@ -3350,7 +3595,11 @@
         <!-- MyNearWallet -->
         <div class="wallet-option-item" onclick="connectWallet('mynearwallet')">
           <div class="wallet-option-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
           </div>
           <div class="wallet-option-details">
             <div class="wallet-option-name">MyNearWallet</div>
@@ -3362,7 +3611,10 @@
         <!-- Meteor Wallet -->
         <div class="wallet-option-item" onclick="connectWallet('meteor')">
           <div class="wallet-option-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+            </svg>
           </div>
           <div class="wallet-option-details">
             <div class="wallet-option-name">Meteor Wallet</div>
@@ -3374,7 +3626,11 @@
         <!-- Here Wallet -->
         <div class="wallet-option-item" onclick="connectWallet('here')">
           <div class="wallet-option-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+              </path>
+            </svg>
           </div>
           <div class="wallet-option-details">
             <div class="wallet-option-name">Here Wallet</div>
@@ -3383,10 +3639,14 @@
         </div>
 
         <!-- Custom Testnet Account / Manual Named Account -->
-        <div class="wallet-option-item" style="cursor: default; flex-direction: column; align-items: stretch; gap: 8px;">
+        <div class="wallet-option-item"
+          style="cursor: default; flex-direction: column; align-items: stretch; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 12px;">
             <div class="wallet-option-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 17 10 11 4 5"></polyline>
+                <line x1="12" y1="19" x2="20" y2="19"></line>
+              </svg>
             </div>
             <div class="wallet-option-details">
               <div class="wallet-option-name">Custom Testnet Account</div>
@@ -3394,11 +3654,16 @@
             </div>
           </div>
           <div style="display: flex; gap: 8px; margin-top: 4px;">
-            <input type="text" id="custom-account-input" placeholder="e.g. yourname.testnet" class="form-input" style="font-size: 12px; padding: 6px 10px; height: 32px;" onkeydown="if(event.key==='Enter') connectCustomAccount()" />
-            <button class="btn-action primary" style="padding: 4px 14px; font-size: 12px; height: 32px; white-space: nowrap;" onclick="connectCustomAccount()">Connect</button>
+            <input type="text" id="custom-account-input" placeholder="e.g. yourname.testnet" class="form-input"
+              style="font-size: 12px; padding: 6px 10px; height: 32px;"
+              onkeydown="if(event.key==='Enter') connectCustomAccount()" />
+            <button class="btn-action primary"
+              style="padding: 4px 14px; font-size: 12px; height: 32px; white-space: nowrap;"
+              onclick="connectCustomAccount()">Connect</button>
           </div>
           <div style="border-top: 1px dashed var(--border); padding-top: 8px; margin-top: 2px;">
-            <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px;">
+            <div
+              style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px;">
               DEMO &amp; TESTING PRESETS:
             </div>
             <div class="preset-pills-row">
@@ -3418,7 +3683,8 @@
 
       <div class="wallet-modal-footer">
         <span>Network: <strong>NEAR Testnet</strong></span>
-        <a href="https://testnet.mynearwallet.com/create" target="_blank" style="color: var(--accent); text-decoration: underline; font-weight: 600;">Create free Testnet wallet ↗</a>
+        <a href="https://testnet.mynearwallet.com/create" target="_blank"
+          style="color: var(--accent); text-decoration: underline; font-weight: 600;">Create free Testnet wallet ↗</a>
       </div>
     </div>
   </div>
@@ -3434,14 +3700,19 @@
           </div>
         </div>
         <button class="drawer-close" onclick="hideCreateBountyModal()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
 
-      <form id="create-bounty-form" onsubmit="handleCreateBountySubmit(event)" style="display:flex; flex-direction:column; gap:12px;">
+      <form id="create-bounty-form" onsubmit="handleCreateBountySubmit(event)"
+        style="display:flex; flex-direction:column; gap:12px;">
         <div class="form-group">
           <label class="form-label" for="new-bounty-title">Task Title</label>
-          <input type="text" id="new-bounty-title" required class="form-input" placeholder="e.g. Build React Preview Card Kit for SocialDB" />
+          <input type="text" id="new-bounty-title" required class="form-input"
+            placeholder="e.g. Build React Preview Card Kit for SocialDB" />
         </div>
 
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
@@ -3459,23 +3730,28 @@
 
           <div class="form-group">
             <label class="form-label" for="new-bounty-amount">Escrow Reward (NEAR)</label>
-            <input type="number" id="new-bounty-amount" step="0.1" min="0.5" max="500" value="5.0" required class="form-input" oninput="updateCreateBountyTierPreview()" />
+            <input type="number" id="new-bounty-amount" step="0.1" min="0.5" max="500" value="5.0" required
+              class="form-input" oninput="updateCreateBountyTierPreview()" />
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="new-bounty-sponsor">Sponsor Treasury (Sputnik DAO / Trezu)</label>
-          <input type="text" id="new-bounty-sponsor" value="creatives.sputnik-dao.testnet" required class="form-input font-mono" />
+          <input type="text" id="new-bounty-sponsor" value="creatives.sputnik-dao.testnet" required
+            class="form-input font-mono" />
         </div>
 
         <div class="form-group">
           <label class="form-label" for="new-bounty-deliverable">Deliverable Requirement</label>
-          <input type="text" id="new-bounty-deliverable" value="GitHub Pull Request URL" required class="form-input" placeholder="e.g. GitHub Pull Request URL or Figma Link" />
+          <input type="text" id="new-bounty-deliverable" value="GitHub Pull Request URL" required class="form-input"
+            placeholder="e.g. GitHub Pull Request URL or Figma Link" />
         </div>
 
         <div class="form-group">
           <label class="form-label" for="new-bounty-desc">Task Specification</label>
-          <textarea id="new-bounty-desc" required class="form-input" rows="3" style="resize:vertical; font-family:var(--font-sans);" placeholder="Describe the expected deliverable, acceptance criteria, and technical constraints..."></textarea>
+          <textarea id="new-bounty-desc" required class="form-input" rows="3"
+            style="resize:vertical; font-family:var(--font-sans);"
+            placeholder="Describe the expected deliverable, acceptance criteria, and technical constraints..."></textarea>
         </div>
 
         <!-- Dynamic Governance Tier Helper -->
@@ -3485,12 +3761,14 @@
             <span class="route-badge tier1" id="new-bounty-tier-pill">Tier 1: Auto-Payout</span>
           </div>
           <p class="preview-explanation" id="new-bounty-tier-explain">
-            Tasks &le; 5.0 NEAR qualify for instant autonomous payout to trusted contributors upon verified deliverable proof.
+            Tasks &le; 5.0 NEAR qualify for instant autonomous payout to trusted contributors upon verified deliverable
+            proof.
           </p>
         </div>
 
         <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
-          <button type="button" class="btn-action" onclick="hideCreateBountyModal()" style="padding: 8px 14px; font-size: 12px;">Cancel</button>
+          <button type="button" class="btn-action" onclick="hideCreateBountyModal()"
+            style="padding: 8px 14px; font-size: 12px;">Cancel</button>
           <button type="submit" class="btn-action primary" style="padding: 8px 18px; font-size: 12px; font-weight:700;">
             Lock Escrow &amp; Publish Bounty
           </button>
@@ -3505,64 +3783,104 @@
       <div class="wallet-modal-header">
         <div>
           <div class="wallet-modal-title" style="display:flex; align-items:center; gap:8px;">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
             <span>SocialDB Attestation Inspector</span>
           </div>
           <div class="wallet-modal-subtitle" style="margin-top: 3px;">
-            Decentralized Reputation Credential on NEAR Social (<span style="font-family:var(--font-mono);">v1.social08.testnet</span>)
+            Decentralized Reputation Credential on NEAR Social (<span
+              style="font-family:var(--font-mono);">v1.social08.testnet</span>)
           </div>
         </div>
         <button class="drawer-close" onclick="hideSocialDbBadgeModal()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
 
       <!-- Badge Visual Emblem Card -->
-      <div id="badge-emblem-container" style="background: var(--surface-secondary); border: 1px solid var(--border-sharp); border-radius: 10px; padding: 18px; text-align: center; position: relative; overflow: hidden; margin-top: 4px;">
+      <div id="badge-emblem-container"
+        style="background: var(--surface-secondary); border: 1px solid var(--border-sharp); border-radius: 10px; padding: 18px; text-align: center; position: relative; overflow: hidden; margin-top: 4px;">
         <!-- Injected via JavaScript -->
       </div>
 
       <!-- Attestation Metadata Grid -->
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px 10px; margin-top:4px;">
-        <div style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
-          <div style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">NEAR Account</div>
-          <div id="badge-modal-account" style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--text-primary); margin-top:2px;">-</div>
+        <div
+          style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
+          <div
+            style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">
+            NEAR Account</div>
+          <div id="badge-modal-account"
+            style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--text-primary); margin-top:2px;">
+            -</div>
         </div>
-        <div style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
-          <div style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">Earned Trust Score</div>
-          <div id="badge-modal-score" style="font-family:var(--font-mono); font-size:12px; font-weight:800; color:var(--text-primary); margin-top:2px;">-</div>
+        <div
+          style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
+          <div
+            style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">
+            Earned Trust Score</div>
+          <div id="badge-modal-score"
+            style="font-family:var(--font-mono); font-size:12px; font-weight:800; color:var(--text-primary); margin-top:2px;">
+            -</div>
         </div>
-        <div style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
-          <div style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">Protocol Authority</div>
-          <div style="font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--text-secondary); margin-top:2px;">pact-dao-933742.testnet</div>
+        <div
+          style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
+          <div
+            style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">
+            Protocol Authority</div>
+          <div
+            style="font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--text-secondary); margin-top:2px;">
+            pact-dao-933742.testnet</div>
         </div>
-        <div style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
-          <div style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">Registry Standard</div>
-          <div style="font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--text-secondary); margin-top:2px;">SocialDB v1 (NEP-177)</div>
+        <div
+          style="background:var(--surface); border:1px solid var(--border-faint); border-radius:6px; padding:8px 10px;">
+          <div
+            style="font-size:9.5px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">
+            Registry Standard</div>
+          <div
+            style="font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--text-secondary); margin-top:2px;">
+            SocialDB v1 (NEP-177)</div>
         </div>
       </div>
 
       <!-- On-chain JSON payload container -->
       <div style="margin-top:4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-          <span style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-tertiary);">
+          <span
+            style="font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-tertiary);">
             NEAR Social Contract Payload (<span style="font-family:var(--font-mono);">social.set</span>)
           </span>
-          <button id="btn-copy-social-json" class="btn-action" onclick="copySocialDbJson()" style="padding:3px 8px; font-size:11px;">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <button id="btn-copy-social-json" class="btn-action" onclick="copySocialDbJson()"
+            style="padding:3px 8px; font-size:11px;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              style="vertical-align:-1px; margin-right:3px;">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
             Copy JSON
           </button>
         </div>
-        <pre id="badge-modal-json" class="json-code" style="max-height:130px; overflow-y:auto; margin:0; font-size:11px; line-height:1.4; border-radius:6px;"></pre>
+        <pre id="badge-modal-json" class="json-code"
+          style="max-height:130px; overflow-y:auto; margin:0; font-size:11px; line-height:1.4; border-radius:6px;"></pre>
       </div>
 
       <!-- Action Footer -->
       <div class="wallet-modal-footer" style="padding-top:10px; margin-top:4px;">
-        <a id="badge-modal-ext-link" href="#" target="_blank" class="sputnik-ext-link" style="display:inline-flex; align-items:center; gap:4px;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <a id="badge-modal-ext-link" href="#" target="_blank" class="sputnik-ext-link"
+          style="display:inline-flex; align-items:center; gap:4px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
           Open Profile on NEAR Social ↗
         </a>
-        <button type="button" class="btn-action" onclick="hideSocialDbBadgeModal()" style="padding:6px 14px; font-size:12px;">Close</button>
+        <button type="button" class="btn-action" onclick="hideSocialDbBadgeModal()"
+          style="padding:6px 14px; font-size:12px;">Close</button>
       </div>
     </div>
   </div>
@@ -3577,7 +3895,10 @@
           <h2 id="drawer-title" class="bounty-title-text" style="font-size: 17px;">Task Title</h2>
         </div>
         <button class="drawer-close" onclick="hideDrawer()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
 
@@ -3617,23 +3938,36 @@
   </div>
 
   <!-- High-Contrast Crypton Footer -->
-  <footer style="margin-top: auto; border-top: 1px solid var(--border); background: var(--surface-secondary); padding: 32px 20px; transition: background 0.25s ease;">
-    <div style="max-width: 1380px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+  <footer
+    style="margin-top: auto; border-top: 1px solid var(--border); background: var(--surface-secondary); padding: 32px 20px; transition: background 0.25s ease;">
+    <div
+      style="max-width: 1380px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
       <div style="display: flex; align-items: center; gap: 10px;">
         <div class="brand-logo-frame" style="width: 24px; height: 24px;">
           <svg width="14" height="14" viewBox="0 0 48 48" fill="none">
-            <path class="logo-glyph-main" d="M12 11C12 9.89543 12.8954 9 14 9H25C30.5228 9 35 13.4772 35 19C35 24.5228 30.5228 29 25 29H18V37C18 38.1046 17.1046 39 16 39H14C12.8954 39 12 38.1046 12 37V11Z" fill="var(--logo-glyph-main)" />
-            <path class="logo-glyph-counter" d="M18 15H25C27.2091 15 29 16.7909 29 19C29 21.2091 27.2091 23 25 23H18V15Z" fill="var(--logo-glyph-counter)" />
+            <path class="logo-glyph-main"
+              d="M12 11C12 9.89543 12.8954 9 14 9H25C30.5228 9 35 13.4772 35 19C35 24.5228 30.5228 29 25 29H18V37C18 38.1046 17.1046 39 16 39H14C12.8954 39 12 38.1046 12 37V11Z"
+              fill="var(--logo-glyph-main)" />
+            <path class="logo-glyph-counter"
+              d="M18 15H25C27.2091 15 29 16.7909 29 19C29 21.2091 27.2091 23 25 23H18V15Z"
+              fill="var(--logo-glyph-counter)" />
           </svg>
         </div>
         <span style="font-weight: 800; font-size: 14px; color: var(--text-primary);">Pactt Protocol</span>
-        <span style="font-size: 12px; color: var(--text-tertiary); font-family: var(--font-mono);">· NEAR Hackathon 2026 · Track 12: Social</span>
+        <span style="font-size: 12px; color: var(--text-tertiary); font-family: var(--font-mono);">· NEAR Hackathon 2026
+          · Track 12: Social</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 18px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); flex-wrap: wrap;">
-        <a href="https://testnet.nearblocks.io/address/pact-dao-064783.testnet" target="_blank" style="color:var(--text-secondary); text-decoration:none;">Smart Contract ↗</a>
-        <a href="https://testnet.nearblocks.io/address/pactt.sputnik-dao.testnet" target="_blank" style="color:var(--text-secondary); text-decoration:none;">Sputnik DAO ↗</a>
-        <a href="https://github.com/youngcrypton/Pactt" target="_blank" style="color:var(--text-secondary); text-decoration:none;">GitHub ↗</a>
-        <button onclick="startQuickTour()" style="background:transparent; border:none; color:#34d399; font-family:var(--font-mono); font-size:12px; font-weight:700; cursor:pointer;">Quick Tour</button>
+      <div
+        style="display: flex; align-items: center; gap: 18px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); flex-wrap: wrap;">
+        <a href="https://testnet.nearblocks.io/address/pact-dao-064783.testnet" target="_blank"
+          style="color:var(--text-secondary); text-decoration:none;">Smart Contract ↗</a>
+        <a href="https://testnet.nearblocks.io/address/pactt.sputnik-dao.testnet" target="_blank"
+          style="color:var(--text-secondary); text-decoration:none;">Sputnik DAO ↗</a>
+        <a href="https://github.com/youngcrypton/Pactt" target="_blank"
+          style="color:var(--text-secondary); text-decoration:none;">GitHub ↗</a>
+        <button onclick="startQuickTour()"
+          style="background:transparent; border:none; color:#34d399; font-family:var(--font-mono); font-size:12px; font-weight:700; cursor:pointer;">Quick
+          Tour</button>
       </div>
     </div>
   </footer>
@@ -3901,7 +4235,7 @@
             const json = await res.json();
             bountiesData = json.bounties || (Array.isArray(json) ? json : null);
           }
-        } catch {}
+        } catch { }
 
         if (!bountiesData || !Array.isArray(bountiesData)) {
           const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?select=*&order=id.asc`, {
@@ -3954,7 +4288,7 @@
         try {
           const res = await fetch('/api/contributors');
           if (res.ok) contribData = await res.json();
-        } catch {}
+        } catch { }
 
         if (!contribData || !Array.isArray(contribData)) {
           const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/contributors?select=*&order=trust_points.desc`, {
@@ -4393,8 +4727,8 @@
       document.getElementById('drawer-amount').innerText = b.amount.toFixed(2) + ' NEAR';
 
       const isDisbursed = b.status === 'APPROVED';
-      const escrowLabel = isDisbursed 
-        ? '<span style="color:#16a34a;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-1px; margin-right:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Disbursed to Claimant</span>' 
+      const escrowLabel = isDisbursed
+        ? '<span style="color:#16a34a;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-1px; margin-right:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Disbursed to Claimant</span>'
         : '<span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Locked (Vault: pact-dao-933742.testnet)</span>';
       document.getElementById('drawer-escrow').innerHTML = escrowLabel;
 
@@ -4479,11 +4813,11 @@
               <div class="velocity-meter-segment ${currentDailyCount >= 2 ? 'active-warning' : ''}"></div>
             </div>
             <div class="velocity-cap-desc">
-              ${currentDailyCount === 0 
-                ? '2 instant auto-settlements remaining in rolling 24h window before mandatory council sign-off.' 
-                : (currentDailyCount === 1 
-                    ? '1 instant auto-settlement remaining today. Preserves DAO treasury velocity.' 
-                    : 'Daily instant quota reached (2/2). Next submission automatically routes to Tier 2 Single-Council Review.')}
+              ${currentDailyCount === 0
+            ? '2 instant auto-settlements remaining in rolling 24h window before mandatory council sign-off.'
+            : (currentDailyCount === 1
+              ? '1 instant auto-settlement remaining today. Preserves DAO treasury velocity.'
+              : 'Daily instant quota reached (2/2). Next submission automatically routes to Tier 2 Single-Council Review.')}
             </div>
           </div>
 
@@ -4551,9 +4885,9 @@
                 </div>
                 <div class="council-vote-row ${councilVotes.includes('council.testnet') ? 'approved' : 'pending'}">
                   <span class="council-member-id">
-                    ${councilVotes.includes('council.testnet') 
-                      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>' 
-                      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'}
+                    ${councilVotes.includes('council.testnet')
+              ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+              : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'}
                     council.testnet
                   </span>
                   <span class="council-status-text ${councilVotes.includes('council.testnet') ? 'approved' : 'pending'}">
@@ -4783,7 +5117,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ account_id: state.activePersona })
-      }).catch(() => {});
+      }).catch(() => { });
 
       // Direct Supabase Multi-User Sync (Upgrade 2)
       fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
@@ -4798,7 +5132,7 @@
           status: 'CLAIMED',
           updated_at: new Date().toISOString()
         })
-      }).catch(() => {});
+      }).catch(() => { });
 
       renderBounties();
       openDrawer(b.id);
@@ -4929,7 +5263,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contributor_id: state.activePersona, proof_url: prUrl })
-      }).catch(() => {});
+      }).catch(() => { });
 
       // Direct Supabase Multi-User Sync (Upgrade 2)
       fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
@@ -4946,7 +5280,7 @@
           approved_at: b.status === 'APPROVED' ? new Date().toISOString() : null,
           updated_at: new Date().toISOString()
         })
-      }).catch(() => {});
+      }).catch(() => { });
     }
 
     function challengeCurrentBounty() {
@@ -4977,7 +5311,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ council_account_id: state.activePersona, reason: reason, slash_points: 50 })
-      }).catch(() => {});
+      }).catch(() => { });
 
       openDrawer(b.id);
     }
@@ -5007,7 +5341,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ council_account_id: state.activePersona })
-      }).catch(() => {});
+      }).catch(() => { });
 
       // Direct Supabase Multi-User Sync (Upgrade 2)
       fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
@@ -5023,7 +5357,7 @@
           approved_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         })
-      }).catch(() => {});
+      }).catch(() => { });
 
       if (b.claimedBy && state.personas[b.claimedBy]) {
         fetch(`${SUPABASE_CONFIG.url}/rest/v1/contributors?account_id=eq.${b.claimedBy}`, {
@@ -5038,7 +5372,7 @@
             completed_bounties_count: state.personas[b.claimedBy].completed,
             updated_at: new Date().toISOString()
           })
-        }).catch(() => {});
+        }).catch(() => { });
       }
 
       openDrawer(b.id);
@@ -5084,7 +5418,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ council_account_id: state.activePersona })
-      }).catch(() => {});
+      }).catch(() => { });
 
       // Direct Supabase Multi-User Sync (Upgrade 2)
       fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
@@ -5100,7 +5434,7 @@
           approved_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         })
-      }).catch(() => {});
+      }).catch(() => { });
 
       if (b.claimedBy && state.personas[b.claimedBy]) {
         fetch(`${SUPABASE_CONFIG.url}/rest/v1/contributors?account_id=eq.${b.claimedBy}`, {
@@ -5115,7 +5449,7 @@
             completed_bounties_count: state.personas[b.claimedBy].completed,
             updated_at: new Date().toISOString()
           })
-        }).catch(() => {});
+        }).catch(() => { });
       }
     }
 
@@ -5211,7 +5545,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cloudPayload)
-      }).catch(() => {});
+      }).catch(() => { });
 
       fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties`, {
         method: 'POST',
@@ -5680,7 +6014,7 @@
       if (spotlight) spotlight.style.display = 'none';
       try {
         localStorage.setItem('pactt_tour_completed', 'true');
-      } catch (e) {}
+      } catch (e) { }
     }
 
     window.addEventListener('resize', () => {
@@ -5723,12 +6057,15 @@
     updateWalletUi();
     recalculateSim();
 
-    // Check if URL specifies a view (e.g. #bounties or ?view=bounties), otherwise ALWAYS default to Landing Page
-    const urlParams = new URLSearchParams(window.location.search);
-    const hashView = window.location.hash ? window.location.hash.replace('#', '') : null;
-    const requestedView = urlParams.get('view') || hashView;
-    const initialView = (requestedView && document.getElementById('view-' + requestedView)) ? requestedView : 'landing';
-
+    // Default to Landing Mode on clean start
+    const initialView = state.activeView || 'landing';
+    if (initialView === 'landing') {
+      document.body.classList.add('landing-mode');
+      document.body.classList.remove('app-mode');
+    } else {
+      document.body.classList.add('app-mode');
+      document.body.classList.remove('landing-mode');
+    }
     switchView(initialView, null);
 
     // Live Supabase Multi-User Cloud Sync (Upgrade 2)
@@ -5745,17 +6082,23 @@
       <div class="tour-card-header">
         <span class="tour-step-badge" id="tour-step-badge">Step 1 of 5</span>
         <button class="tour-close-btn" onclick="endQuickTour()" title="Close Tour">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
       <div class="tour-title" id="tour-title">1. Real-Time Escrow Telemetry</div>
       <div class="tour-desc" id="tour-desc">
-        Monitor active NEAR capital held in smart contract escrow (<code>pact-dao-064783.testnet</code>). Shows real-time velocity breakdown across Auto-release (Tier 1), Single-Council (Tier 2), and Sputnik Multi-Sig (Tier 3).
+        Monitor active NEAR capital held in smart contract escrow (<code>pact-dao-064783.testnet</code>). Shows
+        real-time velocity breakdown across Auto-release (Tier 1), Single-Council (Tier 2), and Sputnik Multi-Sig (Tier
+        3).
       </div>
       <div class="tour-card-footer">
         <div class="tour-dots" id="tour-dots"></div>
         <div class="tour-btn-group">
-          <button class="tour-btn tour-btn-prev" id="tour-prev-btn" onclick="tourPrevStep()" disabled>&larr; Back</button>
+          <button class="tour-btn tour-btn-prev" id="tour-prev-btn" onclick="tourPrevStep()" disabled>&larr;
+            Back</button>
           <button class="tour-btn tour-btn-next" id="tour-next-btn" onclick="tourNextStep()">Next &rarr;</button>
         </div>
       </div>

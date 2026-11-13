@@ -98,9 +98,9 @@ $$\text{Trust Points Earned} = 10 + (5 \times \text{Reward in NEAR})$$
 
 ---
 
-## Quickstart & Verification ("Do X — See Y")
+## Getting Started & Verification
 
-Run the full protocol test suite and simulation locally requiring only Node.js (v18+):
+The protocol test suite and simulation can be executed locally requiring only Node.js (v18+):
 
 ### 1. Installation
 ```bash
@@ -113,7 +113,7 @@ npm install
 ```bash
 npm test
 ```
-**See:** All **33 unit and integration tests** pass across 4 suites in ~2.2 seconds:
+All **33 unit and integration tests** pass across 4 comprehensive suites in ~2.2 seconds:
 * **Pact API Integration (13 tests):** Validates REST endpoints, escrow custody, and storage persistence.
 * **Resilient Storage Architecture (3 tests):** Validates Supabase PostgreSQL sync and offline disk hydration across restarts.
 * **Tiered Approvals & Trust Engine (13 tests):** Validates Tier 1 auto-settlement, Tier 2 council sign-off, Tier 3 Sputnik escalation, BigInt precision, PR deduplication, velocity caps, and council dispute slashing.
@@ -123,7 +123,7 @@ npm test
 ```bash
 npm run demo
 ```
-**See:** Simulates the complete lifecycle across all three tiers, outputting the updated leaderboard and the NEAR Social badge payload.
+Executes the complete lifecycle simulation across all three tiers, outputting the updated leaderboard and the NEAR Social badge payload.
 
 ### 4. Build for Production & Local Preview
 ```bash
@@ -133,7 +133,7 @@ npm run build
 # Start local preview server (Port 3000)
 node dist/preview/server.mjs
 ```
-**See:** Serves the responsive protocol interface on `http://localhost:3000`.
+Serves the responsive protocol interface on `http://localhost:3000`.
 
 ---
 
@@ -171,7 +171,7 @@ Pactt/
 |   |-- seed-bounties.ts             # Initial mock data generator
 |   |-- supabase-schema.sql          # Supabase PostgreSQL schema and seed data
 |   |-- sync-supabase.mjs            # Cloud PostgreSQL synchronization script
-|   `-- validate-submission.ts       # Hackathon payload validator
+|   `-- validate-submission.ts       # Submission payload validator
 |-- src/
 |   |-- bounty-contract.ts           # Protocol state machine and lifecycle methods
 |   |-- config.ts                    # Network endpoints and contract addresses
