@@ -536,15 +536,22 @@
       gap: 6px;
       padding: 0 10px;
       height: 34px;
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 11px;
       font-family: var(--font-mono);
-      color: #94a3b8;
+      color: var(--text-tertiary);
       cursor: pointer;
       user-select: none;
       transition: all 0.15s ease;
+    }
+
+    body.theme-light .cloud-sync-badge {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.14) !important;
+      color: #334155 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
     }
 
     .cloud-sync-badge:hover {
@@ -599,8 +606,8 @@
     .wallet-modal-card {
       width: 100%;
       max-width: 440px;
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 24px;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), 0 0 30px rgba(16, 185, 129, 0.08);
@@ -609,6 +616,13 @@
       gap: 16px;
       transform: scale(0.96);
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.theme-light .wallet-modal-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.14) !important;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15) !important;
+      color: #020617 !important;
     }
 
     .wallet-modal-overlay.active .wallet-modal-card {
@@ -658,6 +672,16 @@
       background: rgba(16, 185, 129, 0.06);
       box-shadow: 0 0 16px rgba(16, 185, 129, 0.12);
       transform: translateY(-1px);
+    }
+
+    body.theme-light .wallet-option-item {
+      background: #f8fafc !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.theme-light .wallet-option-item:hover {
+      background: #f1f5f9 !important;
+      border-color: #059669 !important;
     }
 
     .wallet-option-icon {
@@ -791,8 +815,8 @@
 
     /* Sputnik DAO Multi-Sig Quorum Card */
     .sputnik-proposal-card {
-      background: #080a0f;
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
       margin-top: 10px;
@@ -800,6 +824,12 @@
       flex-direction: column;
       gap: 14px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    body.theme-light .sputnik-proposal-card {
+      background: #f8fafc !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
     }
 
     .sputnik-card-header {
@@ -989,6 +1019,31 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
+    }
+
+    body.theme-light .sputnik-badge-pill {
+      background: #e2e8f0 !important;
+      color: #020617 !important;
+      border-color: rgba(0, 0, 0, 0.14) !important;
+    }
+
+    body.theme-light .sputnik-treasury-tag {
+      color: #334155 !important;
+    }
+
+    body.theme-light .council-vote-row {
+      background: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.theme-light .deliverable-attachment-box {
+      background: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.theme-light .sputnik-tier-preview-box {
+      background: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
     }
 
     .preview-badge-row {
@@ -1513,8 +1568,8 @@
     }
 
     .glass-pill {
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       color: var(--text-secondary);
       font-size: 12px;
       font-weight: 600;
@@ -1530,8 +1585,15 @@
     }
 
     .glass-pill:hover {
-      border-color: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.3);
       color: #ffffff;
+    }
+
+    body.theme-light .glass-pill {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
     }
 
     .glass-pill.active {
@@ -1543,14 +1605,14 @@
     }
 
     body.theme-light .glass-pill.active {
-      background: #020617;
-      border-color: #020617;
-      color: #ffffff;
+      background: #020617 !important;
+      border-color: #020617 !important;
+      color: #ffffff !important;
     }
 
     .search-glass {
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       color: var(--text-primary);
       padding: 7px 12px;
       font-size: 12.5px;
@@ -1566,13 +1628,28 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
     }
 
+    body.theme-light .search-glass {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.14) !important;
+      color: #020617 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+
     /* Desktop Sleek Governance Table Container */
     .bounty-card-container {
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0d0e12;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: var(--card-shadow);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+    }
+
+    body.theme-light .bounty-card-container {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      border-top: 1px solid rgba(0, 0, 0, 0.2) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06) !important;
     }
 
     .bounty-table {
@@ -1582,28 +1659,35 @@
     }
 
     .bounty-table th {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.05);
       font-size: 11.5px;
       font-family: var(--font-mono);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--text-tertiary);
-      padding: 13px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-      font-weight: 700;
+      color: #ffffff !important;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      font-weight: 800;
     }
 
     body.theme-light .bounty-table th {
-      background: rgba(0, 0, 0, 0.02);
-      color: var(--text-tertiary);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+      background: #f1f5f9 !important;
+      color: #020617 !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+      font-weight: 800 !important;
     }
 
     .bounty-table td {
-      padding: 15px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       vertical-align: middle;
-      font-size: 13px;
+      font-size: 13.5px;
+      color: #ffffff !important;
+    }
+
+    body.theme-light .bounty-table td {
+      color: #020617 !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
     }
 
     .bounty-table tr:last-child td {
@@ -1615,11 +1699,19 @@
     }
 
     .bounty-table tr:hover td {
-      background: #131622;
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .bounty-table tr:hover td:first-child {
-      box-shadow: inset 3px 0 0 #10b981;
+      box-shadow: inset 3px 0 0 #ffffff;
+    }
+
+    body.theme-light .bounty-table tr:hover td {
+      background: #f8fafc !important;
+    }
+
+    body.theme-light .bounty-table tr:hover td:first-child {
+      box-shadow: inset 3px 0 0 #020617 !important;
     }
 
     .bounty-title-cell {
@@ -1700,6 +1792,32 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.18);
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+    }
+
+    body.theme-light .route-badge.tier1 {
+      color: #059669;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      box-shadow: none;
+    }
+
+    body.theme-light .route-badge.tier2 {
+      color: #b45309;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    body.theme-light .route-badge.tier3 {
+      color: #020617;
+      background: #f1f5f9;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      box-shadow: none;
+    }
+
+    body.theme-light .discipline-chip {
+      background: #f1f5f9;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      color: #334155;
     }
 
     .reward-near {
@@ -1850,8 +1968,8 @@
       width: 100%;
       max-width: 580px;
       height: 100vh;
-      background: #0c0e14;
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--surface-card);
+      border-left: 1px solid var(--border);
       padding: 28px;
       overflow-y: auto;
       display: flex;
@@ -1860,6 +1978,13 @@
       box-shadow: -16px 0 48px rgba(0, 0, 0, 0.7);
       transform: translateX(30px);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body.theme-light .drawer-panel {
+      background: #ffffff !important;
+      border-left: 1px solid rgba(0, 0, 0, 0.14) !important;
+      color: #020617 !important;
+      box-shadow: -16px 0 48px rgba(0, 0, 0, 0.12) !important;
     }
 
     .drawer-overlay.active .drawer-panel {
@@ -1884,13 +2009,13 @@
       align-items: flex-start;
       justify-content: space-between;
       padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--border);
     }
 
     .drawer-close {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #ffffff;
+      color: var(--text-primary);
       width: 30px;
       height: 30px;
       border-radius: 6px;
@@ -1908,11 +2033,27 @@
       border-color: #ffffff;
     }
 
+    body.theme-light .drawer-close {
+      background: #f1f5f9 !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      color: #020617 !important;
+    }
+
+    body.theme-light .drawer-close:hover {
+      background: #e2e8f0 !important;
+      border-color: #020617 !important;
+    }
+
     .panel-block {
-      background: #080a0f;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
       padding: 16px;
+    }
+
+    body.theme-light .panel-block {
+      background: #f8fafc !important;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
     }
 
     .panel-title {
@@ -1930,9 +2071,14 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 12px;
-      background: #0c0e14;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--surface-card);
+      border: 1px solid var(--border);
       border-radius: 8px;
+    }
+
+    body.theme-light .routing-box {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
     }
 
     .form-group {
@@ -1949,8 +2095,8 @@
 
     .form-input {
       width: 100%;
-      background: #080a0f;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--surface);
+      border: 1px solid var(--border);
       color: var(--text-primary);
       padding: 9px 12px;
       font-size: 13px;
@@ -1965,12 +2111,24 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
     }
 
+    body.theme-light .form-input {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.14) !important;
+      color: #020617 !important;
+    }
+
     .result-alert {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: #0c0e14;
+      border: 1px solid var(--border);
+      background: var(--surface-card);
       border-radius: 8px;
       padding: 14px;
       margin-top: 12px;
+    }
+
+    body.theme-light .result-alert {
+      background: #f8fafc !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      color: #020617 !important;
     }
 
     .json-code {
@@ -3553,21 +3711,21 @@
           <tbody>
             <tr>
               <td><span class="route-badge tier1">Tier 1: Auto</span></td>
-              <td>&le; 5.0 NEAR</td>
-              <td>50+ pts</td>
-              <td>Automated transfer upon deliverable verification</td>
+              <td style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">&le; 5.0 NEAR</td>
+              <td style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">50+ pts</td>
+              <td style="font-weight: 600; color: inherit;">Automated transfer upon deliverable verification</td>
             </tr>
             <tr>
               <td><span class="route-badge tier2">Tier 2: Council</span></td>
-              <td>5.0 – 25.0 NEAR</td>
-              <td>20+ pts</td>
-              <td>Single council signoff</td>
+              <td style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">5.0 – 25.0 NEAR</td>
+              <td style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">20+ pts</td>
+              <td style="font-weight: 600; color: inherit;">Single council signoff</td>
             </tr>
             <tr>
               <td><span class="route-badge tier3">Tier 3: Sputnik</span></td>
-              <td>&gt; 25.0 NEAR</td>
-              <td>None</td>
-              <td>Full Sputnik DAO proposal (M-of-N council vote)</td>
+              <td style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">&gt; 25.0 NEAR</td>
+              <td style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">None</td>
+              <td style="font-weight: 600; color: inherit;">Full Sputnik DAO proposal (M-of-N council vote)</td>
             </tr>
           </tbody>
         </table>
@@ -3973,8 +4131,19 @@
   </footer>
 
   <script>
-    // Splash screen autohide
+    // Splash screen autohide & theme restore
     window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const savedTheme = localStorage.getItem('pactt_theme_mode');
+        if (savedTheme === 'light') {
+          document.body.classList.add('theme-light');
+          const icon = document.getElementById('theme-icon');
+          const btn = document.getElementById('theme-btn');
+          if (icon) icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+          if (btn) btn.title = 'Switch to Cyber-Native Monochrome Theme';
+        }
+      } catch (e) {}
+
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) splash.classList.add('fade-out');
@@ -4000,6 +4169,9 @@
     // Sun / Moon Theme Toggle (Crypton Cyber-Monochrome vs Studio Light)
     function toggleTheme() {
       const isLight = document.body.classList.toggle('theme-light');
+      try {
+        localStorage.setItem('pactt_theme_mode', isLight ? 'light' : 'dark');
+      } catch (e) {}
       const icon = document.getElementById('theme-icon');
       const btn = document.getElementById('theme-btn');
       if (icon) {
@@ -4664,20 +4836,20 @@
         // Desktop Row
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="font-family: var(--font-mono); font-size: 12px; font-weight: 800;">${idx + 1}</td>
-          <td style="font-family: var(--font-mono); font-weight: 700;">
+          <td style="font-family: var(--font-mono); font-size: 13px; font-weight: 800; color: inherit;">${idx + 1}</td>
+          <td style="font-family: var(--font-mono); font-weight: 700; color: inherit;">
             <div style="display:flex; align-items:center; gap:6px;">
-              <span>${c.account}</span>
+              <span style="color: inherit;">${c.account}</span>
               ${trust >= 40 ? `
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" title="NEAR Social Verified Attestation"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" title="NEAR Social Verified Attestation"><polyline points="20 6 9 17 4 12"></polyline></svg>
               ` : ''}
             </div>
           </td>
-          <td><span style="font-family: var(--font-mono); font-weight: 800;">${trust.toFixed(1)}</span></td>
-          <td>${c.completed}</td>
-          <td><span style="font-size: 12px; color: var(--text-secondary); font-weight:600;">${c.role}</span></td>
-          <td style="font-family: var(--font-mono); font-weight: 700;">${c.earned}</td>
-          <td><span style="font-size: 12px; font-weight:600;">${c.tier}</span></td>
+          <td><span style="font-family: var(--font-mono); font-weight: 800; font-size: 14px; color: inherit;">${trust.toFixed(1)}</span></td>
+          <td style="font-weight: 700; color: inherit;">${c.completed}</td>
+          <td><span style="font-size: 12.5px; font-weight: 600; color: inherit;">${c.role}</span></td>
+          <td style="font-family: var(--font-mono); font-weight: 800; color: inherit;">${c.earned}</td>
+          <td><span style="font-size: 12.5px; font-weight: 700; color: inherit;">${c.tier}</span></td>
           <td>
             <button class="btn-badge-inspect ${badgeClass}" onclick="openSocialDbBadgeModal('${c.account}')" title="Inspect on-chain SocialDB attestation">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -4693,18 +4865,18 @@
         mCard.innerHTML = `
           <div class="m-bounty-top">
             <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-weight:900; font-size:14px; font-family:var(--font-mono)">#${idx + 1}</span>
-              <span style="font-family:var(--font-mono); font-weight:800; font-size:14px;">${c.account}</span>
-              ${trust >= 40 ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>` : ''}
+              <span style="font-weight:900; font-size:14px; font-family:var(--font-mono); color:var(--text-primary)">#${idx + 1}</span>
+              <span style="font-family:var(--font-mono); font-weight:800; font-size:14px; color:var(--text-primary)">${c.account}</span>
+              ${trust >= 40 ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>` : ''}
             </div>
-            <span style="font-family:var(--font-mono); font-weight:900; font-size:15px;">${trust.toFixed(1)} pts</span>
+            <span style="font-family:var(--font-mono); font-weight:900; font-size:15px; color:var(--text-primary)">${trust.toFixed(1)} pts</span>
           </div>
           <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary);">
-            <span>${c.role}</span>
-            <span>Earned: <strong>${c.earned}</strong></span>
+            <span style="color:var(--text-secondary); font-weight:600;">${c.role}</span>
+            <span style="color:var(--text-secondary);">Earned: <strong style="color:var(--text-primary)">${c.earned}</strong></span>
           </div>
           <div class="m-bounty-bottom">
-            <span style="font-size:12px; font-weight:600;">${c.tier}</span>
+            <span style="font-size:12px; font-weight:700; color:var(--text-secondary);">${c.tier}</span>
             <button class="btn-badge-inspect ${badgeClass}" onclick="openSocialDbBadgeModal('${c.account}')">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
               ${badgeLabel} ↗
