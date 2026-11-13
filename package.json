@@ -12,6 +12,8 @@
     "demo": "tsx scripts/demo-simulation.ts",
     "broadcast": "tsx scripts/broadcast-testnet.ts",
     "dev": "tsx src/index.ts",
+    "video:render": "remotion render src/remotion/index.ts PacttDemo out/demo.mp4",
+    "video:still": "remotion still src/remotion/index.ts PacttDemo out/frame.png",
     "api": "tsx src/server.ts",
     "start": "tsx src/server.ts"
   },
