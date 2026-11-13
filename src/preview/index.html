@@ -1838,21 +1838,21 @@
           </div>
         </div>
 
-        <!-- Bento Metric 1: Capital Velocity -->
+        <!-- Bento Metric 1: Capital Velocity & Escrow -->
         <div class="bento-card">
-          <div class="bento-stat-label">Capital Velocity & Escrow</div>
-          <div class="bento-stat-num">142.50<span>NEAR</span></div>
+          <div class="bento-stat-label">Capital Velocity &amp; Escrow</div>
+          <div class="bento-stat-num" id="bento-escrow-amount">142.50<span>NEAR</span></div>
           <div class="velocity-bar-wrap">
-            <div class="v-seg seg-auto"></div>
-            <div class="v-seg seg-council"></div>
-            <div class="v-seg seg-dao"></div>
+            <div class="v-seg seg-auto" id="v-seg-auto" style="width: 65%;"></div>
+            <div class="v-seg seg-council" id="v-seg-council" style="width: 25%;"></div>
+            <div class="v-seg seg-dao" id="v-seg-dao" style="width: 10%;"></div>
           </div>
           <div class="velocity-legend">
-            <div class="v-item"><span class="v-box" style="background: currentColor;"></span> Auto (70%)</div>
-            <div class="v-item"><span class="v-box" style="background: #777;"></span> 1-Council (20%)</div>
-            <div class="v-item"><span class="v-box" style="background: #ccc;"></span> Multi-Sig</div>
+            <div class="v-item"><span class="v-box" style="background: currentColor;"></span> Auto (<span id="pct-auto">65%</span>)</div>
+            <div class="v-item"><span class="v-box" style="background: #777;"></span> 1-Council (<span id="pct-council">25%</span>)</div>
+            <div class="v-item"><span class="v-box" style="background: #ccc;"></span> Multi-Sig (<span id="pct-multisig">10%</span>)</div>
           </div>
-          <div class="bento-stat-caption">
+          <div class="bento-stat-caption" id="bento-escrow-caption">
             Average payout latency: <strong>4.2 seconds</strong> (vs. 8.4 days on standard Sputnik DAO).
           </div>
         </div>
@@ -2777,6 +2777,50 @@
       tbody.innerHTML = '';
       mobileWrap.innerHTML = '';
 
+      // Live Dynamic Telemetry & Escrow Calculations (Upgrade 3)
+      let activeEscrow = 0;
+      let disbursedEscrow = 0;
+      let autoCount = 0;
+      let councilCount = 0;
+      let multisigCount = 0;
+
+      state.bounties.forEach(b => {
+        const amt = typeof b.amount === 'number' ? b.amount : parseFloat(b.amount) || 0;
+        if (b.status === 'APPROVED') {
+          disbursedEscrow += amt;
+        } else {
+          activeEscrow += amt;
+        }
+
+        if (b.defaultTier === 'TIER_1' || amt <= 5.0) autoCount++;
+        else if (b.defaultTier === 'TIER_2' || amt <= 25.0) councilCount++;
+        else multisigCount++;
+      });
+
+      const totalBountiesCount = state.bounties.length || 1;
+      const pctAuto = Math.round((autoCount / totalBountiesCount) * 100);
+      const pctCouncil = Math.round((councilCount / totalBountiesCount) * 100);
+      const pctMultisig = Math.max(0, 100 - pctAuto - pctCouncil);
+
+      const bentoEscrow = document.getElementById('bento-escrow-amount');
+      if (bentoEscrow) bentoEscrow.innerHTML = `${(activeEscrow + disbursedEscrow).toFixed(2)}<span>NEAR</span>`;
+      const bentoCaption = document.getElementById('bento-escrow-caption');
+      if (bentoCaption) {
+        bentoCaption.innerHTML = `Active Vault Escrow: <strong>${activeEscrow.toFixed(1)} NEAR</strong> · Disbursed: <strong>${disbursedEscrow.toFixed(1)} NEAR</strong>`;
+      }
+      const segAuto = document.getElementById('v-seg-auto');
+      if (segAuto) segAuto.style.width = `${pctAuto}%`;
+      const segCouncil = document.getElementById('v-seg-council');
+      if (segCouncil) segCouncil.style.width = `${pctCouncil}%`;
+      const segDao = document.getElementById('v-seg-dao');
+      if (segDao) segDao.style.width = `${pctMultisig}%`;
+      const pAuto = document.getElementById('pct-auto');
+      if (pAuto) pAuto.innerText = `${pctAuto}%`;
+      const pCouncil = document.getElementById('pct-council');
+      if (pCouncil) pCouncil.innerText = `${pctCouncil}%`;
+      const pMultisig = document.getElementById('pct-multisig');
+      if (pMultisig) pMultisig.innerText = `${pctMultisig}%`;
+
       let list = state.bounties.filter(b => {
         if (state.filterTier !== 'ALL' && b.defaultTier !== state.filterTier) return false;
         if (state.filterCategory !== 'ALL' && b.category !== state.filterCategory) return false;
@@ -3114,30 +3158,58 @@
             </div>
           `;
         } else {
-          // Tier 2: Single Council Fast-Track
+          // Tier 2: Single Council Fast-Track Delegation Card (Upgrade 3)
           actionBlock.innerHTML = `
-            <div class="panel-title">Tier 2 Single-Council Review</div>
-            <div style="background:var(--surface); border:1px solid var(--border-sharp); border-radius:8px; padding:12px; margin-top:8px;">
-              <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">
-                FAST-TRACK DELEGATION (SPUTNIK DAO POLICY)
+            <div class="panel-title">Tier 2 Single-Council Fast-Track</div>
+            <div class="sputnik-proposal-card">
+              <div class="sputnik-card-header">
+                <div class="sputnik-tag-group">
+                  <span class="sputnik-badge-pill" style="background:rgba(202, 138, 4, 0.15); color:#ca8a04; border-color:rgba(202, 138, 4, 0.3);">
+                    POLICY DELEGATION
+                  </span>
+                  <span class="sputnik-treasury-tag">${b.sponsor || 'devhub.sputnik-dao.testnet'}</span>
+                </div>
+                <a href="https://testnet.nearblocks.io/address/${b.sponsor || 'devhub.sputnik-dao.testnet'}" target="_blank" class="sputnik-ext-link">
+                  Trezu / AstroDAO ↗
+                </a>
               </div>
-              <div style="font-size:12px; color:var(--text-secondary); margin-top:6px; line-height:1.4;">
-                Tasks between 5.0 and 25.0 NEAR bypass the full multi-sig voting queue. Requires <strong>1 council member signoff</strong> to release escrow.
+
+              <div class="sputnik-meta-grid">
+                <div class="sputnik-meta-item">
+                  <span class="sputnik-meta-label">Allocation</span>
+                  <span class="sputnik-meta-val">${b.amount.toFixed(2)} NEAR</span>
+                </div>
+                <div class="sputnik-meta-item">
+                  <span class="sputnik-meta-label">Target Recipient</span>
+                  <span class="sputnik-meta-val" style="font-family: var(--font-mono); font-size:11.5px;">${b.claimedBy}</span>
+                </div>
+                <div class="sputnik-meta-item" style="grid-column: span 2;">
+                  <span class="sputnik-meta-label">Delegation Authority</span>
+                  <span class="sputnik-meta-val" style="font-size:11.5px; color:var(--text-secondary); line-height:1.4;">
+                    Sputnik DAO Policy Article IV: Bounties ≤ 25.0 NEAR bypass the 7-day multi-sig queue with <strong>1 council signature</strong>.
+                  </span>
+                </div>
               </div>
+
               <div class="deliverable-attachment-box" style="margin-top:10px;">
-                <span class="attachment-label">Submitted Deliverable</span>
+                <span class="attachment-label">Submitted Deliverable Proof</span>
                 <a href="${b.proofUrl || '#'}" target="_blank" class="attachment-url font-mono">${b.proofUrl || 'Deliverable attached'} ↗</a>
               </div>
             </div>
 
-            <div style="margin-top:12px;">
+            <div style="margin-top:14px;">
               ${isCouncil ? `
-                <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px; font-weight:700;" onclick="councilApproveCurrentBounty()">
-                  Authorize &amp; Disburse ${b.amount.toFixed(2)} NEAR
+                <p style="font-size: 12px; color: var(--text-primary); font-weight:700; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  Council identity verified. You have authority to release this fast-track escrow.
+                </p>
+                <button class="btn-action primary" style="width: 100%; padding: 11px; font-size: 13px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="councilApproveCurrentBounty()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Sign &amp; Fast-Track Disburse (${b.amount.toFixed(2)} NEAR)
                 </button>
               ` : `
                 <div style="background:var(--surface-secondary); border:1px solid var(--border-sharp); border-radius:6px; padding:10px; font-size:11.5px; color:var(--text-secondary); text-align:center;">
-                  Awaiting signoff from an authorized Sputnik DAO council member. Connect as <strong>council.testnet</strong> to review.
+                  Awaiting signoff from an authorized Sputnik DAO council member. To fast-track this task, connect as <strong>council.testnet</strong> via the wallet selector.
                 </div>
               `}
             </div>
@@ -3180,16 +3252,49 @@
                 Payout Disbursed &amp; Escrow Released
               </div>
               <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-                <strong>${b.amount.toFixed(2)} NEAR</strong> transferred to <strong>${b.claimedBy}</strong>.
+                <strong>${b.amount.toFixed(2)} NEAR</strong> transferred to <strong>${b.claimedBy}</strong> from <strong>${b.sponsor || 'devhub.sputnik-dao.testnet'}</strong>.
               </p>
-              <div style="margin-top: 10px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border-sharp); border-radius: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
-                <span>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  24h Council Dispute Cooldown
-                </span>
-                <span style="color: var(--text-primary); font-weight: 700;">ACTIVE (Bug 6)</span>
+            </div>
+
+            <div class="tx-receipt-card" style="background:var(--surface); border:1px solid var(--border-sharp); border-radius:8px; padding:12px; margin-top:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">ON-CHAIN RECEIPT</span>
+                <span style="font-size:10px; font-family:var(--font-mono); color:#16a34a; font-weight:700;">CONFIRMED</span>
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; font-size:11.5px; font-family:var(--font-mono);">
+                <div>
+                  <span style="color:var(--text-tertiary); font-size:10px; display:block;">ESCROW VAULT</span>
+                  <span style="color:var(--text-primary); font-weight:600;">${b.sponsor || 'devhub.sputnik-dao.testnet'}</span>
+                </div>
+                <div>
+                  <span style="color:var(--text-tertiary); font-size:10px; display:block;">RECIPIENT</span>
+                  <span style="color:var(--text-primary); font-weight:600;">${b.claimedBy}</span>
+                </div>
+                <div>
+                  <span style="color:var(--text-tertiary); font-size:10px; display:block;">GOVERNANCE ROUTE</span>
+                  <span style="color:var(--text-primary); font-weight:600;">${b.defaultTier === 'TIER_1' ? 'Tier 1 (Instant Auto)' : (b.defaultTier === 'TIER_2' ? 'Tier 2 (1-Council)' : 'Tier 3 (Multi-Sig)')}</span>
+                </div>
+                <div>
+                  <span style="color:var(--text-tertiary); font-size:10px; display:block;">GAS CONSUMED</span>
+                  <span style="color:var(--text-primary); font-weight:600;">2.4 Tgas</span>
+                </div>
+              </div>
+              <div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--border-sharp); display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:10.5px; font-family:var(--font-mono); color:var(--text-secondary);">${b.escrow_tx_hash || 'tx-pact-disburse-0647'}</span>
+                <a href="https://testnet.nearblocks.io/address/${b.sponsor || 'devhub.sputnik-dao.testnet'}" target="_blank" style="font-size:11px; font-family:var(--font-mono); color:var(--text-primary); font-weight:700; text-decoration:underline;">
+                  NearBlocks Explorer ↗
+                </a>
               </div>
             </div>
+
+            <div style="margin-top: 10px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border-sharp); border-radius: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
+              <span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                24h Council Dispute Window
+              </span>
+              <span style="color: #ca8a04; font-weight: 700;">ACTIVE (Bug 6 Guard)</span>
+            </div>
+
             ${isCouncil ? `
               <div style="margin-top: 14px; padding: 14px; border: 1px dashed var(--border-sharp); border-radius: 8px; background: var(--surface);">
                 <div style="font-size: 12px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">
@@ -3305,6 +3410,7 @@
         b.status = 'APPROVED';
         b.disputeStatus = 'NONE';
         b.approvedAt = Date.now();
+        b.escrow_tx_hash = 'tx-auto-' + Math.random().toString(36).substring(2, 10);
         state.dailyAutoPayouts[state.activePersona] = currentDailyCount + 1;
 
         const points = 10 + Math.round(5 * b.amount);
@@ -3442,10 +3548,18 @@
       const b = state.bounties.find(x => x.id === state.selectedBountyId);
       if (!b) return;
       b.status = 'APPROVED';
+      b.disputeStatus = 'NONE';
+      b.approvedAt = Date.now();
+      b.escrow_tx_hash = 'tx-fasttrack-' + Math.random().toString(36).substring(2, 10);
       const points = 10 + Math.round(5 * b.amount);
       if (state.personas[b.claimedBy]) {
         state.personas[b.claimedBy].trust += points;
         state.personas[b.claimedBy].completed += 1;
+      }
+      const c = state.contributors.find(x => x.account === b.claimedBy);
+      if (c) {
+        c.trust = state.personas[b.claimedBy].trust;
+        c.completed += 1;
       }
       renderBounties();
       renderContributors();
@@ -3510,6 +3624,7 @@
       b.status = 'APPROVED';
       b.disputeStatus = 'NONE';
       b.approvedAt = Date.now();
+      b.escrow_tx_hash = 'tx-multisig-' + Math.random().toString(36).substring(2, 10);
 
       const points = 10 + Math.round(5 * b.amount);
       if (state.personas[b.claimedBy]) {
