@@ -591,6 +591,226 @@
       font-size: 11px;
     }
 
+    /* Post Bounty Button */
+    .btn-post-bounty {
+      background: var(--text-primary);
+      color: var(--surface);
+      border: 1px solid var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-post-bounty:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    body.theme-midnight .btn-post-bounty {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+    body.theme-midnight .btn-post-bounty:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* Sputnik DAO Multi-Sig Quorum Card */
+    .sputnik-proposal-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-sharp);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sputnik-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-faint);
+      padding-bottom: 10px;
+      gap: 8px;
+    }
+    .sputnik-tag-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sputnik-badge-pill {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--text-primary);
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-sharp);
+      padding: 3px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+    .sputnik-treasury-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .sputnik-ext-link {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+    }
+    .sputnik-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+    }
+    .sputnik-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sputnik-meta-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+    .sputnik-meta-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .quorum-meter-track {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-secondary);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border-faint);
+      margin-top: 4px;
+    }
+    .quorum-meter-fill {
+      height: 100%;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .quorum-meter-fill.pending {
+      background: #ca8a04;
+    }
+    .quorum-meter-fill.approved {
+      background: #16a34a;
+    }
+    .council-ledger {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .council-vote-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border-faint);
+      border-radius: 6px;
+      font-size: 11.5px;
+    }
+    .council-vote-row.approved {
+      border-color: rgba(22, 163, 74, 0.3);
+      background: rgba(22, 163, 74, 0.04);
+    }
+    .council-vote-row.pending {
+      border-color: rgba(202, 138, 4, 0.3);
+      background: rgba(202, 138, 4, 0.04);
+    }
+    .council-member-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .council-status-text {
+      font-size: 10.5px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+    .council-status-text.approved {
+      color: #16a34a;
+    }
+    .council-status-text.pending {
+      color: #ca8a04;
+    }
+    .deliverable-attachment-box {
+      padding: 8px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border-faint);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .attachment-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+    .attachment-url {
+      font-size: 11px;
+      color: var(--text-primary);
+      word-break: break-all;
+      font-weight: 600;
+    }
+
+    /* Sputnik Tier Helper in Create Modal */
+    .sputnik-tier-preview-box {
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-sharp);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .preview-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .preview-badge-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+    .preview-explanation {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      margin: 0;
+    }
+
     /* Mobile Subnav Strip */
     .mobile-subnav {
       display: none;
@@ -1525,12 +1745,15 @@
           <span class="wallet-status-dot"></span>
           <span id="wallet-account-display">alex.testnet</span>
           <span class="wallet-tier-badge" id="wallet-tier-badge">Tier 1</span>
-          <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet">✕</button>
+          <button class="btn-wallet-disconnect" onclick="disconnectWallet()" title="Disconnect Wallet" style="display:inline-flex; align-items:center; justify-content:center;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
 
         <!-- Connect Wallet Button (Bug 2) -->
         <button class="btn-connect" id="btn-wallet-connect" onclick="openWalletModal()">
-          <span style="font-size: 13px;">Ⓝ</span> Connect Wallet
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          Connect Wallet
         </button>
       </div>
     </div>
@@ -1627,7 +1850,7 @@
             oninput="onSearchInput()" />
         </div>
 
-        <div class="controls-row">
+        <div class="controls-row" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
           <div class="filter-group">
             <span class="filter-label">Discipline:</span>
             <button class="glass-pill active" onclick="filterCategory('ALL', this)">All</button>
@@ -1637,6 +1860,10 @@
             <button class="glass-pill" onclick="filterCategory('RESEARCH', this)">Research</button>
             <button class="glass-pill" onclick="filterCategory('DEV', this)">Engineering</button>
           </div>
+          <button class="btn-post-bounty" onclick="openCreateBountyModal()" title="Deposit Escrow & Post New Task">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Post Bounty
+          </button>
         </div>
       </div>
 
@@ -1809,7 +2036,9 @@
     <div class="wallet-modal-card" onclick="event.stopPropagation()">
       <div class="wallet-modal-header">
         <div class="wallet-modal-title">Connect NEAR Wallet</div>
-        <button class="drawer-close" onclick="hideWalletModal()">✕</button>
+        <button class="drawer-close" onclick="hideWalletModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
       <div class="wallet-modal-subtitle">
         Select your NEAR testnet wallet to sign deliverables, claim bounties, and build on-chain trust reputation.
@@ -1817,7 +2046,9 @@
       <div class="wallet-options-list">
         <!-- MyNearWallet -->
         <div class="wallet-option-item" onclick="connectWallet('mynearwallet')">
-          <div class="wallet-option-icon">Ⓝ</div>
+          <div class="wallet-option-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          </div>
           <div class="wallet-option-details">
             <div class="wallet-option-name">MyNearWallet</div>
             <div class="wallet-option-desc">Official browser-based NEAR testnet wallet</div>
@@ -1827,7 +2058,9 @@
 
         <!-- Meteor Wallet -->
         <div class="wallet-option-item" onclick="connectWallet('meteor')">
-          <div class="wallet-option-icon">☄</div>
+          <div class="wallet-option-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+          </div>
           <div class="wallet-option-details">
             <div class="wallet-option-name">Meteor Wallet</div>
             <div class="wallet-option-desc">Browser extension and mobile wallet</div>
@@ -1837,7 +2070,9 @@
 
         <!-- Here Wallet -->
         <div class="wallet-option-item" onclick="connectWallet('here')">
-          <div class="wallet-option-icon">Ⓗ</div>
+          <div class="wallet-option-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
           <div class="wallet-option-details">
             <div class="wallet-option-name">Here Wallet</div>
             <div class="wallet-option-desc">Mobile self-custody wallet with biometrics</div>
@@ -1847,7 +2082,9 @@
         <!-- Custom Testnet Account / Manual Named Account -->
         <div class="wallet-option-item" style="cursor: default; flex-direction: column; align-items: stretch; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div class="wallet-option-icon">⚡</div>
+            <div class="wallet-option-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </div>
             <div class="wallet-option-details">
               <div class="wallet-option-name">Custom Testnet Account</div>
               <div class="wallet-option-desc">Connect any named NEAR account for testing</div>
@@ -1858,8 +2095,8 @@
             <button class="btn-action primary" style="padding: 4px 14px; font-size: 12px; height: 32px; white-space: nowrap;" onclick="connectCustomAccount()">Connect</button>
           </div>
           <div style="border-top: 1px dashed var(--border); padding-top: 8px; margin-top: 2px;">
-            <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 6px;">
-              ⚡ Demo & Testing Quick-Pills:
+            <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px;">
+              DEMO &amp; TESTING PRESETS:
             </div>
             <div class="preset-pills-row">
               <button type="button" class="btn-preset-pill" onclick="selectPresetAccount('alex.testnet')">
@@ -1883,6 +2120,82 @@
     </div>
   </div>
 
+  <!-- Create Bounty Modal (DAO Sponsor Escrow) -->
+  <div id="create-bounty-modal" class="wallet-modal-overlay" onclick="closeCreateBountyModal(event)">
+    <div class="wallet-modal-card" style="max-width: 520px;" onclick="event.stopPropagation()">
+      <div class="wallet-modal-header">
+        <div>
+          <div class="wallet-modal-title">Post DAO Bounty</div>
+          <div class="wallet-modal-subtitle" style="margin-top: 2px;">
+            Lock escrow from your Sputnik DAO or Trezu treasury to coordinate task deliverables.
+          </div>
+        </div>
+        <button class="drawer-close" onclick="hideCreateBountyModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form id="create-bounty-form" onsubmit="handleCreateBountySubmit(event)" style="display:flex; flex-direction:column; gap:12px;">
+        <div class="form-group">
+          <label class="form-label" for="new-bounty-title">Task Title</label>
+          <input type="text" id="new-bounty-title" required class="form-input" placeholder="e.g. Build React Preview Card Kit for SocialDB" />
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label" for="new-bounty-category">Discipline</label>
+            <select id="new-bounty-category" class="form-input" style="padding: 7px 10px;">
+              <option value="DEV">Engineering / Dev</option>
+              <option value="DESIGN">Design &amp; UX</option>
+              <option value="CONTENT">Content &amp; Writing</option>
+              <option value="COMMUNITY">Community / Growth</option>
+              <option value="RESEARCH">Research &amp; Analysis</option>
+              <option value="SECURITY">Security &amp; Audit</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="new-bounty-amount">Escrow Reward (NEAR)</label>
+            <input type="number" id="new-bounty-amount" step="0.1" min="0.5" max="500" value="5.0" required class="form-input" oninput="updateCreateBountyTierPreview()" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-bounty-sponsor">Sponsor Treasury (Sputnik DAO / Trezu)</label>
+          <input type="text" id="new-bounty-sponsor" value="creatives.sputnik-dao.testnet" required class="form-input font-mono" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-bounty-deliverable">Deliverable Requirement</label>
+          <input type="text" id="new-bounty-deliverable" value="GitHub Pull Request URL" required class="form-input" placeholder="e.g. GitHub Pull Request URL or Figma Link" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-bounty-desc">Task Specification</label>
+          <textarea id="new-bounty-desc" required class="form-input" rows="3" style="resize:vertical; font-family:var(--font-sans);" placeholder="Describe the expected deliverable, acceptance criteria, and technical constraints..."></textarea>
+        </div>
+
+        <!-- Dynamic Governance Tier Helper -->
+        <div id="new-bounty-tier-preview" class="sputnik-tier-preview-box">
+          <div class="preview-badge-row">
+            <span class="preview-badge-label">PREVIEWED GOVERNANCE ROUTE:</span>
+            <span class="route-badge tier1" id="new-bounty-tier-pill">Tier 1: Auto-Payout</span>
+          </div>
+          <p class="preview-explanation" id="new-bounty-tier-explain">
+            Tasks &le; 5.0 NEAR qualify for instant autonomous payout to trusted contributors upon verified deliverable proof.
+          </p>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
+          <button type="button" class="btn-action" onclick="hideCreateBountyModal()" style="padding: 8px 14px; font-size: 12px;">Cancel</button>
+          <button type="submit" class="btn-action primary" style="padding: 8px 18px; font-size: 12px; font-weight:700;">
+            Lock Escrow &amp; Publish Bounty
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Slide-out Drawer / Mobile Bottom Sheet -->
   <div id="drawer" class="drawer-overlay" onclick="closeDrawer(event)">
     <div class="drawer-panel" onclick="event.stopPropagation()">
@@ -1892,7 +2205,9 @@
           <div id="drawer-bounty-id" class="bounty-id-tag">#B-101</div>
           <h2 id="drawer-title" class="bounty-title-text" style="font-size: 17px;">Task Title</h2>
         </div>
-        <button class="drawer-close" onclick="hideDrawer()">✕</button>
+        <button class="drawer-close" onclick="hideDrawer()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
 
       <div class="panel-block">
@@ -2463,14 +2778,16 @@
       document.getElementById('drawer-amount').innerText = b.amount.toFixed(2) + ' NEAR';
 
       const isDisbursed = b.status === 'APPROVED';
-      const escrowLabel = isDisbursed ? '✓ Disbursed to Claimant' : '🔒 Locked (Vault: pact-dao-933742.testnet)';
-      document.getElementById('drawer-escrow').innerText = escrowLabel;
+      const escrowLabel = isDisbursed 
+        ? '<span style="color:#16a34a;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-1px; margin-right:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Disbursed to Claimant</span>' 
+        : '<span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Locked (Vault: pact-dao-933742.testnet)</span>';
+      document.getElementById('drawer-escrow').innerHTML = escrowLabel;
 
       const catBadge = document.getElementById('drawer-category');
       catBadge.innerText = b.category;
 
       if (!state.activePersona) {
-        document.getElementById('drawer-route-text').innerText = 'Wallet Not Connected → Connect Wallet to Calculate Dynamic Routing';
+        document.getElementById('drawer-route-text').innerText = 'Wallet Not Connected → Dynamic route calculates upon connect';
         const badge = document.getElementById('drawer-route-badge');
         badge.className = 'route-badge tier3';
         badge.innerText = b.defaultTier || 'TIER_3';
@@ -2497,7 +2814,7 @@
                 Connect your NEAR testnet wallet to lock this task to your identity and claim escrowed rewards.
               </p>
               <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px; justify-content: center;" onclick="openWalletModal()">
-                Ⓝ Connect Wallet to Claim
+                Connect Wallet to Claim
               </button>
             </div>
           `;
@@ -2534,46 +2851,150 @@
             </button>
           ` : `
             <div style="font-size: 11.5px; color: var(--text-tertiary); text-align: center; margin-top: 8px;">
-              🔒 Locked: Claimed by <strong>${b.claimedBy}</strong>. Only the claimant can submit deliverables.
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Locked: Claimed by <strong>${b.claimedBy}</strong>. Only the claimant can submit deliverables.
             </div>
           `}
         `;
       } else if (b.status === 'IN_REVIEW') {
+        const isTier3 = b.defaultTier === 'TIER_3' || b.sputnikProposalId;
         const isCouncil = state.activePersona && state.personas[state.activePersona]?.isCouncil;
-        actionBlock.innerHTML = `
-          <div class="panel-title">Council Review Pending</div>
-          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">
-            Submitted by <strong>${b.claimedBy}</strong>: <br/>
-            <a href="${b.proofUrl || '#'}" target="_blank" style="color: var(--text-primary); font-family: var(--font-mono); font-size:11.5px; font-weight:700;">${b.proofUrl || 'Deliverable attached'} ↗</a>
-          </p>
-          ${isCouncil ? `
-            <p style="font-size: 12px; color: var(--text-primary); font-weight:700; margin-bottom: 12px;">
-              ✓ You are council. You have authority to release funds.
-            </p>
-            <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="councilApproveCurrentBounty()">
-              Authorize & Disburse ${b.amount.toFixed(2)} NEAR
-            </button>
-          ` : `
-            <p style="font-size: 12px; color: var(--text-tertiary);">
-              Awaiting signoff from an authorized council member.
-            </p>
-          `}
-        `;
+        const councilVotes = b.councilVotes || ['chair.sputnik-dao.testnet'];
+        const hasVoted = state.activePersona && councilVotes.includes(state.activePersona);
+
+        if (isTier3) {
+          const propId = b.sputnikProposalId || 412;
+          actionBlock.innerHTML = `
+            <div class="panel-title">Sputnik DAO Multi-Sig Escalation</div>
+            <div class="sputnik-proposal-card">
+              <div class="sputnik-card-header">
+                <div class="sputnik-tag-group">
+                  <span class="sputnik-badge-pill">PROPOSAL #${propId}</span>
+                  <span class="sputnik-treasury-tag">${b.sponsor || 'creatives.sputnik-dao.testnet'}</span>
+                </div>
+                <a href="https://testnet.nearblocks.io/address/${b.sponsor || 'creatives.sputnik-dao.testnet'}" target="_blank" class="sputnik-ext-link">
+                  Trezu / AstroDAO ↗
+                </a>
+              </div>
+
+              <div class="sputnik-meta-grid">
+                <div class="sputnik-meta-item">
+                  <span class="sputnik-meta-label">Allocation</span>
+                  <span class="sputnik-meta-val">${b.amount.toFixed(2)} NEAR</span>
+                </div>
+                <div class="sputnik-meta-item">
+                  <span class="sputnik-meta-label">Target Recipient</span>
+                  <span class="sputnik-meta-val" style="font-family: var(--font-mono); font-size:11.5px;">${b.claimedBy}</span>
+                </div>
+                <div class="sputnik-meta-item" style="grid-column: span 2;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="sputnik-meta-label">Consensus Quorum</span>
+                    <span class="sputnik-meta-val" style="font-size:11px; font-family:var(--font-mono); color:${councilVotes.length >= 2 ? '#16a34a' : '#ca8a04'};">
+                      ${councilVotes.length} / 2 Council Signatures (${councilVotes.length >= 2 ? '100%' : '50%'})
+                    </span>
+                  </div>
+                  <div class="quorum-meter-track">
+                    <div class="quorum-meter-fill ${councilVotes.length >= 2 ? 'approved' : 'pending'}" style="width: ${councilVotes.length >= 2 ? '100%' : '50%'};"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="council-ledger">
+                <div class="council-vote-row approved">
+                  <span class="council-member-id">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    chair.sputnik-dao.testnet
+                  </span>
+                  <span class="council-status-text approved">VoteApprove (Signed)</span>
+                </div>
+                <div class="council-vote-row ${councilVotes.includes('council.testnet') ? 'approved' : 'pending'}">
+                  <span class="council-member-id">
+                    ${councilVotes.includes('council.testnet') 
+                      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>' 
+                      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'}
+                    council.testnet
+                  </span>
+                  <span class="council-status-text ${councilVotes.includes('council.testnet') ? 'approved' : 'pending'}">
+                    ${councilVotes.includes('council.testnet') ? 'VoteApprove (Signed)' : 'Awaiting 2nd Signature'}
+                  </span>
+                </div>
+              </div>
+
+              <div class="deliverable-attachment-box">
+                <span class="attachment-label">Submitted Deliverable Proof</span>
+                <a href="${b.proofUrl || '#'}" target="_blank" class="attachment-url font-mono">${b.proofUrl || 'Deliverable attached'} ↗</a>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px;">
+              ${isCouncil ? `
+                ${!hasVoted ? `
+                  <p style="font-size: 12px; color: var(--text-primary); font-weight:700; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Council identity verified. Cast second signature to reach quorum.
+                  </p>
+                  <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px; font-weight:700;" onclick="castCouncilVoteApprove('${b.id}')">
+                    Cast VoteApprove (2nd Signature)
+                  </button>
+                ` : `
+                  <div style="font-size: 12px; color: #16a34a; font-weight:700; text-align:center;">
+                    Signature recorded. Quorum consensus reached.
+                  </div>
+                `}
+              ` : `
+                <div style="background:var(--surface-secondary); border:1px solid var(--border-sharp); border-radius:6px; padding:10px; font-size:11.5px; color:var(--text-secondary); text-align:center;">
+                  Awaiting 2nd council multi-sig signature. To vote on this proposal, connect as <strong>council.testnet</strong> via the wallet selector.
+                </div>
+              `}
+            </div>
+          `;
+        } else {
+          // Tier 2: Single Council Fast-Track
+          actionBlock.innerHTML = `
+            <div class="panel-title">Tier 2 Single-Council Review</div>
+            <div style="background:var(--surface); border:1px solid var(--border-sharp); border-radius:8px; padding:12px; margin-top:8px;">
+              <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-tertiary); letter-spacing:0.04em;">
+                FAST-TRACK DELEGATION (SPUTNIK DAO POLICY)
+              </div>
+              <div style="font-size:12px; color:var(--text-secondary); margin-top:6px; line-height:1.4;">
+                Tasks between 5.0 and 25.0 NEAR bypass the full multi-sig voting queue. Requires <strong>1 council member signoff</strong> to release escrow.
+              </div>
+              <div class="deliverable-attachment-box" style="margin-top:10px;">
+                <span class="attachment-label">Submitted Deliverable</span>
+                <a href="${b.proofUrl || '#'}" target="_blank" class="attachment-url font-mono">${b.proofUrl || 'Deliverable attached'} ↗</a>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;">
+              ${isCouncil ? `
+                <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px; font-weight:700;" onclick="councilApproveCurrentBounty()">
+                  Authorize &amp; Disburse ${b.amount.toFixed(2)} NEAR
+                </button>
+              ` : `
+                <div style="background:var(--surface-secondary); border:1px solid var(--border-sharp); border-radius:6px; padding:10px; font-size:11.5px; color:var(--text-secondary); text-align:center;">
+                  Awaiting signoff from an authorized Sputnik DAO council member. Connect as <strong>council.testnet</strong> to review.
+                </div>
+              `}
+            </div>
+          `;
+        }
       } else if (b.status === 'APPROVED') {
         const isCouncil = state.personas[state.activePersona] && state.personas[state.activePersona].isCouncil;
         if (b.disputeStatus === 'CHALLENGED') {
           actionBlock.innerHTML = `
-            <div class="panel-title">Dispute & Anti-Cheat Audit (Bug 6)</div>
+            <div class="panel-title">Dispute &amp; Anti-Cheat Audit (Bug 6)</div>
             <div class="result-alert" style="border: 1px solid #dc2626; background: rgba(220, 38, 38, 0.06);">
               <div style="font-weight: 800; font-size: 13px; color: #dc2626; display: flex; align-items: center; gap: 6px;">
-                <span>🚨</span> Council Slashed Submission
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Council Slashed Submission
               </div>
               <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4;">
                 Challenged by <strong>${b.disputedBy || 'council.testnet'}</strong>: 
                 <span style="color: var(--text-primary); font-weight: 600;">"${b.disputeReason || 'Malicious / Plagiarized deliverable detected'}"</span>.
               </p>
               <div style="font-size: 11.5px; font-weight: 700; color: #dc2626; margin-top: 8px;">
-                ⚠️ 50 Reputation Points Slashed from ${b.claimedBy} on NEAR Social.
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                50 Reputation Points Slashed from ${b.claimedBy} on NEAR Social.
               </div>
               <div class="json-code">near-social slash: {
   "${b.claimedBy}": {
@@ -2587,16 +3008,20 @@
           `;
         } else {
           actionBlock.innerHTML = `
-            <div class="panel-title">Settlement & Verification Integrity</div>
+            <div class="panel-title">Settlement &amp; Verification Integrity</div>
             <div class="result-alert">
               <div style="font-weight: 800; font-size: 13px; color: #16a34a; display: flex; align-items: center; gap: 6px;">
-                <span>✓</span> Payout Disbursed & Escrow Released
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Payout Disbursed &amp; Escrow Released
               </div>
               <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
                 <strong>${b.amount.toFixed(2)} NEAR</strong> transferred to <strong>${b.claimedBy}</strong>.
               </p>
               <div style="margin-top: 10px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border-sharp); border-radius: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
-                <span>⏱ 24h Council Dispute Cooldown</span>
+                <span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px; margin-right:3px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  24h Council Dispute Cooldown
+                </span>
                 <span style="color: var(--text-primary); font-weight: 700;">ACTIVE (Bug 6)</span>
               </div>
             </div>
@@ -2609,7 +3034,7 @@
                   As a council member, you have 24 hours to dispute fraudulent or spam submissions. Slashes 50 trust points from the contributor and revokes approval.
                 </p>
                 <button class="btn-action" id="btn-challenge-bounty" style="width: 100%; border-color: #dc2626; color: #dc2626; font-weight: 800; padding: 9px;" onclick="challengeCurrentBounty()">
-                  🚨 Dispute Submission & Slash 50 Trust Points
+                  Dispute Submission &amp; Slash 50 Trust Points
                 </button>
               </div>
             ` : ''}
@@ -2714,12 +3139,16 @@
 
         resBox.innerHTML = `
           <div class="result-alert">
-            <div style="font-weight: 800; font-size: 13px; color: #16a34a;">✓ Tier 1 Auto-Approved! (Daily Velocity: ${currentDailyCount + 1}/2)</div>
+            <div style="font-weight: 800; font-size: 13px; color: #16a34a; display:flex; align-items:center; gap:6px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Tier 1 Auto-Approved! (Daily Velocity: ${currentDailyCount + 1}/2)
+            </div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
               Deliverable verified via GitHub REST API. <strong>+${points} trust points</strong> awarded.
             </div>
-            <div style="margin-top: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-tertiary);">
-              ⏱ 24-Hour Council Challenge Window Started
+            <div style="margin-top: 6px; font-size: 11px; font-family: var(--font-mono); color: var(--text-tertiary); display:flex; align-items:center; gap:4px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              24-Hour Council Challenge Window Started
             </div>
             <div class="json-code">near-social set: {
   "${state.activePersona}": {
@@ -2733,7 +3162,10 @@
         if (velocityExceeded) {
           resBox.innerHTML = `
             <div class="result-alert" style="border-left: 3px solid #eab308;">
-              <div style="font-weight: 800; font-size: 13px; color: #ca8a04;">⚡ Velocity Limit Reached (Bug 6 Anti-Cheat)</div>
+              <div style="font-weight: 800; font-size: 13px; color: #ca8a04; display:flex; align-items:center; gap:6px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Velocity Limit Reached (Bug 6 Anti-Cheat)
+              </div>
               <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
                 You reached the daily maximum of <strong>2 instant auto-payouts</strong>. To protect the DAO treasury from flash drain exploits, this task has been safely routed to <strong>Tier 2 Single-Council Review</strong>.
               </div>
@@ -2742,7 +3174,7 @@
         } else {
           resBox.innerHTML = `
             <div class="result-alert">
-              <div style="font-weight: 800; font-size: 13px;">→ Routed to Tier 2 Single-Council Review</div>
+              <div style="font-weight: 800; font-size: 13px;">Routed to Tier 2 Single-Council Review</div>
               <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
                 One council member must sign off before escrow is released.
               </div>
@@ -2751,12 +3183,14 @@
         }
       } else {
         b.status = 'IN_REVIEW';
-        const propId = Math.floor(Math.random() * 800) + 100;
+        const propId = b.sputnikProposalId || (Math.floor(Math.random() * 800) + 100);
+        b.sputnikProposalId = propId;
+        b.councilVotes = ['chair.sputnik-dao.testnet'];
         resBox.innerHTML = `
-          <div class="result-alert">
-            <div style="font-weight: 800; font-size: 13px;">→ Escalated to Sputnik DAO Proposal #${propId}</div>
+          <div class="result-alert" style="border-color: rgba(202, 138, 4, 0.4); background: rgba(202, 138, 4, 0.05);">
+            <div style="font-weight: 800; font-size: 13px; color: #ca8a04;">Sputnik DAO Proposal #${propId} Created</div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
-              Sputnik proposal #${propId} registered for multi-sig council vote.
+              Escrow locked in <strong>${b.sponsor}</strong> treasury. Multi-sig voting quorum required before disbursement.
             </div>
           </div>
         `;
@@ -2765,6 +3199,7 @@
       renderBounties();
       renderContributors();
       persistState();
+      openDrawer(b.id);
 
       fetch(`/api/bounties/${b.id}/submit`, {
         method: 'POST',
@@ -2826,6 +3261,131 @@
       }).catch(() => {});
 
       openDrawer(b.id);
+    }
+
+    function castCouncilVoteApprove(bountyId) {
+      const b = state.bounties.find(x => x.id === (bountyId || state.selectedBountyId));
+      if (!b) return;
+
+      if (!state.activePersona || !state.personas[state.activePersona]?.isCouncil) {
+        alert('Governance Error: Only authenticated Sputnik DAO council members can cast VoteApprove signatures.');
+        return;
+      }
+
+      if (!b.councilVotes) b.councilVotes = ['chair.sputnik-dao.testnet'];
+      if (!b.councilVotes.includes(state.activePersona)) {
+        b.councilVotes.push(state.activePersona);
+      }
+
+      // Quorum reached! (2/2)
+      b.status = 'APPROVED';
+      b.disputeStatus = 'NONE';
+      b.approvedAt = Date.now();
+
+      const points = 10 + Math.round(5 * b.amount);
+      if (state.personas[b.claimedBy]) {
+        state.personas[b.claimedBy].trust += points;
+        state.personas[b.claimedBy].completed += 1;
+      }
+      const c = state.contributors.find(x => x.account === b.claimedBy);
+      if (c) {
+        c.trust = state.personas[b.claimedBy].trust;
+        c.completed += 1;
+      }
+
+      persistState();
+      renderBounties();
+      renderContributors();
+      openDrawer(b.id);
+
+      fetch(`/api/bounties/${b.id}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ council_account_id: state.activePersona })
+      }).catch(() => {});
+    }
+
+    // Create Bounty Modal Handlers (DAO Sponsor Escrow)
+    function openCreateBountyModal() {
+      document.getElementById('create-bounty-modal').classList.add('active');
+      updateCreateBountyTierPreview();
+    }
+
+    function hideCreateBountyModal() {
+      document.getElementById('create-bounty-modal').classList.remove('active');
+    }
+
+    function closeCreateBountyModal(e) {
+      if (e.target.id === 'create-bounty-modal') hideCreateBountyModal();
+    }
+
+    function updateCreateBountyTierPreview() {
+      const amtInput = document.getElementById('new-bounty-amount');
+      const pill = document.getElementById('new-bounty-tier-pill');
+      const explain = document.getElementById('new-bounty-tier-explain');
+      if (!amtInput || !pill || !explain) return;
+
+      const amt = parseFloat(amtInput.value) || 0;
+      if (amt <= 5.0) {
+        pill.className = 'route-badge tier1';
+        pill.innerText = 'Tier 1: Auto-Payout';
+        explain.innerText = 'Tasks ≤ 5.0 NEAR qualify for instant autonomous payout to trusted contributors upon verified deliverable proof.';
+      } else if (amt <= 25.0) {
+        pill.className = 'route-badge tier2';
+        pill.innerText = 'Tier 2: Single Council';
+        explain.innerText = 'Tasks 5.0 – 25.0 NEAR require 1 council member signoff, bypassing the full multi-sig voting queue.';
+      } else {
+        pill.className = 'route-badge tier3';
+        pill.innerText = 'Tier 3: Sputnik DAO';
+        explain.innerText = 'Tasks > 25.0 NEAR require a full Sputnik DAO / Trezu multi-sig proposal with 2-of-3 council quorum.';
+      }
+    }
+
+    function handleCreateBountySubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('new-bounty-title').value.trim();
+      const category = document.getElementById('new-bounty-category').value;
+      const amount = parseFloat(document.getElementById('new-bounty-amount').value) || 5.0;
+      const sponsor = document.getElementById('new-bounty-sponsor').value.trim() || 'creatives.sputnik-dao.testnet';
+      const deliverable = document.getElementById('new-bounty-deliverable').value.trim() || 'GitHub Pull Request URL';
+      const desc = document.getElementById('new-bounty-desc').value.trim();
+
+      let defaultTier = 'TIER_1';
+      if (amount > 25.0) defaultTier = 'TIER_3';
+      else if (amount > 5.0) defaultTier = 'TIER_2';
+
+      const newId = 'bounty-' + (state.bounties.length + 1);
+      const newCode = 'B-' + (100 + state.bounties.length + 1);
+
+      const newBounty = {
+        id: newId,
+        code: newCode,
+        title: title,
+        description: desc,
+        amount: amount,
+        category: category,
+        sponsor: sponsor,
+        claimedBy: null,
+        status: 'OPEN',
+        disputeStatus: 'NONE',
+        defaultTier: defaultTier,
+        proofUrl: null,
+        deliverableType: deliverable,
+        placeholder: deliverable.toLowerCase().includes('github') ? 'https://github.com/near/core-contracts/pull/1' : 'https://...'
+      };
+
+      state.bounties.unshift(newBounty);
+      persistState();
+
+      const countBadge = document.getElementById('bounty-count-badge');
+      if (countBadge) countBadge.innerText = state.bounties.length;
+      const mPills = document.querySelectorAll('.m-nav-pill');
+      if (mPills[0]) mPills[0].innerText = `Bounties (${state.bounties.length})`;
+
+      renderBounties();
+      hideCreateBountyModal();
+
+      document.getElementById('create-bounty-form').reset();
     }
 
     function switchView(viewName, btn) {
