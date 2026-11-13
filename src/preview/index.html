@@ -439,6 +439,40 @@
       color: #dc2626;
     }
 
+    /* Live Supabase Cloud Sync Badge (Upgrade 2) */
+    .cloud-sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 10px;
+      height: 34px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-sharp);
+      border-radius: 8px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .cloud-sync-badge:hover {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+    .cloud-sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+      animation: pulse-dot 2.5s infinite ease-in-out;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
     .wallet-modal-overlay {
       position: fixed;
       inset: 0;
@@ -1732,6 +1766,12 @@
 
       <!-- Right Actions -->
       <div class="top-actions">
+        <!-- Live Supabase Cloud Sync Badge (Upgrade 2) -->
+        <div class="cloud-sync-badge" id="cloud-sync-badge" title="Live Supabase Cloud Sync Active (Click to sync)" onclick="syncWithCloud()">
+          <span class="cloud-sync-dot"></span>
+          <span id="cloud-sync-text">Supabase Active</span>
+        </div>
+
         <!-- Moon Icon Theme Switcher -->
         <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle Theme (Moon)">
           <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1817,16 +1857,18 @@
           </div>
         </div>
 
-        <!-- Bento Metric 2: Reputation Pulse -->
+        <!-- Bento Metric 2: Reputation Pulse & Cloud Sync -->
         <div class="bento-card">
           <div class="bento-stat-label">NEAR Social Reputation</div>
           <div class="bento-stat-num">18<span>Badges</span></div>
           <div
-            style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-primary); font-weight:700; margin-bottom: 6px;">
-            ● SocialDB v1 Synchronized
+            id="cloud-status-bento"
+            style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-primary); font-weight:700; margin-bottom: 6px; display:flex; align-items:center; gap:6px;">
+            <span class="cloud-sync-dot"></span>
+            <span id="bento-cloud-sync-text">Supabase Cloud Sync · Active</span>
           </div>
           <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">
-            Permanent trust credentials indexed on <code>v1.social08.testnet</code>.
+            Multi-device state replicated across Cloudflare edge and Supabase PostgreSQL.
           </div>
           <a href="https://testnet.nearblocks.io/txns/ExWvUsgiL5yb6Wwr7NuxAn637oufojuu7XkCWuAjFaJ8" target="_blank"
             style="display:inline-block; margin-top:8px; font-size:11.5px; font-family:var(--font-mono); color:var(--text-primary); font-weight:700; text-decoration:underline;">
@@ -2484,6 +2526,129 @@
       }
     }
 
+    // Live Supabase Cloud Sync Configuration & Handlers (Upgrade 2)
+    const SUPABASE_CONFIG = {
+      url: 'https://dlwzgacpavudmgeemndh.supabase.co',
+      anonKey: 'sb_publishable_loqJDlLq7NzN35vBUcjC6g_oGf9T4dm'
+    };
+
+    let isCloudSyncing = false;
+    async function syncWithCloud(silent = false) {
+      if (isCloudSyncing) return;
+      isCloudSyncing = true;
+      const badgeText = document.getElementById('cloud-sync-text');
+      const bentoText = document.getElementById('bento-cloud-sync-text');
+      if (!silent && badgeText) badgeText.innerText = 'Syncing...';
+
+      try {
+        // 1. Fetch Bounties from Edge API or direct Supabase
+        let bountiesData = null;
+        try {
+          const res = await fetch('/api/bounties');
+          if (res.ok) {
+            const json = await res.json();
+            bountiesData = json.bounties || (Array.isArray(json) ? json : null);
+          }
+        } catch {}
+
+        if (!bountiesData || !Array.isArray(bountiesData)) {
+          const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?select=*&order=id.asc`, {
+            headers: {
+              'apikey': SUPABASE_CONFIG.anonKey,
+              'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+            }
+          });
+          if (res.ok) {
+            bountiesData = await res.json();
+          }
+        }
+
+        if (Array.isArray(bountiesData) && bountiesData.length > 0) {
+          const mapped = bountiesData.map(sb => {
+            const existing = state.bounties.find(x => x.id === sb.id);
+            let defaultTier = 'TIER_1';
+            const amt = typeof sb.amount_formatted === 'number' ? sb.amount_formatted : parseFloat(sb.amount_formatted) || 5.0;
+            if (sb.approval_tier === 'TIER_3_FULL_DAO' || amt > 25.0) defaultTier = 'TIER_3';
+            else if (sb.approval_tier === 'TIER_2_SINGLE_COUNCIL' || amt > 5.0) defaultTier = 'TIER_2';
+
+            return {
+              id: sb.id,
+              code: sb.code || (existing ? existing.code : 'B-101'),
+              title: sb.title,
+              description: sb.description,
+              amount: amt,
+              category: sb.category || 'DEV',
+              sponsor: sb.created_by || 'creatives.sputnik-dao.testnet',
+              claimedBy: sb.claimed_by || null,
+              status: sb.status || 'OPEN',
+              disputeStatus: sb.dispute_status || 'NONE',
+              defaultTier: defaultTier,
+              proofUrl: sb.proof_url || null,
+              deliverableType: existing ? existing.deliverableType : 'Deliverable Proof / PR URL',
+              placeholder: existing ? existing.placeholder : 'https://github.com/...',
+              sputnikProposalId: sb.sputnik_proposal_id || (existing ? existing.sputnikProposalId : 793),
+              councilVotes: existing?.councilVotes || ['chair.sputnik-dao.testnet']
+            };
+          });
+
+          state.bounties = mapped;
+          persistState();
+          renderBounties();
+          if (state.selectedBountyId) openDrawer(state.selectedBountyId);
+        }
+
+        // 2. Fetch Contributors
+        let contribData = null;
+        try {
+          const res = await fetch('/api/contributors');
+          if (res.ok) contribData = await res.json();
+        } catch {}
+
+        if (!contribData || !Array.isArray(contribData)) {
+          const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/contributors?select=*&order=trust_points.desc`, {
+            headers: {
+              'apikey': SUPABASE_CONFIG.anonKey,
+              'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+            }
+          });
+          if (res.ok) contribData = await res.json();
+        }
+
+        if (Array.isArray(contribData) && contribData.length > 0) {
+          contribData.forEach(c => {
+            const trust = typeof c.trust_points === 'number' ? c.trust_points : parseFloat(c.trust_points) || 0;
+            const completed = typeof c.completed_bounties_count === 'number' ? c.completed_bounties_count : parseInt(c.completed_bounties_count) || 0;
+            if (state.personas[c.account_id]) {
+              state.personas[c.account_id].trust = trust;
+              state.personas[c.account_id].completed = completed;
+            } else {
+              state.personas[c.account_id] = {
+                trust,
+                completed,
+                isCouncil: c.is_council || false
+              };
+            }
+            const existingContrib = state.contributors.find(x => x.account === c.account_id);
+            if (existingContrib) {
+              existingContrib.trust = trust;
+              existingContrib.completed = completed;
+            }
+          });
+          renderContributors();
+          updateWalletUi();
+        }
+
+        if (badgeText) badgeText.innerText = 'Supabase Active';
+        if (bentoText) bentoText.innerText = 'Supabase Cloud Sync · Active';
+      } catch (err) {
+        console.warn('[Pact Cloud Sync Error]', err);
+        if (badgeText) badgeText.innerText = 'Local Cache Active';
+        if (bentoText) bentoText.innerText = 'Local Cache Active';
+      } finally {
+        isCloudSyncing = false;
+      }
+    }
+
     // NEAR Wallet Selector Integration
     function openWalletModal() {
       document.getElementById('wallet-modal').classList.add('active');
@@ -3077,6 +3242,21 @@
         body: JSON.stringify({ account_id: state.activePersona })
       }).catch(() => {});
 
+      // Direct Supabase Multi-User Sync (Upgrade 2)
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          claimed_by: state.activePersona,
+          status: 'CLAIMED',
+          updated_at: new Date().toISOString()
+        })
+      }).catch(() => {});
+
       renderBounties();
       openDrawer(b.id);
     }
@@ -3206,6 +3386,23 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contributor_id: state.activePersona, proof_url: prUrl })
       }).catch(() => {});
+
+      // Direct Supabase Multi-User Sync (Upgrade 2)
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          proof_url: prUrl,
+          status: b.status,
+          escrow_status: b.status === 'APPROVED' ? 'DISBURSED' : 'ESCROWED',
+          approved_at: b.status === 'APPROVED' ? new Date().toISOString() : null,
+          updated_at: new Date().toISOString()
+        })
+      }).catch(() => {});
     }
 
     function challengeCurrentBounty() {
@@ -3260,6 +3457,38 @@
         body: JSON.stringify({ council_account_id: state.activePersona })
       }).catch(() => {});
 
+      // Direct Supabase Multi-User Sync (Upgrade 2)
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          status: 'APPROVED',
+          escrow_status: 'DISBURSED',
+          approved_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+      }).catch(() => {});
+
+      if (b.claimedBy && state.personas[b.claimedBy]) {
+        fetch(`${SUPABASE_CONFIG.url}/rest/v1/contributors?account_id=eq.${b.claimedBy}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_CONFIG.anonKey,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            trust_points: state.personas[b.claimedBy].trust,
+            completed_bounties_count: state.personas[b.claimedBy].completed,
+            updated_at: new Date().toISOString()
+          })
+        }).catch(() => {});
+      }
+
       openDrawer(b.id);
     }
 
@@ -3303,6 +3532,38 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ council_account_id: state.activePersona })
       }).catch(() => {});
+
+      // Direct Supabase Multi-User Sync (Upgrade 2)
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties?id=eq.${b.id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          status: 'APPROVED',
+          escrow_status: 'DISBURSED',
+          approved_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+      }).catch(() => {});
+
+      if (b.claimedBy && state.personas[b.claimedBy]) {
+        fetch(`${SUPABASE_CONFIG.url}/rest/v1/contributors?account_id=eq.${b.claimedBy}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_CONFIG.anonKey,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            trust_points: state.personas[b.claimedBy].trust,
+            completed_bounties_count: state.personas[b.claimedBy].completed,
+            updated_at: new Date().toISOString()
+          })
+        }).catch(() => {});
+      }
     }
 
     // Create Bounty Modal Handlers (DAO Sponsor Escrow)
@@ -3377,6 +3638,38 @@
       state.bounties.unshift(newBounty);
       persistState();
 
+      // Sync to Edge API and Supabase (Upgrade 2)
+      const cloudPayload = {
+        id: newId,
+        code: newCode,
+        title: title,
+        description: desc,
+        amount_formatted: amount,
+        amount_yocto: (BigInt(Math.round(amount * 1000)) * 1000000000000000000000n).toString(),
+        category: category,
+        status: 'OPEN',
+        approval_tier: defaultTier === 'TIER_3' ? 'TIER_3_FULL_DAO' : (defaultTier === 'TIER_2' ? 'TIER_2_SINGLE_COUNCIL' : 'TIER_1_AUTO'),
+        created_by: sponsor,
+        escrow_status: 'ESCROWED',
+        escrow_vault_id: 'pact-dao-064783.testnet'
+      };
+
+      fetch('/api/bounties', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(cloudPayload)
+      }).catch(() => {});
+
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/bounties`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cloudPayload)
+      }).catch(e => console.warn('[Cloud Create Error]', e));
+
       const countBadge = document.getElementById('bounty-count-badge');
       if (countBadge) countBadge.innerText = state.bounties.length;
       const mPills = document.querySelectorAll('.m-nav-pill');
@@ -3427,6 +3720,11 @@
     renderBounties();
     renderContributors();
     updateWalletUi();
+
+    // Live Supabase Multi-User Cloud Sync (Upgrade 2)
+    syncWithCloud(true);
+    setInterval(() => syncWithCloud(true), 15000);
+    window.addEventListener('focus', () => syncWithCloud(true));
   </script>
 </body>
 
