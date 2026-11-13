@@ -61,6 +61,19 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Static Audio Assets
+  if (url.pathname.startsWith('/audio/')) {
+    const audioFileName = path.basename(url.pathname);
+    const audioPath = path.join(__dirname, 'audio', audioFileName);
+    if (fs.existsSync(audioPath)) {
+      const ext = path.extname(audioPath).toLowerCase();
+      const contentType = ext === '.mp3' ? 'audio/mpeg' : ext === '.wav' ? 'audio/wav' : 'application/octet-stream';
+      res.writeHead(200, { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=86400' });
+      fs.createReadStream(audioPath).pipe(res);
+      return;
+    }
+  }
+
   // Demo Video Studio Player
   if (url.pathname === '/demo' || url.pathname === '/demo.html') {
     try {

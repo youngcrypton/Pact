@@ -15,6 +15,7 @@ node_modules/
 # Build outputs
 dist/
 build/
+out/
 *.wasm
 
 # Logs & Debugging
@@ -36,4 +37,6 @@ SUBMISSION.md
 mock-bounties.json
 data/test-*.json
 data/test-store/
+out/*.png
+
 

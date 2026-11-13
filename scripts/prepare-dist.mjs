@@ -27,6 +27,19 @@ if (fs.existsSync(srcDemoHtml)) {
   fs.copyFileSync(srcDemoHtml, destPreviewDemoHtml);
 }
 
+// Copy audio assets
+const srcAudioDir = path.resolve(process.cwd(), 'out', 'audio');
+const destDistAudioDir = path.resolve(distDir, 'audio');
+const destPreviewAudioDir = path.resolve(distDir, 'preview', 'audio');
+if (fs.existsSync(srcAudioDir)) {
+  fs.mkdirSync(destDistAudioDir, { recursive: true });
+  fs.mkdirSync(destPreviewAudioDir, { recursive: true });
+  for (const file of fs.readdirSync(srcAudioDir)) {
+    fs.copyFileSync(path.join(srcAudioDir, file), path.join(destDistAudioDir, file));
+    fs.copyFileSync(path.join(srcAudioDir, file), path.join(destPreviewAudioDir, file));
+  }
+}
+
 // Copy preview server if present
 const srcPreviewServer = path.resolve(process.cwd(), 'src', 'preview', 'server.mjs');
 const destPreviewServer = path.resolve(distDir, 'preview', 'server.mjs');
