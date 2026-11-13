@@ -350,9 +350,8 @@ Pactt verifies submitted deliverable URLs in real time:
 | Vector Monogram SVG | `src/preview/index.html` (lines 3688–3701) | Vector / 48x48 ViewBox | Active |
 | Favicon SVG | `src/preview/favicon.svg` | 32x32 Vector SVG | Active |
 | Apple Touch Icon | `public/apple-touch-icon.png` | 180x180 PNG | Complete |
-| OpenGraph Social Card | `out/scene2-magic-moment.png` | 1920x1080 (16:9) PNG | Active |
-| Remotion Demo Video | `out/pactt-demo-light.mp4` | 1920x1080 30fps (90s) | Active |
-| Studio Demo Player | `src/preview/demo.html` | Interactive HTML5 Player | Active |
+| OpenGraph Social Card | `public/og-image.png` | 1200x630 PNG | Planned |
+| Hackathon Demo Video | `out/demo.mp4` | 1920x1080 30fps | In Development |
 | Production DApp | `https://pactt.terminall.workers.dev/` | Cloudflare Worker / SPA | Live |
 | Custom Domain | `https://pactt.xyz/` | Cloudflare / Namecheap DNS | Routing |
 
