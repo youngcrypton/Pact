@@ -5723,15 +5723,12 @@
     updateWalletUi();
     recalculateSim();
 
-    // Default to Landing Mode on clean start
-    const initialView = state.activeView || 'landing';
-    if (initialView === 'landing') {
-      document.body.classList.add('landing-mode');
-      document.body.classList.remove('app-mode');
-    } else {
-      document.body.classList.add('app-mode');
-      document.body.classList.remove('landing-mode');
-    }
+    // Check if URL specifies a view (e.g. #bounties or ?view=bounties), otherwise ALWAYS default to Landing Page
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashView = window.location.hash ? window.location.hash.replace('#', '') : null;
+    const requestedView = urlParams.get('view') || hashView;
+    const initialView = (requestedView && document.getElementById('view-' + requestedView)) ? requestedView : 'landing';
+
     switchView(initialView, null);
 
     // Live Supabase Multi-User Cloud Sync (Upgrade 2)
