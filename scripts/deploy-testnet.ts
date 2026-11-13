@@ -21,15 +21,15 @@ console.log('Testnet accounts come pre-funded with 10 free NEAR.');
 console.log('Need more? Visit the official testnet faucet:');
 console.log('👉 https://near-faucet.io\n');
 
-console.log('Step 3: Deploy via NEAR CLI-RS');
-console.log('------------------------------------------');
-console.log('Run the following command in your terminal:');
-console.log('npx near-cli-rs contract deploy <your-account>.testnet use-file dist/src/index.js without-init-call network-config testnet sign-with-keychain send\n');
+console.log('Step 3: Broadcast Protocol Badges & Connect to Sputnik DAO');
+console.log('----------------------------------------------------------');
+console.log('Pactt acts as an Earned Trust Coordination Layer that routes payouts to Sputnik DAO');
+console.log('and mints verifiable reputation badges directly to NEAR Social (SocialDB: v1.social08.testnet).');
+console.log('Run the live on-chain broadcast script:');
+console.log('npx tsx scripts/broadcast-testnet.ts\n');
 
-console.log('Step 4: Share Contract ID with React Teammate');
-console.log('------------------------------------------');
-console.log('Give your teammate the deployed contract name (e.g. "pact.testnet").');
-console.log('They will add it to their React .env file:');
-console.log('NEXT_PUBLIC_CONTRACT_ID=pact-<yourname>.testnet');
-console.log('NEXT_PUBLIC_NETWORK_ID=testnet\n');
+console.log('Step 4: Verify On-Chain Transaction on NearBlocks');
+console.log('----------------------------------------------------------');
+console.log('Inspect live transactions on NEARBlocks:');
+console.log('https://testnet.nearblocks.io/address/pact-dao-064783.testnet\n');
 

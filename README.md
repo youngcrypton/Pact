@@ -4,7 +4,7 @@
 
 [![NEAR Protocol](https://img.shields.io/badge/NEAR-Testnet%20%7C%20Mainnet-000000.svg)](https://near.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
-[![Tests](https://img.shields.io/badge/Tests-33%20Passing-brightgreen.svg)](https://github.com/youngcrypton/Pact)
+[![Tests](https://img.shields.io/badge/Tests-33%20Passing-brightgreen.svg)](https://github.com/youngcrypton/Pactt)
 [![Cloudflare Pages](https://img.shields.io/badge/Deployed-pactt.xyz-orange.svg?logo=cloudflare)](https://pactt.xyz)
 [![Supabase](https://img.shields.io/badge/Database-Supabase%20PostgreSQL-3ECF8E.svg?logo=supabase)](https://supabase.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,7 +12,7 @@
 * **Track:** Social Money (`social`)
 * **Live Custom Domain:** [https://pactt.xyz](https://pactt.xyz)
 * **Target Ecosystem:** Shared community budgets, programmable rewards, and reputation-based access on Sputnik DAO and Trezu.
-* **Repository:** [https://github.com/youngcrypton/Pact](https://github.com/youngcrypton/Pact)
+* **Repository:** [https://github.com/youngcrypton/Pactt](https://github.com/youngcrypton/Pactt)
 
 ---
 
@@ -123,8 +123,8 @@ The protocol includes an automated test suite and an interactive simulation runn
 
 ### 1. Installation
 ```bash
-git clone https://github.com/youngcrypton/Pact.git
-cd Pact
+git clone https://github.com/youngcrypton/Pactt.git
+cd Pactt
 npm install
 ```
 
@@ -183,7 +183,7 @@ The backend exposes a lightweight REST interface on port `3001` (also available 
 ## Repository Structure
 
 ```text
-Pact/
+Pactt/
 |-- FRONTEND.md              # Client integration guide and Supabase service
 |-- docs/
 |   `-- FRONTEND_INTEGRATION.md  # Client integration guide and component specifications
