@@ -9,16 +9,16 @@
       "category": "DEV",
       "created_by": "community.sputnik-dao.testnet",
       "claimed_by": "bob-newbie.testnet",
-      "claimed_at": 1794583505740,
+      "claimed_at": 1794584544959,
       "proof_url": "https://github.com/near-daos/audit/pull/1",
       "submission_notes": null,
       "status": "ESCALATED_TO_DAO",
       "escrow_status": "ESCROWED",
-      "escrow_tx_hash": "tx-escrow-1794583505736",
+      "escrow_tx_hash": "tx-escrow-1794584544949",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": null,
-      "sputnik_proposal_id": 709,
-      "created_at": 1794583505736,
+      "sputnik_proposal_id": 196,
+      "created_at": 1794584544949,
       "completed_at": null
     },
     {
@@ -30,17 +30,17 @@
       "category": "DEV",
       "created_by": "community.sputnik-dao.testnet",
       "claimed_by": "alice.testnet",
-      "claimed_at": 1794583505755,
+      "claimed_at": 1794584544969,
       "proof_url": "https://github.com/near/fix/pull/10",
       "submission_notes": null,
       "status": "APPROVED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505751",
+      "escrow_tx_hash": "tx-escrow-1794584544967",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": "council-member.testnet",
-      "sputnik_proposal_id": 255,
-      "created_at": 1794583505751,
-      "completed_at": 1794583505760
+      "sputnik_proposal_id": 400,
+      "created_at": 1794584544967,
+      "completed_at": 1794584544974
     },
     {
       "id": "bounty-3",
@@ -51,17 +51,17 @@
       "category": "DEV",
       "created_by": "community.sputnik-dao.testnet",
       "claimed_by": "alice.testnet",
-      "claimed_at": 1794583505767,
+      "claimed_at": 1794584544983,
       "proof_url": "https://github.com/near/sdk/pull/42",
       "submission_notes": null,
       "status": "APPROVED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505764",
+      "escrow_tx_hash": "tx-escrow-1794584544981",
       "required_tier": "TIER_2_SINGLE_COUNCIL",
       "council_approved_by": "council-member.testnet",
       "sputnik_proposal_id": null,
-      "created_at": 1794583505764,
-      "completed_at": 1794583505772
+      "created_at": 1794584544981,
+      "completed_at": 1794584544990
     },
     {
       "id": "bounty-4",
@@ -72,17 +72,17 @@
       "category": "DEV",
       "created_by": "community.sputnik-dao.testnet",
       "claimed_by": "alice.testnet",
-      "claimed_at": 1794583505781,
+      "claimed_at": 1794584544997,
       "proof_url": "https://github.com/near/docs/pull/101",
       "submission_notes": null,
       "status": "APPROVED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505778",
+      "escrow_tx_hash": "tx-escrow-1794584544994",
       "required_tier": "TIER_1_AUTO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505778,
-      "completed_at": 1794583505787
+      "created_at": 1794584544994,
+      "completed_at": 1794584544999
     },
     {
       "id": "bounty-5",
@@ -93,16 +93,16 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "first-user.testnet",
-      "claimed_at": 1794583505799,
+      "claimed_at": 1794584545005,
       "proof_url": null,
       "submission_notes": null,
       "status": "CLAIMED",
       "escrow_status": "ESCROWED",
-      "escrow_tx_hash": "tx-escrow-1794583505793",
+      "escrow_tx_hash": "tx-escrow-1794584545003",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505793,
+      "created_at": 1794584545003,
       "completed_at": null
     },
     {
@@ -123,7 +123,7 @@
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505812,
+      "created_at": 1794584545013,
       "completed_at": null
     },
     {
@@ -140,11 +140,11 @@
       "submission_notes": null,
       "status": "REJECTED",
       "escrow_status": "REFUNDED",
-      "escrow_tx_hash": "tx-escrow-1794583505816",
+      "escrow_tx_hash": "tx-escrow-1794584545016",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505816,
+      "created_at": 1794584545016,
       "completed_at": null
     },
     {
@@ -156,17 +156,17 @@
       "category": "DEV",
       "created_by": "math.testnet",
       "claimed_by": "math-dev.testnet",
-      "claimed_at": 1794583505826,
+      "claimed_at": 1794584545023,
       "proof_url": "https://github.com/near/math/pull/1",
       "submission_notes": null,
       "status": "APPROVED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505823",
+      "escrow_tx_hash": "tx-escrow-1794584545021",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": "council-member.testnet",
-      "sputnik_proposal_id": 91,
-      "created_at": 1794583505823,
-      "completed_at": 1794583505833
+      "sputnik_proposal_id": 895,
+      "created_at": 1794584545021,
+      "completed_at": 1794584545027
     },
     {
       "id": "bounty-9",
@@ -177,16 +177,16 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "dev-a.testnet",
-      "claimed_at": 1794583505839,
+      "claimed_at": 1794584545040,
       "proof_url": "https://github.com/near/core-contracts/pull/777",
       "submission_notes": null,
       "status": "ESCALATED_TO_DAO",
       "escrow_status": "ESCROWED",
-      "escrow_tx_hash": "tx-escrow-1794583505837",
+      "escrow_tx_hash": "tx-escrow-1794584545035",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": null,
-      "sputnik_proposal_id": 139,
-      "created_at": 1794583505837,
+      "sputnik_proposal_id": 971,
+      "created_at": 1794584545035,
       "completed_at": null
     },
     {
@@ -198,16 +198,16 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "dev-b.testnet",
-      "claimed_at": 1794583505849,
+      "claimed_at": 1794584545046,
       "proof_url": "https://github.com/near/core-contracts/pull/777",
       "submission_notes": null,
       "status": "CLAIMED",
       "escrow_status": "ESCROWED",
-      "escrow_tx_hash": "tx-escrow-1794583505846",
+      "escrow_tx_hash": "tx-escrow-1794584545044",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505846,
+      "created_at": 1794584545044,
       "completed_at": null
     },
     {
@@ -219,17 +219,17 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "speedy.testnet",
-      "claimed_at": 1794583505859,
+      "claimed_at": 1794584545055,
       "proof_url": "https://github.com/near/warmup/pull/1",
       "submission_notes": null,
       "status": "APPROVED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505854",
+      "escrow_tx_hash": "tx-escrow-1794584545050",
       "required_tier": "TIER_3_FULL_DAO",
       "council_approved_by": "council-member.testnet",
-      "sputnik_proposal_id": 291,
-      "created_at": 1794583505854,
-      "completed_at": 1794583505868
+      "sputnik_proposal_id": 36,
+      "created_at": 1794584545050,
+      "completed_at": 1794584545059
     },
     {
       "id": "bounty-12",
@@ -240,21 +240,21 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "speedy.testnet",
-      "claimed_at": 1794583505873,
+      "claimed_at": 1794584545064,
       "proof_url": "https://github.com/near/speed/pull/1",
       "submission_notes": null,
       "status": "REJECTED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505870",
+      "escrow_tx_hash": "tx-escrow-1794584545062",
       "required_tier": "TIER_1_AUTO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505870,
-      "completed_at": 1794583505875,
+      "created_at": 1794584545062,
+      "completed_at": 1794584545067,
       "dispute_status": "CHALLENGED",
       "disputed_by": "council-member.testnet",
       "dispute_reason": "Empty PR detected post-settlement",
-      "dispute_challenged_at": 1794583505904
+      "dispute_challenged_at": 1794584545084
     },
     {
       "id": "bounty-13",
@@ -265,17 +265,17 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "speedy.testnet",
-      "claimed_at": 1794583505885,
+      "claimed_at": 1794584545070,
       "proof_url": "https://github.com/near/speed/pull/2",
       "submission_notes": null,
       "status": "APPROVED",
       "escrow_status": "DISBURSED",
-      "escrow_tx_hash": "tx-escrow-1794583505879",
+      "escrow_tx_hash": "tx-escrow-1794584545069",
       "required_tier": "TIER_1_AUTO",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505879,
-      "completed_at": 1794583505889
+      "created_at": 1794584545069,
+      "completed_at": 1794584545073
     },
     {
       "id": "bounty-14",
@@ -286,16 +286,16 @@
       "category": "DEV",
       "created_by": "dao.testnet",
       "claimed_by": "speedy.testnet",
-      "claimed_at": 1794583505895,
+      "claimed_at": 1794584545079,
       "proof_url": "https://github.com/near/speed/pull/3",
       "submission_notes": null,
       "status": "IN_REVIEW",
       "escrow_status": "ESCROWED",
-      "escrow_tx_hash": "tx-escrow-1794583505891",
+      "escrow_tx_hash": "tx-escrow-1794584545077",
       "required_tier": "TIER_2_SINGLE_COUNCIL",
       "council_approved_by": null,
       "sputnik_proposal_id": null,
-      "created_at": 1794583505891,
+      "created_at": 1794584545077,
       "completed_at": null
     }
   ],
@@ -322,21 +322,21 @@
         {
           "bounty_id": "bounty-2",
           "points_awarded": 35,
-          "timestamp": 1794583505760,
+          "timestamp": 1794584544974,
           "reason": "Completed Bounty: Initial Fix (5 NEAR)",
           "is_auto_tier1": false
         },
         {
           "bounty_id": "bounty-3",
           "points_awarded": 85,
-          "timestamp": 1794583505772,
+          "timestamp": 1794584544990,
           "reason": "Completed Bounty: SDK Enhancement (15 NEAR)",
           "is_auto_tier1": false
         },
         {
           "bounty_id": "bounty-4",
           "points_awarded": 30,
-          "timestamp": 1794583505787,
+          "timestamp": 1794584544999,
           "reason": "Completed Bounty: Update Docs link (4 NEAR)",
           "is_auto_tier1": true
         }
@@ -354,7 +354,7 @@
         {
           "bounty_id": "bounty-8",
           "points_awarded": 17,
-          "timestamp": 1794583505833,
+          "timestamp": 1794584545027,
           "reason": "Completed Bounty: Precision Micro Bounty (1.5 NEAR)",
           "is_auto_tier1": false
         }
@@ -382,28 +382,28 @@
         {
           "bounty_id": "bounty-11",
           "points_awarded": 60,
-          "timestamp": 1794583505868,
+          "timestamp": 1794584545059,
           "reason": "Completed Bounty: Setup Trust (10 NEAR)",
           "is_auto_tier1": false
         },
         {
           "bounty_id": "bounty-12",
           "points_awarded": 25,
-          "timestamp": 1794583505875,
+          "timestamp": 1794584545067,
           "reason": "Completed Bounty: Task 1 (3 NEAR)",
           "is_auto_tier1": true
         },
         {
           "bounty_id": "bounty-13",
           "points_awarded": 25,
-          "timestamp": 1794583505889,
+          "timestamp": 1794584545073,
           "reason": "Completed Bounty: Task 2 (3 NEAR)",
           "is_auto_tier1": true
         },
         {
           "bounty_id": "bounty-12",
           "points_awarded": -30,
-          "timestamp": 1794583505904,
+          "timestamp": 1794584545084,
           "reason": "Council Slash: Empty PR detected post-settlement"
         }
       ]
@@ -451,5 +451,5 @@
       "bounty-14"
     ]
   ],
-  "updatedAt": 1794583505904
+  "updatedAt": 1794584545084
 }
