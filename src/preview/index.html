@@ -6,20 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Pactt — Earned Trust Coordination Layer</title>
 
-  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk (Razor-Sharp Modern Typography) -->
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans & Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet">
 
   <style>
-    /* CRYPTON CYBER-MONOCHROME BLADE DESIGN SYSTEM (Default OLED Jet-Black) */
+    /* CRYPTON CYBER-MONOCHROME FRAMER DESIGN SYSTEM (LIT ATMOSPHERIC BACKGROUND) */
     :root {
-      --bg: #000000;
-      --bg-pattern: linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-      --bg-gradient: #000000;
+      --bg: #030406;
+      --bg-ambient: radial-gradient(circle 900px at 50% -120px, rgba(16, 185, 129, 0.22), transparent 72%),
+        radial-gradient(circle 650px at 85% 25%, rgba(16, 185, 129, 0.12), transparent 60%),
+        radial-gradient(circle 750px at 15% 45%, rgba(255, 255, 255, 0.035), transparent 65%),
+        radial-gradient(ellipse 100% 60% at 50% 100%, rgba(2, 3, 5, 0.98), transparent 85%);
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 0 C24 14 14 24 0 24 C14 24 24 34 24 48 C24 34 34 24 48 24 C34 24 24 14 24 0 Z' fill='%23ffffff' fill-opacity='0.035'/%3E%3Ccircle cx='24' cy='24' r='1.5' fill='%23ffffff' fill-opacity='0.06'/%3E%3C/svg%3E");
+      --bg-gradient: #030406;
       --surface: #07080a;
       --surface-card: #0d0e12;
       --surface-hover: #14161f;
@@ -54,6 +57,7 @@
       --emerald-light: #34d399;
       --emerald-dark: #059669;
       --emerald-glow: 0 0 20px rgba(16, 185, 129, 0.25);
+      --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'Space Grotesk', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     }
@@ -61,8 +65,10 @@
     /* HIGH-CONTRAST STUDIO LIGHT THEME */
     body.theme-light {
       --bg: #f8fafc;
-      --bg-pattern: linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+      --bg-ambient: radial-gradient(circle 800px at 50% -80px, rgba(16, 185, 129, 0.12), transparent 70%),
+        radial-gradient(circle 500px at 80% 20%, rgba(5, 150, 105, 0.07), transparent 60%),
+        radial-gradient(ellipse 100% 60% at 50% 100%, rgba(241, 245, 249, 0.95), transparent 85%);
+      --bg-pattern: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 0 C24 14 14 24 0 24 C14 24 24 34 24 48 C24 34 34 24 48 24 C34 24 24 14 24 0 Z' fill='%23000000' fill-opacity='0.025'/%3E%3Ccircle cx='24' cy='24' r='1.5' fill='%23000000' fill-opacity='0.04'/%3E%3C/svg%3E");
       --bg-gradient: #f8fafc;
       --surface: #ffffff;
       --surface-card: #ffffff;
@@ -104,15 +110,15 @@
 
     body {
       background-color: var(--bg);
-      background-image: var(--bg-pattern);
-      background-repeat: repeat;
-      background-size: 100% auto, 36px 36px, 36px 36px;
-      background-position: center top;
-      background-attachment: fixed;
+      background-image: var(--bg-ambient), var(--bg-pattern);
+      background-repeat: no-repeat, repeat;
+      background-position: center top, center top;
+      background-size: 100% 1200px, 48px 48px;
+      background-attachment: fixed, fixed;
       color: var(--text-primary);
       font-family: var(--font-sans);
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
@@ -128,10 +134,10 @@
       position: fixed;
       inset: 0;
       background-color: var(--bg);
-      background-image: var(--bg-pattern);
-      background-repeat: repeat;
-      background-size: 100% auto, 36px 36px, 36px 36px;
-      background-position: center center;
+      background-image: var(--bg-ambient), var(--bg-pattern);
+      background-repeat: no-repeat, repeat;
+      background-position: center top, center top;
+      background-size: 100% 1200px, 48px 48px;
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -2526,8 +2532,8 @@
       color: #000000;
       font-size: 12.5px;
       font-weight: 700;
-      padding: 7px 15px;
-      border-radius: 7px;
+      padding: 7px 18px;
+      border-radius: 9999px;
       border: 1px solid #ffffff;
       cursor: pointer;
       box-shadow: 0 0 14px rgba(255, 255, 255, 0.22);
@@ -2536,9 +2542,11 @@
     }
 
     .btn-blade-header-launch:hover {
-      background: #f1f5f9;
+      background: #10b981;
+      border-color: #10b981;
+      color: #000000;
       transform: translateY(-1px);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
     }
 
     body.theme-light .btn-blade-header-launch {
@@ -2634,537 +2642,679 @@
       }
     }
 
-    /* BLADE BUTTONS */
-    .btn-blade-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #ffffff;
-      color: #000000;
-      font-size: 13.5px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      padding: 11px 22px;
-      border-radius: 8px;
-      border: 1px solid #ffffff;
-      cursor: pointer;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 8px 20px rgba(255, 255, 255, 0.15);
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      white-space: nowrap;
+    /* ==========================================================================
+       FRAMER-INSPIRED EDITORIAL UNBOXED LANDING PAGE & AMBIENT GLOW
+       ========================================================================== */
+
+    /* Global Little Text Typography (Matching Reference Image 2 Style & Size) */
+    .little-text,
+    .bento-subtext,
+    .bounty-card-desc,
+    .bounty-desc,
+    .tour-desc,
+    .drawer-desc,
+    .modal-desc,
+    .trust-explainer,
+    .policy-desc,
+    .proof-desc,
+    .framer-card-desc,
+    .framer-step-desc,
+    .framer-hero-pitch {
+      font-family: var(--font-sans) !important;
+      font-weight: 400 !important;
+      line-height: 1.62 !important;
+      letter-spacing: -0.01em !important;
     }
 
-    .btn-blade-primary::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-      transform: skewX(-20deg);
-      transition: left 0.5s ease;
+    .bento-subtext,
+    .tour-desc,
+    .drawer-desc,
+    .modal-desc,
+    .framer-card-desc,
+    .framer-step-desc {
+      font-size: 14px !important;
+      color: var(--text-secondary) !important;
     }
 
-    .btn-blade-primary:hover {
-      background: #f8fafc;
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px #ffffff, 0 12px 28px rgba(255, 255, 255, 0.25);
-    }
-
-    .btn-blade-primary:hover::after {
-      left: 140%;
-    }
-
-    body.theme-light .btn-blade-primary {
-      background: #020617;
-      color: #ffffff;
-      border-color: #020617;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    body.theme-light .btn-blade-primary:hover {
-      background: #0f172a;
-    }
-
-    .btn-blade-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #0d0e12;
-      color: #ffffff;
-      font-size: 13.5px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      padding: 11px 20px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-top: 1px solid rgba(255, 255, 255, 0.36);
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-      white-space: nowrap;
-    }
-
-    .btn-blade-secondary:hover {
-      background: #151720;
-      border-color: rgba(255, 255, 255, 0.45);
-      transform: translateY(-1px);
-      color: #ffffff;
-    }
-
-    body.theme-light .btn-blade-secondary {
-      background: #ffffff;
-      color: #020617;
-      border-color: rgba(0, 0, 0, 0.16);
-      border-top-color: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    body.theme-light .btn-blade-secondary:hover {
-      background: #f1f5f9;
-      border-color: rgba(0, 0, 0, 0.3);
-    }
-
-    /* RAZOR-SHARP BLADE LANDING PAGE */
-    .blade-landing-hero {
+    /* Unboxed Floating Hero */
+    .framer-landing-hero {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 56px 20px 36px;
-      background: #000000;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-top: 1px solid rgba(255, 255, 255, 0.36);
-      border-radius: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85);
-    }
-
-    body.theme-light .blade-landing-hero {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.12);
-      border-top-color: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    }
-
-    .blade-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: #0a0b0e;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-top: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 100px;
-      padding: 5px 14px;
-      font-size: 10.5px;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #ffffff;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    body.theme-light .blade-badge {
-      background: #f1f5f9;
-      border-color: rgba(0, 0, 0, 0.12);
-      border-top-color: rgba(0, 0, 0, 0.22);
-      color: #020617;
-    }
-
-    .blade-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 8px #ffffff;
-    }
-
-    body.theme-light .blade-badge-dot {
-      background: #020617;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-    }
-
-    .blade-hero-title {
-      font-size: 44px;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      color: #ffffff;
-      max-width: 820px;
-      margin-bottom: 16px;
-    }
-
-    body.theme-light .blade-hero-title {
-      color: #020617;
-    }
-
-    .blade-hero-accent {
-      background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline;
-    }
-
-    body.theme-light .blade-hero-accent {
-      background: linear-gradient(135deg, #020617 30%, #334155 70%, #64748b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .blade-hero-desc {
-      font-size: 15px;
-      line-height: 1.55;
-      color: var(--text-secondary);
-      max-width: 660px;
-      margin-bottom: 26px;
-      font-weight: 400;
-    }
-
-    .blade-hero-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      padding: 68px 20px 40px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
       margin-bottom: 24px;
       width: 100%;
     }
 
-    .blade-meta-row {
+    /* Radiant Green Aura Pill */
+    .framer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: #34d399;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    body.theme-light .framer-pill {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(5, 150, 105, 0.3);
+      color: #059669;
+      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.15);
+    }
+
+    .framer-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    /* Editorial Headline with Playfair Display & Italic Green Accent */
+    .framer-hero-title {
+      font-family: var(--font-serif);
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: #ffffff;
+      max-width: 820px;
+      margin-bottom: 20px;
+    }
+
+    body.theme-light .framer-hero-title {
+      color: #020617;
+    }
+
+    .framer-italic {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 500;
+      color: #34d399;
+      text-shadow: 0 0 35px rgba(16, 185, 129, 0.45);
+    }
+
+    body.theme-light .framer-italic {
+      color: #059669;
+      text-shadow: 0 0 20px rgba(5, 150, 105, 0.25);
+    }
+
+    /* Airy, High-Contrast Pitch ("Little Text" per image 2) */
+    .framer-hero-pitch {
+      font-size: 16px;
+      color: #e2e8f0;
+      max-width: 580px;
+      margin: 0 auto 32px;
+      line-height: 1.65;
+    }
+
+    body.theme-light .framer-hero-pitch {
+      color: #334155;
+    }
+
+    /* Hero CTA Actions */
+    .framer-hero-actions {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 14px;
       flex-wrap: wrap;
-      font-size: 11.5px;
-      font-family: var(--font-mono);
-      color: var(--text-tertiary);
-      padding-top: 16px;
-      border-top: 1px solid var(--border-subtle);
+      margin-bottom: 48px;
       width: 100%;
-      max-width: 760px;
     }
 
-    .blade-meta-row code {
+    /* Rounded Emerald Pill CTA */
+    .btn-framer-primary,
+    .btn-blade-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #10b981;
+      color: #000000;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding: 13px 32px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.45), 0 8px 24px rgba(0, 0, 0, 0.5);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .btn-framer-primary:hover,
+    .btn-blade-primary:hover {
+      background: #34d399;
+      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.7), 0 12px 28px rgba(0, 0, 0, 0.6);
+    }
+
+    body.theme-light .btn-framer-primary,
+    body.theme-light .btn-blade-primary {
+      background: #059669;
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 1px 6px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3);
     }
 
-    body.theme-light .blade-meta-row code {
-      color: #020617;
-      background: rgba(0, 0, 0, 0.04);
-      border-color: rgba(0, 0, 0, 0.1);
+    body.theme-light .btn-framer-primary:hover,
+    body.theme-light .btn-blade-primary:hover {
+      background: #047857;
     }
 
-    .blade-meta-sep {
-      color: var(--border-sharp);
+    /* Secondary Glassmorphic Tour Pill */
+    .btn-framer-tour,
+    .btn-blade-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 13px 26px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
-    /* 3 COMPACT METRICS BAR */
-    .blade-metrics-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .blade-metric-card {
-      background: #0d0e12;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-top: 1px solid rgba(255, 255, 255, 0.32);
-      border-radius: 12px;
-      padding: 16px 14px;
-      text-align: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.18s ease;
-    }
-
-    .blade-metric-card:hover {
-      border-color: rgba(255, 255, 255, 0.3);
+    .btn-framer-tour:hover,
+    .btn-blade-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.35);
       transform: translateY(-1px);
     }
 
-    body.theme-light .blade-metric-card {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.12);
-      border-top-color: rgba(0, 0, 0, 0.22);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-    }
-
-    .blade-metric-num {
-      font-size: 26px;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      color: #ffffff;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    body.theme-light .blade-metric-num {
+    body.theme-light .btn-framer-tour,
+    body.theme-light .btn-blade-secondary {
+      background: rgba(0, 0, 0, 0.04);
       color: #020617;
+      border-color: rgba(0, 0, 0, 0.15);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    .blade-metric-unit {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-tertiary);
+    body.theme-light .btn-framer-tour:hover,
+    body.theme-light .btn-blade-secondary:hover {
+      background: rgba(0, 0, 0, 0.08);
+      border-color: rgba(0, 0, 0, 0.25);
     }
 
-    .blade-metric-lbl {
-      font-size: 11px;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-tertiary);
-    }
-
-    /* 3 CONCISE FEATURE CARDS */
-    .blade-features-grid {
+    /* FLOATING SHOWCASE CARDS (Angled / Tilted Showcase from Image 2) */
+    .framer-showcase-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 20px;
+      width: 100%;
+      max-width: 1060px;
+      margin: 0 auto 56px;
+      perspective: 1000px;
     }
 
-    .blade-feature-card {
-      background: #0d0e12;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-top: 1px solid rgba(255, 255, 255, 0.32);
-      border-radius: 12px;
-      padding: 20px 18px;
+    .framer-showcase-card {
+      background: rgba(13, 14, 18, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 20px;
+      padding: 24px 22px;
+      text-align: left;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.18s ease;
+      gap: 12px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 1px rgba(255, 255, 255, 0.15);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
-    .blade-feature-card:hover {
-      border-color: rgba(255, 255, 255, 0.32);
-      transform: translateY(-1px);
+    .framer-showcase-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.6), transparent);
+      opacity: 0.6;
     }
 
-    body.theme-light .blade-feature-card {
-      background: #ffffff;
+    .framer-showcase-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(16, 185, 129, 0.2);
+    }
+
+    body.theme-light .framer-showcase-card {
+      background: rgba(255, 255, 255, 0.88);
       border-color: rgba(0, 0, 0, 0.12);
       border-top-color: rgba(0, 0, 0, 0.22);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
     }
 
-    .blade-feature-header {
+    .framer-card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .blade-feature-num {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    .blade-feature-tag {
-      font-size: 9.5px;
+    .framer-card-badge {
+      font-size: 10px;
       font-family: var(--font-mono);
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: #f1f5f9;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
     }
 
-    body.theme-light .blade-feature-tag {
-      background: rgba(0, 0, 0, 0.05);
-      border-color: rgba(0, 0, 0, 0.12);
+    body.theme-light .framer-card-badge {
+      background: rgba(5, 150, 105, 0.08);
+      border-color: rgba(5, 150, 105, 0.25);
+      color: #059669;
+    }
+
+    .framer-card-stat {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    body.theme-light .framer-card-stat {
       color: #020617;
     }
 
-    .blade-feature-title {
-      font-size: 15.5px;
+    .framer-card-title {
+      font-size: 16px;
       font-weight: 700;
       color: #ffffff;
       line-height: 1.3;
     }
 
-    body.theme-light .blade-feature-title {
+    body.theme-light .framer-card-title {
       color: #020617;
     }
 
-    .blade-feature-desc {
-      font-size: 12.5px;
+    .framer-card-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* "CERTAIN THINGS USERS NEED TO KNOW" SECTION */
+    .framer-section {
+      width: 100%;
+      max-width: 1060px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .framer-section-title {
+      font-family: var(--font-serif);
+      font-size: 34px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    body.theme-light .framer-section-title {
+      color: #020617;
+    }
+
+    .framer-section-pitch {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    /* 3-Step Grid */
+    .framer-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .framer-step-box {
+      background: rgba(13, 14, 18, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 18px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    body.theme-light .framer-step-box {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 0, 0, 0.1);
+      border-top-color: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .framer-step-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 6px;
+      width: fit-content;
+      padding: 2px 8px;
+    }
+
+    body.theme-light .framer-step-num {
+      color: #059669;
+      background: rgba(5, 150, 105, 0.08);
+      border-color: rgba(5, 150, 105, 0.2);
+    }
+
+    .framer-step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    body.theme-light .framer-step-title {
+      color: #020617;
+    }
+
+    .framer-step-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Trust Tiers At A Glance Card */
+    .framer-tiers-box {
+      background: rgba(13, 14, 18, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 36px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    body.theme-light .framer-tiers-box {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 0, 0, 0.1);
+      border-top-color: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .framer-tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      text-align: left;
+    }
+
+    .framer-tier-item {
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    body.theme-light .framer-tier-item {
+      background: rgba(0, 0, 0, 0.02);
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+
+    .framer-tier-name {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .framer-tier-limit {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      margin-bottom: 4px;
+    }
+
+    body.theme-light .framer-tier-limit {
+      color: #020617;
+    }
+
+    .framer-tier-detail {
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.5;
     }
 
-    /* COMPACT BOTTOM CONVERSION STRIP */
-    .blade-cta-strip {
-      background: #0a0b0e;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-top: 1px solid rgba(255, 255, 255, 0.36);
-      border-radius: 14px;
-      padding: 24px 22px;
-      margin-bottom: 20px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+    /* Minimal Verified Contracts Row */
+    .framer-contracts-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
     }
 
-    body.theme-light .blade-cta-strip {
-      background: #ffffff;
-      border-color: rgba(0, 0, 0, 0.12);
-      border-top-color: rgba(0, 0, 0, 0.22);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    .framer-contracts-row code {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    .blade-cta-inner {
+    body.theme-light .framer-contracts-row code {
+      color: #020617;
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Final Conversion Strip */
+    .framer-bottom-cta {
+      background: rgba(13, 14, 18, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 28px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 20px;
       flex-wrap: wrap;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65);
+      text-align: left;
     }
 
-    .blade-cta-title {
-      font-size: 18px;
+    body.theme-light .framer-bottom-cta {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(0, 0, 0, 0.12);
+      border-top-color: rgba(0, 0, 0, 0.22);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .framer-bottom-title {
+      font-size: 20px;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: -0.02em;
       margin-bottom: 4px;
     }
 
-    body.theme-light .blade-cta-title {
+    body.theme-light .framer-bottom-title {
       color: #020617;
     }
 
-    .blade-cta-desc {
-      font-size: 13px;
+    .framer-bottom-desc {
+      font-size: 13.5px;
       color: var(--text-secondary);
       max-width: 580px;
-      line-height: 1.45;
+      line-height: 1.55;
     }
 
-    /* MOBILE-FIRST COMPACT OVERRIDES (max-width: 600px) */
+    /* MOBILE-FIRST RESPONSIVE OPTIMIZATIONS (max-width: 600px) */
     @media (max-width: 600px) {
-      .blade-landing-hero {
-        padding: 26px 14px 20px;
-        border-radius: 14px;
-        margin-bottom: 12px;
-      }
-
-      .blade-badge {
-        font-size: 9px;
-        padding: 4px 10px;
-        margin-bottom: 14px;
-      }
-
-      .blade-hero-title {
-        font-size: 24px;
-        letter-spacing: -0.03em;
-        line-height: 1.15;
-        margin-bottom: 12px;
-      }
-
-      .blade-hero-desc {
-        font-size: 12.5px;
-        line-height: 1.45;
-        margin-bottom: 18px;
-      }
-
-      .blade-hero-actions {
-        flex-direction: column;
-        gap: 8px;
+      .framer-landing-hero {
+        padding: 40px 14px 28px;
         margin-bottom: 16px;
       }
 
+      .framer-pill {
+        font-size: 9.5px;
+        padding: 5px 12px;
+        margin-bottom: 18px;
+      }
+
+      .framer-hero-title {
+        font-size: 34px;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin-bottom: 16px;
+      }
+
+      .framer-hero-pitch {
+        font-size: 14.5px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+
+      .framer-hero-actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 32px;
+      }
+
+      .btn-framer-primary,
+      .btn-framer-tour,
       .btn-blade-primary,
       .btn-blade-secondary {
         width: 100%;
         justify-content: center;
-        height: 44px;
-        font-size: 13px;
-        padding: 0 16px;
-      }
-
-      .blade-meta-row {
-        font-size: 10px;
-        padding-top: 12px;
-        gap: 6px;
-      }
-
-      .blade-metrics-row {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
-        margin-bottom: 12px;
-      }
-
-      .blade-metric-card {
-        padding: 10px 6px;
-        border-radius: 10px;
-      }
-
-      .blade-metric-num {
-        font-size: 16px;
-        margin-bottom: 2px;
-      }
-
-      .blade-metric-unit {
-        font-size: 10px;
-      }
-
-      .blade-metric-lbl {
-        font-size: 8.5px;
-      }
-
-      .blade-features-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        margin-bottom: 12px;
-      }
-
-      .blade-feature-card {
-        padding: 13px 14px;
-        border-radius: 10px;
-        gap: 6px;
-      }
-
-      .blade-feature-title {
+        height: 48px;
         font-size: 14px;
+        padding: 0 20px;
       }
 
-      .blade-feature-desc {
-        font-size: 11.5px;
-        line-height: 1.4;
+      .framer-showcase-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 36px;
       }
 
-      .blade-cta-strip {
+      .framer-showcase-card {
+        padding: 18px 16px;
+        border-radius: 16px;
+        gap: 10px;
+      }
+
+      .framer-card-stat {
+        font-size: 24px;
+      }
+
+      .framer-section {
+        margin-bottom: 36px;
+      }
+
+      .framer-section-title {
+        font-size: 26px;
+      }
+
+      .framer-section-pitch {
+        font-size: 13.5px;
+        margin-bottom: 24px;
+      }
+
+      .framer-steps-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .framer-step-box {
         padding: 16px 14px;
-        border-radius: 12px;
-        margin-bottom: 16px;
+        border-radius: 14px;
       }
 
-      .blade-cta-inner {
+      .framer-tiers-box {
+        padding: 16px 14px;
+        border-radius: 16px;
+        margin-bottom: 24px;
+      }
+
+      .framer-tiers-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .framer-tier-item {
+        padding: 12px;
+      }
+
+      .framer-contracts-row {
+        font-size: 10.5px;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+
+      .framer-bottom-cta {
+        padding: 20px 16px;
+        border-radius: 16px;
         flex-direction: column;
         align-items: stretch;
-        gap: 12px;
+        gap: 14px;
       }
 
-      .blade-cta-title {
-        font-size: 15px;
+      .framer-bottom-title {
+        font-size: 17px;
       }
 
-      .blade-cta-desc {
-        font-size: 12px;
+      .framer-bottom-desc {
+        font-size: 12.5px;
       }
     }
   </style>
@@ -3344,36 +3494,34 @@
   <!-- Main View -->
   <main>
 
-    <!-- VIEW 0: CRYPTON HIGH-VALUE STREAMLINED BLADE LANDING PAGE -->
+    <!-- VIEW 0: FRAMER-INSPIRED EDITORIAL UNBOXED LANDING PAGE -->
     <div id="view-landing" class="view-content active">
 
-      <!-- COMPACT RAZOR-SHARP HERO -->
-      <section class="blade-landing-hero">
-        <div class="blade-badge">
-          <span class="blade-badge-dot"></span>
+      <!-- UNBOXED FLOATING EDITORIAL HERO -->
+      <section class="framer-landing-hero">
+        <div class="framer-pill">
+          <span class="framer-pill-dot"></span>
           <span>NEAR HACKATHON 2026 &middot; TRACK 12: SOCIAL &middot; SPUTNIK DAO ESCROW</span>
         </div>
 
-        <h1 class="blade-hero-title">
-          Instant DAO Bounties.<br>
-          <span class="blade-hero-accent">Zero Voter Fatigue.</span>
+        <h1 class="framer-hero-title">
+          Effortless <span class="framer-italic">payouts</span> and DAO bounties
         </h1>
 
-        <p class="blade-hero-desc">
-          Pactt replaces high-friction multi-sig voting on NEAR with algorithmic trust routing. Micro-bounties settle
-          autonomously in 4.2 seconds; major milestones route to Sputnik DAO with Soulbound SocialDB credentials.
+        <p class="framer-hero-pitch">
+          From micro-tasks to major milestones, Pactt coordinates trust-routed bounties on NEAR so contributors get paid in seconds without voter fatigue.
         </p>
 
-        <div class="blade-hero-actions">
-          <button class="btn-blade-primary" onclick="enterAppAndPromptWallet('bounties')">
+        <div class="framer-hero-actions">
+          <button class="btn-framer-primary" onclick="enterAppAndPromptWallet('bounties')">
             <span>Launch Protocol</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="7" y1="17" x2="17" y2="7"></line>
               <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
           </button>
-          <button class="btn-blade-secondary" onclick="startQuickTour()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button class="btn-framer-tour" onclick="startQuickTour()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"></circle>
               <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
             </svg>
@@ -3381,79 +3529,129 @@
           </button>
         </div>
 
-        <div class="blade-meta-row">
-          <span>Contract: <code>pact-dao-064783.testnet</code></span>
-          <span class="blade-meta-sep">&middot;</span>
+        <!-- FLOATING SHOWCASE CARDS (Inspired by tilted preview cards in Image 2) -->
+        <div class="framer-showcase-row">
+          <div class="framer-showcase-card">
+            <div class="framer-card-header">
+              <span class="framer-card-badge">TIER 1 &middot; INSTANT</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <div class="framer-card-stat">&lt; 4.2s</div>
+            <div class="framer-card-title">Autonomous Payouts</div>
+            <div class="framer-card-desc">
+              Micro-bounties under 5 NEAR disburse automatically upon verified deliverable proof with 0 council signatures required.
+            </div>
+          </div>
+
+          <div class="framer-showcase-card">
+            <div class="framer-card-header">
+              <span class="framer-card-badge">SOCIALDB &middot; SOULBOUND</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="framer-card-stat">142.5 Pts</div>
+            <div class="framer-card-title">Soulbound Trust Scores</div>
+            <div class="framer-card-desc">
+              Every approved delivery mints verifiable NEP-177 badges and deterministic trust points directly to NEAR SocialDB.
+            </div>
+          </div>
+
+          <div class="framer-showcase-card">
+            <div class="framer-card-header">
+              <span class="framer-card-badge">TIER 3 &middot; MULTI-SIG</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="framer-card-stat">2-of-3 Quorum</div>
+            <div class="framer-card-title">Sputnik DAO Governance</div>
+            <div class="framer-card-desc">
+              Major milestones (&gt; 25 NEAR) route automatically to Sputnik DAO multi-sig consensus, preserving council focus.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- "CERTAIN THINGS USERS NEED TO KNOW" SECTION -->
+      <section class="framer-section">
+        <h2 class="framer-section-title">How Pactt Works</h2>
+        <p class="framer-section-pitch">
+          Earned trust eliminates 80% of DAO voting friction by routing low-risk work through cryptographic escrow.
+        </p>
+
+        <!-- 3 Simple Steps -->
+        <div class="framer-steps-grid">
+          <div class="framer-step-box">
+            <div class="framer-step-num">01</div>
+            <div class="framer-step-title">Pick a Bounty</div>
+            <div class="framer-step-desc">
+              Browse open tasks across engineering, audits, design, and research sponsored by active Sputnik DAOs.
+            </div>
+          </div>
+          <div class="framer-step-box">
+            <div class="framer-step-num">02</div>
+            <div class="framer-step-title">Submit Deliverable</div>
+            <div class="framer-step-desc">
+              Submit your PR or commit hash. The contract generates unique cryptographic SHA-256 deliverable proofs.
+            </div>
+          </div>
+          <div class="framer-step-box">
+            <div class="framer-step-num">03</div>
+            <div class="framer-step-title">Instant Escrow Payout</div>
+            <div class="framer-step-desc">
+              Tier 1 contributors disburse in 4.2 seconds; high-capital allocations escalate to council multi-sig consensus.
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Tiers At A Glance -->
+        <div class="framer-tiers-box">
+          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #34d399; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; text-align: left;">
+            Trust Routing Architecture
+          </div>
+          <div class="framer-tiers-grid">
+            <div class="framer-tier-item">
+              <div class="framer-tier-name" style="color: #10b981;">Tier 1: Autonomous Release</div>
+              <div class="framer-tier-limit">&le; 5.0 NEAR</div>
+              <div class="framer-tier-detail">50+ Trust score. 4.2-second autonomous release upon deliverable verification.</div>
+            </div>
+            <div class="framer-tier-item">
+              <div class="framer-tier-name" style="color: #f59e0b;">Tier 2: Single Council</div>
+              <div class="framer-tier-limit">5.0 &ndash; 25.0 NEAR</div>
+              <div class="framer-tier-detail">20+ Trust score. Rapid 1-council signoff with 24h challenge window.</div>
+            </div>
+            <div class="framer-tier-item">
+              <div class="framer-tier-name" style="color: #3b82f6;">Tier 3: Sputnik DAO</div>
+              <div class="framer-tier-limit">&gt; 25.0 NEAR</div>
+              <div class="framer-tier-detail">Open to all. Full Sputnik DAO multi-sig proposal with 2-of-3 council vote.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Minimal Verified Contracts Row -->
+        <div class="framer-contracts-row">
+          <span>Escrow Contract: <code>pact-dao-064783.testnet</code></span>
+          <span>&middot;</span>
           <span>Sputnik DAO: <code>pactt.sputnik-dao.testnet</code></span>
-          <span class="blade-meta-sep">&middot;</span>
+          <span>&middot;</span>
           <span>SocialDB: <code>v1.social08.testnet</code></span>
         </div>
-      </section>
 
-      <!-- 3 COMPACT METRICS (Single 3-column row on mobile!) -->
-      <section class="blade-metrics-row">
-        <div class="blade-metric-card">
-          <div class="blade-metric-num">121.5 <span class="blade-metric-unit">NEAR</span></div>
-          <div class="blade-metric-lbl">Escrow Custody</div>
-        </div>
-        <div class="blade-metric-card">
-          <div class="blade-metric-num">&lt; 4.2s</div>
-          <div class="blade-metric-lbl">Instant Payout</div>
-        </div>
-        <div class="blade-metric-card">
-          <div class="blade-metric-num">80%</div>
-          <div class="blade-metric-lbl">Friction Saved</div>
-        </div>
-      </section>
-
-      <!-- 3 CONCISE FEATURE CARDS -->
-      <section class="blade-features-grid">
-        <div class="blade-feature-card">
-          <div class="blade-feature-header">
-            <span class="blade-feature-num">01</span>
-            <span class="blade-feature-tag">TIER 1</span>
-          </div>
-          <h3 class="blade-feature-title">Autonomous Escrow Release</h3>
-          <p class="blade-feature-desc">
-            Bounties under 5 NEAR disburse automatically in 4.2 seconds for Tier 1 trusted contributors with 0 council
-            signatures required.
-          </p>
-        </div>
-
-        <div class="blade-feature-card">
-          <div class="blade-feature-header">
-            <span class="blade-feature-num">02</span>
-            <span class="blade-feature-tag">TIER 3</span>
-          </div>
-          <h3 class="blade-feature-title">Sputnik DAO Multi-Sig Governance</h3>
-          <p class="blade-feature-desc">
-            Major milestones (&gt; 25 NEAR) route automatically to Sputnik DAO multi-sig quorums with on-chain 2-of-3
-            council consensus.
-          </p>
-        </div>
-
-        <div class="blade-feature-card">
-          <div class="blade-feature-header">
-            <span class="blade-feature-num">03</span>
-            <span class="blade-feature-tag">REPUTATION</span>
-          </div>
-          <h3 class="blade-feature-title">Soulbound SocialDB Credentials</h3>
-          <p class="blade-feature-desc">
-            Every approved delivery mints verifiable NEP-177 badges and deterministic trust points directly to NEAR
-            SocialDB.
-          </p>
-        </div>
-      </section>
-
-      <!-- COMPACT BOTTOM CONVERSION STRIP -->
-      <section class="blade-cta-strip">
-        <div class="blade-cta-inner">
+        <!-- Bottom Conversion Strip -->
+        <div class="framer-bottom-cta">
           <div>
-            <h3 class="blade-cta-title">Ready to coordinate on NEAR?</h3>
-            <p class="blade-cta-desc">Launch the protocol to explore active bounties, connect your testnet wallet, or
-              inspect live proofs.</p>
+            <div class="framer-bottom-title">Ready to coordinate on NEAR?</div>
+            <div class="framer-bottom-desc">
+              Launch the protocol to explore active bounties, connect your testnet wallet, or inspect verified proofs.
+            </div>
           </div>
-          <button class="btn-blade-primary" onclick="enterAppAndPromptWallet('bounties')">
+          <button class="btn-framer-primary" onclick="enterAppAndPromptWallet('bounties')">
             <span>Launch Protocol</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="7" y1="17" x2="17" y2="7"></line>
