@@ -2965,283 +2965,107 @@
   <!-- Main View -->
   <main>
 
-    <!-- VIEW 0: CRYPTON HIGH-VALUE LANDING PAGE -->
+    <!-- VIEW 0: CRYPTON HIGH-VALUE STREAMLINED BLADE LANDING PAGE -->
     <div id="view-landing" class="view-content active">
 
-      <!-- HERO SECTION -->
-      <section class="landing-hero">
-        <div class="landing-badge">
-          <span class="landing-badge-dot"></span>
-          <span>NEAR HACKATHON 2026 · TRACK 12: SOCIAL · SPUTNIK DAO ESCROW</span>
+      <!-- COMPACT RAZOR-SHARP HERO -->
+      <section class="blade-landing-hero">
+        <div class="blade-badge">
+          <span class="blade-badge-dot"></span>
+          <span>NEAR HACKATHON 2026 &middot; TRACK 12: SOCIAL &middot; SPUTNIK DAO ESCROW</span>
         </div>
 
-        <h1 class="landing-title">
-          COORDINATE DAOS AT THE <span class="gradient-text-emerald">SPEED OF TRUST</span>.
+        <h1 class="blade-hero-title">
+          Instant DAO Bounties.<br>
+          <span class="blade-hero-accent">Zero Voter Fatigue.</span>
         </h1>
 
-        <p class="landing-subtitle">
-          Pactt replaces high-friction multi-sig voting on NEAR with algorithmic trust routing. Small bounties settle autonomously in 4.2 seconds; major milestones route to Sputnik DAO multi-sig. Powered by cryptographic PR deduplication and Soulbound SocialDB reputation.
+        <p class="blade-hero-desc">
+          Pactt replaces high-friction multi-sig voting on NEAR with algorithmic trust routing. Micro-bounties settle autonomously in 4.2 seconds; major milestones route to Sputnik DAO with Soulbound SocialDB credentials.
         </p>
 
-        <div class="landing-cta-row">
-          <button class="btn-landing-primary" onclick="enterAppAndPromptWallet('bounties')">
-            <span>Launch Protocol &amp; Connect Wallet</span>
+        <div class="blade-hero-actions">
+          <button class="btn-blade-primary" onclick="enterAppAndPromptWallet('bounties')">
+            <span>Launch Protocol</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
           </button>
-          <button class="btn-landing-secondary" onclick="enterAppAndPromptWallet('bounties')">
-            <span>Explore Active Bounties</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-          </button>
-          <button class="btn-landing-subtle" onclick="startQuickTour()">
+          <button class="btn-blade-secondary" onclick="startQuickTour()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
             <span>Take Quick Tour</span>
           </button>
         </div>
 
-        <div class="landing-meta-strip">
-          <div style="display:flex; align-items:center; gap:6px;"><span class="landing-badge-dot" style="width:6px; height:6px;"></span> NEAR Testnet Verified</div>
-          <span style="color:var(--border);">·</span>
-          <div>Smart Contract: <code>pact-dao-064783.testnet</code></div>
-          <span style="color:var(--border);">·</span>
-          <div>Sputnik DAO: <code>pactt.sputnik-dao.testnet</code></div>
-          <span style="color:var(--border);">·</span>
-          <div>SocialDB: <code>v1.social08.testnet</code></div>
+        <div class="blade-meta-row">
+          <span>Contract: <code>pact-dao-064783.testnet</code></span>
+          <span class="blade-meta-sep">&middot;</span>
+          <span>Sputnik DAO: <code>pactt.sputnik-dao.testnet</code></span>
+          <span class="blade-meta-sep">&middot;</span>
+          <span>SocialDB: <code>v1.social08.testnet</code></span>
         </div>
       </section>
 
-      <!-- 4-CARD LIVE TELEMETRY BENTO STRIP -->
-      <section class="landing-telemetry-grid">
-        <div class="landing-kpi-card">
-          <div class="kpi-label">Total Escrow Custody</div>
-          <div class="kpi-val">121.50 <span>NEAR</span></div>
-          <p class="kpi-desc">Locked across 8 active DAO deliverables. 100% on-chain smart contract escrow with automated refund guarantees.</p>
+      <!-- 3 COMPACT METRICS (Single 3-column row on mobile!) -->
+      <section class="blade-metrics-row">
+        <div class="blade-metric-card">
+          <div class="blade-metric-num">121.5 <span class="blade-metric-unit">NEAR</span></div>
+          <div class="blade-metric-lbl">Escrow Custody</div>
         </div>
-
-        <div class="landing-kpi-card">
-          <div class="kpi-label">Settlement Latency</div>
-          <div class="kpi-val">&lt; 4.2s <span>Instant</span></div>
-          <p class="kpi-desc">Instantaneous payout for Tier 1 trusted deliverables vs. 3 to 7 days on traditional Sputnik DAO voting quorums.</p>
+        <div class="blade-metric-card">
+          <div class="blade-metric-num">&lt; 4.2s</div>
+          <div class="blade-metric-lbl">Instant Payout</div>
         </div>
-
-        <div class="landing-kpi-card">
-          <div class="kpi-label">DAO Friction Reduction</div>
-          <div class="kpi-val">80% <span>Autonomous</span></div>
-          <p class="kpi-desc">Micro-tasks settle autonomously via earned reputation, freeing council members to focus on major capital allocations.</p>
-        </div>
-
-        <div class="landing-kpi-card">
-          <div class="kpi-label">SocialDB Credentials</div>
-          <div class="kpi-val">18 <span>Active</span></div>
-          <p class="kpi-desc">Permanent Soulbound NEP-177 badges minted directly to NEAR SocialDB with on-chain cryptographic proofs.</p>
+        <div class="blade-metric-card">
+          <div class="blade-metric-num">80%</div>
+          <div class="blade-metric-lbl">Friction Saved</div>
         </div>
       </section>
 
-      <!-- 3 CRYPTON ARCHITECTURAL PILLARS BENTO -->
-      <section class="landing-pillars-grid">
-        <div class="pillar-card">
-          <div class="pillar-badge">PILLAR 1 · ALGORITHMIC ROUTING</div>
-          <h3 class="pillar-title">3-Tier Dynamic Settlement Engine</h3>
-          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
-            Routes deliverables automatically between instant release, single-council verification, and multi-sig voting based on task stake and contributor trust.
+      <!-- 3 CONCISE FEATURE CARDS -->
+      <section class="blade-features-grid">
+        <div class="blade-feature-card">
+          <div class="blade-feature-header">
+            <span class="blade-feature-num">01</span>
+            <span class="blade-feature-tag">TIER 1</span>
+          </div>
+          <h3 class="blade-feature-title">Autonomous Escrow Release</h3>
+          <p class="blade-feature-desc">
+            Bounties under 5 NEAR disburse automatically in 4.2 seconds for Tier 1 trusted contributors with 0 council signatures required.
           </p>
-          <ul class="pillar-list">
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Tier 1 (&lt; 5 NEAR):</strong> 100% Autonomous instant settlement for trusted builders (50+ trust points).</span>
-            </li>
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Tier 2 (5–25 NEAR):</strong> Single-Council fast track (1 of 3 signatures) + 24-hour challenge dispute window.</span>
-            </li>
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Tier 3 (&gt; 25 NEAR):</strong> Full Sputnik DAO Multi-Sig (2 of 3 quorum) with automated proposal execution.</span>
-            </li>
-          </ul>
         </div>
 
-        <div class="pillar-card">
-          <div class="pillar-badge">PILLAR 2 · SOCIAL GRAPH</div>
-          <h3 class="pillar-title">Soulbound SocialDB Attestations</h3>
-          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
-            Every successful deliverable writes irrevocable cryptographic reputation directly to NEAR SocialDB (<code>v1.social08.testnet</code>).
+        <div class="blade-feature-card">
+          <div class="blade-feature-header">
+            <span class="blade-feature-num">02</span>
+            <span class="blade-feature-tag">TIER 3</span>
+          </div>
+          <h3 class="blade-feature-title">Sputnik DAO Multi-Sig Governance</h3>
+          <p class="blade-feature-desc">
+            Major milestones (&gt; 25 NEAR) route automatically to Sputnik DAO multi-sig quorums with on-chain 2-of-3 council consensus.
           </p>
-          <ul class="pillar-list">
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Deterministic Scoring:</strong> Earn 10 base points + 5 points per NEAR rewarded on verified work.</span>
-            </li>
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Ecosystem Portability:</strong> Badges and reputation follow contributor wallets across all NEAR DAOs.</span>
-            </li>
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>On-Chain NEP-177:</strong> Inspect verifiable metadata, issuance timestamps, and transaction hashes.</span>
-            </li>
-          </ul>
         </div>
 
-        <div class="pillar-card">
-          <div class="pillar-badge">PILLAR 3 · SECURITY GUARDS</div>
-          <h3 class="pillar-title">Dual Anti-Cheat &amp; Velocity Caps</h3>
-          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5;">
-            Robust cryptographic checks prevent treasury drain risks, recycled submissions, and Sybil claim attacks.
+        <div class="blade-feature-card">
+          <div class="blade-feature-header">
+            <span class="blade-feature-num">03</span>
+            <span class="blade-feature-tag">REPUTATION</span>
+          </div>
+          <h3 class="blade-feature-title">Soulbound SocialDB Credentials</h3>
+          <p class="blade-feature-desc">
+            Every approved delivery mints verifiable NEP-177 badges and deterministic trust points directly to NEAR SocialDB.
           </p>
-          <ul class="pillar-list">
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Git PR Deduplication:</strong> SHA-256 hash matching blocks duplicate PR links across all bounties in real time.</span>
-            </li>
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>24h Rolling Velocity Caps:</strong> Limits daily payouts per contributor (20 NEAR Tier 1, 50 NEAR Tier 2).</span>
-            </li>
-            <li class="pillar-item">
-              <span class="pillar-bullet">&#10003;</span>
-              <span><strong>Council Slashing Window:</strong> 24h challenge window slashes 25 reputation points for fraudulent deliveries.</span>
-            </li>
-          </ul>
         </div>
       </section>
 
-      <!-- INTERACTIVE PROTOCOL ROUTE SIMULATOR -->
-      <section class="simulator-card">
-        <div>
-          <div class="pillar-badge" style="margin-bottom: 12px; color: #34d399; border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1);">
-            <span class="landing-badge-dot"></span> LIVE PROTOCOL SIMULATOR
-          </div>
-          <h2 style="font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; line-height: 1.25;">
-            Simulate Your Escrow Routing &amp; Trust Velocity
-          </h2>
-          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;">
-            Test how Pactt algorithmically routes bounties based on reward size and contributor reputation score.
-          </p>
-
-          <div class="sim-slider-row">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="kpi-label">Bounty Reward Amount</span>
-              <span id="sim-amount-val" style="font-family: var(--font-mono); font-size: 16px; font-weight: 800; color: #10b981;">4.0 NEAR</span>
-            </div>
-            <input type="range" class="sim-range-input" id="sim-range" min="1" max="50" step="1" value="4" oninput="updateSimAmount(this.value)" />
-            <div style="display:flex; justify-content:space-between; font-size: 11px; font-family: var(--font-mono); color: var(--text-tertiary);">
-              <span>1 NEAR (Micro)</span>
-              <span>25 NEAR (Mid-tier)</span>
-              <span>50 NEAR (Major)</span>
-            </div>
-          </div>
-
-          <div style="margin-bottom: 8px;">
-            <span class="kpi-label" style="display:block; margin-bottom: 8px;">Contributor Trust Tier</span>
-            <div class="sim-tier-selector">
-              <button class="sim-tier-btn active" onclick="selectSimTier('TIER_1', this)">Tier 1 (50+ pts)</button>
-              <button class="sim-tier-btn" onclick="selectSimTier('TIER_2', this)">Tier 2 (20–49 pts)</button>
-              <button class="sim-tier-btn" onclick="selectSimTier('TIER_3', this)">Tier 3 (New)</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="sim-result-box">
-          <div style="font-size: 11px; font-family: var(--font-mono); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary);">
-            Simulated Protocol Route
-          </div>
+      <!-- COMPACT BOTTOM CONVERSION STRIP -->
+      <section class="blade-cta-strip">
+        <div class="blade-cta-inner">
           <div>
-            <span id="sim-route-badge" class="route-badge route-auto">Tier 1: Instant Autonomous Escrow</span>
+            <h3 class="blade-cta-title">Ready to coordinate on NEAR?</h3>
+            <p class="blade-cta-desc">Launch the protocol to explore active bounties, connect your testnet wallet, or inspect live proofs.</p>
           </div>
-          <div class="sim-res-row">
-            <span style="color: var(--text-tertiary);">Approvals Required:</span>
-            <strong id="sim-approvals-disp" style="color: var(--text-primary); font-family: var(--font-mono); font-size: 12px;">0 Council Signatures (Pre-authorized Trust)</strong>
-          </div>
-          <div class="sim-res-row">
-            <span style="color: var(--text-tertiary);">Settlement Latency:</span>
-            <strong id="sim-latency-disp" style="color: #34d399; font-family: var(--font-mono); font-size: 12px;">&lt; 4.2 seconds (Instant Finality)</strong>
-          </div>
-          <div class="sim-res-row">
-            <span style="color: var(--text-tertiary);">Multi-Sig Friction:</span>
-            <strong id="sim-friction-disp" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 12px;">100% Autonomous (Zero voter fatigue)</strong>
-          </div>
-          <div class="sim-res-row">
-            <span style="color: var(--text-tertiary);">SocialDB Reputation:</span>
-            <strong id="sim-pts-disp" style="color: #10b981; font-family: var(--font-mono); font-size: 13px;">+30.0 Trust Pts</strong>
-          </div>
-          <button class="btn-landing-primary" style="width: 100%; justify-content: center; margin-top: 8px;" onclick="enterAppAndPromptWallet('bounties')">
-            <span>Enter App to Claim This Route</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-          </button>
-        </div>
-      </section>
-
-      <!-- PROTOCOL COMPARISON MATRIX -->
-      <section class="landing-comparison-card">
-        <div class="pillar-badge" style="margin-bottom: 12px;">BENCHMARK ARCHITECTURE</div>
-        <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px;">
-          Legacy Sputnik DAO vs. Pactt-Augmented Sputnik DAO
-        </h2>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-          How Pactt preserves decentralized governance while removing voting friction on micro-tasks.
-        </p>
-        <div style="overflow-x: auto;">
-          <table class="bounty-table">
-            <thead>
-              <tr>
-                <th>Governance Dimension</th>
-                <th>Standard Sputnik DAO</th>
-                <th>Pactt Coordination Protocol</th>
-                <th>Efficiency Gain</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Micro-Task Payouts (&lt; 5 NEAR)</strong></td>
-                <td style="color: var(--text-tertiary);">3 to 7 Days Voting Period</td>
-                <td style="color: #34d399; font-weight: 700;">4.2 Seconds Instant Finality</td>
-                <td><span class="route-badge route-auto">99.9% Faster</span></td>
-              </tr>
-              <tr>
-                <td><strong>Council Voter Fatigue</strong></td>
-                <td style="color: var(--text-tertiary);">100% of tasks require manual votes</td>
-                <td style="color: #34d399; font-weight: 700;">80% of tasks settle autonomously</td>
-                <td><span class="route-badge route-auto">5x Less Overhead</span></td>
-              </tr>
-              <tr>
-                <td><strong>Contributor Reputation</strong></td>
-                <td style="color: var(--text-tertiary);">Off-chain sheets / Discord roles</td>
-                <td style="color: #34d399; font-weight: 700;">Soulbound NEP-177 SocialDB Badges</td>
-                <td><span class="route-badge route-auto">100% Portable</span></td>
-              </tr>
-              <tr>
-                <td><strong>Sybil &amp; Deduplication Defense</strong></td>
-                <td style="color: var(--text-tertiary);">Manual council review</td>
-                <td style="color: #34d399; font-weight: 700;">Cryptographic Git PR Hash Matching</td>
-                <td><span class="route-badge route-auto">Zero-Trust Rejection</span></td>
-              </tr>
-              <tr>
-                <td><strong>Treasury Risk Protection</strong></td>
-                <td style="color: var(--text-tertiary);">All-or-nothing proposal vote</td>
-                <td style="color: #34d399; font-weight: 700;">24h Velocity Caps + Council Slashing</td>
-                <td><span class="route-badge route-auto">Fail-Safe Escrow</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- BOTTOM CONVERSION HERO -->
-      <section class="landing-conversion-card">
-        <h2 style="font-size: 32px; font-weight: 900; letter-spacing: -0.03em; color: #ffffff; max-width: 680px; line-height: 1.2;">
-          Ready to Coordinate DAOs at the Speed of Trust?
-        </h2>
-        <p style="font-size: 15px; color: var(--text-secondary); max-width: 620px; line-height: 1.55;">
-          Connect your NEAR testnet wallet to explore live DAO bounties, earn Soulbound reputation on NEAR SocialDB, and experience instant escrow payouts.
-        </p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px;">
-          <button class="btn-landing-primary" onclick="enterAppAndPromptWallet('bounties')">
-            <span>Launch Protocol &amp; Connect Wallet</span>
+          <button class="btn-blade-primary" onclick="enterAppAndPromptWallet('bounties')">
+            <span>Launch Protocol</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-          </button>
-          <button class="btn-landing-subtle" onclick="startQuickTour()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-            <span>Take Quick Tour</span>
           </button>
         </div>
       </section>
@@ -5616,6 +5440,15 @@
       const targetEl = document.getElementById('view-' + viewName);
       if (targetEl) targetEl.classList.add('active');
 
+      // Update Body Mode (Landing Mode vs App Mode)
+      if (viewName === 'landing') {
+        document.body.classList.add('landing-mode');
+        document.body.classList.remove('app-mode');
+      } else {
+        document.body.classList.add('app-mode');
+        document.body.classList.remove('landing-mode');
+      }
+
       document.querySelectorAll('.nav-btn').forEach(b => {
         if (b === btn || (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${viewName}'`))) {
           b.classList.add('active');
@@ -5634,6 +5467,11 @@
 
       if (viewName === 'leaderboard') renderContributors();
       persistState();
+    }
+
+    function returnToLanding() {
+      switchView('landing', null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function switchViewMobile(viewName, btn) {
@@ -5884,7 +5722,17 @@
     renderContributors();
     updateWalletUi();
     recalculateSim();
-    switchView(state.activeView || 'landing', null);
+
+    // Default to Landing Mode on clean start
+    const initialView = state.activeView || 'landing';
+    if (initialView === 'landing') {
+      document.body.classList.add('landing-mode');
+      document.body.classList.remove('app-mode');
+    } else {
+      document.body.classList.add('app-mode');
+      document.body.classList.remove('landing-mode');
+    }
+    switchView(initialView, null);
 
     // Live Supabase Multi-User Cloud Sync (Upgrade 2)
     syncWithCloud(true);
