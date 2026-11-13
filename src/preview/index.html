@@ -1877,7 +1877,8 @@
     /* RESPONSIVE BREAKPOINTS (Mobile Optimization) */
     @media (max-width: 860px) {
       .header-inner {
-        padding: 0 14px;
+        padding: 0 12px;
+        gap: 8px;
       }
 
       .live-status-pill {
@@ -1890,6 +1891,34 @@
 
       .mobile-subnav {
         display: flex;
+      }
+
+      .cloud-sync-badge {
+        padding: 0 8px;
+        height: 32px;
+        font-size: 11px;
+      }
+
+      .btn-connect {
+        padding: 0 10px;
+        font-size: 11.5px;
+        height: 32px;
+        white-space: nowrap;
+      }
+
+      .wallet-connected-pill {
+        padding: 0 8px;
+        height: 32px;
+        font-size: 11.5px;
+      }
+
+      @media (max-width: 440px) {
+        #cloud-sync-text {
+          display: none;
+        }
+        .cloud-sync-badge {
+          padding: 0 8px;
+        }
       }
 
       .bento-grid {
