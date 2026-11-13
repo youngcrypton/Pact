@@ -355,3 +355,4 @@ Pactt verifies submitted deliverable URLs in real time:
 | Studio Demo Player | `src/preview/demo.html` | Interactive HTML5 Player | Active |
 | Production DApp | `https://pactt.terminall.workers.dev/` | Cloudflare Worker / SPA | Live |
 | Custom Domain | `https://pactt.xyz/` | Cloudflare / Namecheap DNS | Routing |
+
