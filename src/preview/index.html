@@ -363,47 +363,6 @@
       transform: translateY(-1px);
     }
 
-    .persona-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 3px 8px;
-      height: 34px;
-    }
-
-    .persona-avatar {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #000000;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    body.theme-midnight .persona-avatar {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    .persona-select {
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      font-size: 12px;
-      font-family: var(--font-mono);
-      outline: none;
-      cursor: pointer;
-      max-width: 150px;
-    }
-
     .btn-connect {
       background: #000000;
       border: 1px solid #000000;
@@ -601,6 +560,35 @@
       border-top: 1px solid var(--border-faint);
       font-size: 11px;
       color: var(--text-tertiary);
+    }
+    .preset-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .btn-preset-pill {
+      background: var(--surface-card);
+      border: 1px solid var(--border-sharp);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-preset-pill:hover {
+      border-color: var(--accent);
+      background: rgba(124, 58, 237, 0.08);
+      color: var(--accent);
+    }
+    .btn-preset-pill strong {
+      font-family: var(--font-mono);
+      font-size: 11px;
     }
 
     /* Mobile Subnav Strip */
@@ -1385,14 +1373,6 @@
         display: flex;
       }
 
-      .persona-chip {
-        max-width: 110px;
-      }
-
-      .persona-select {
-        max-width: 70px;
-      }
-
       .bento-grid {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -1532,11 +1512,6 @@
 
       <!-- Right Actions -->
       <div class="top-actions">
-        <!-- Demo State Reset -->
-        <button class="theme-icon-btn" onclick="resetDemoState()" id="reset-btn" title="Reset Demo State to Initial Seeds" style="font-size: 13px; font-weight: 700;">
-          ↺
-        </button>
-
         <!-- Moon Icon Theme Switcher -->
         <button class="theme-icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle Theme (Moon)">
           <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1544,17 +1519,6 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
-
-        <div class="persona-chip">
-          <div class="persona-avatar">A</div>
-          <select id="persona-select" class="persona-select" onchange="onPersonaChanged()">
-            <option value="alex.testnet" selected>alex.testnet (Tier 1)</option>
-            <option value="maria.testnet">maria.testnet (Tier 2)</option>
-            <option value="chen.testnet">chen.testnet (Tier 1)</option>
-            <option value="newuser.testnet">newuser.testnet (Tier 3)</option>
-            <option value="council.testnet">council.testnet (Council)</option>
-          </select>
-        </div>
 
         <!-- Connected Wallet Badge (Bug 2) -->
         <div class="wallet-connected-pill" id="wallet-connected-pill">
@@ -1893,6 +1857,22 @@
             <input type="text" id="custom-account-input" placeholder="e.g. yourname.testnet" class="form-input" style="font-size: 12px; padding: 6px 10px; height: 32px;" onkeydown="if(event.key==='Enter') connectCustomAccount()" />
             <button class="btn-action primary" style="padding: 4px 14px; font-size: 12px; height: 32px; white-space: nowrap;" onclick="connectCustomAccount()">Connect</button>
           </div>
+          <div style="border-top: 1px dashed var(--border); padding-top: 8px; margin-top: 2px;">
+            <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 6px;">
+              ⚡ Demo & Testing Quick-Pills:
+            </div>
+            <div class="preset-pills-row">
+              <button type="button" class="btn-preset-pill" onclick="selectPresetAccount('alex.testnet')">
+                <strong>alex.testnet</strong> <span style="opacity: 0.7; font-size: 10px;">(Tier 1 • 142 pts)</span>
+              </button>
+              <button type="button" class="btn-preset-pill" onclick="selectPresetAccount('newuser.testnet')">
+                <strong>newuser.testnet</strong> <span style="opacity: 0.7; font-size: 10px;">(Tier 3 • 0 pts)</span>
+              </button>
+              <button type="button" class="btn-preset-pill" onclick="selectPresetAccount('council.testnet')">
+                <strong>council.testnet</strong> <span style="opacity: 0.7; font-size: 10px;">(Council Admin)</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1997,14 +1977,15 @@
     }
 
     // State Store (Bug 1: Resilient Persistent State)
-    const STORAGE_KEY = 'pactt_app_state_v3';
+    const STORAGE_KEY = 'pactt_app_state_v4';
 
     const DEFAULT_STATE = {
       activeView: 'bounties',
       filterTier: 'ALL',
       filterCategory: 'ALL',
       searchQuery: '',
-      activePersona: 'alex.testnet',
+      connectedWallet: null,
+      activePersona: null,
       personas: {
         'alex.testnet': { trust: 142.5, completed: 6, isCouncil: false },
         'maria.testnet': { trust: 24.0, completed: 2, isCouncil: false },
@@ -2188,14 +2169,7 @@
       }
     }
 
-    function resetDemoState() {
-      if (confirm('Reset application state back to fresh default seeds?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        window.location.reload();
-      }
-    }
-
-    // NEAR Wallet Selector Integration (Bug 2)
+    // NEAR Wallet Selector Integration
     function openWalletModal() {
       document.getElementById('wallet-modal').classList.add('active');
     }
@@ -2208,38 +2182,29 @@
       if (e.target.id === 'wallet-modal') hideWalletModal();
     }
 
+    function selectPresetAccount(acc) {
+      const input = document.getElementById('custom-account-input');
+      if (input) input.value = acc;
+      connectWallet('direct', acc);
+    }
+
     function updateWalletUi() {
       const connectBtn = document.getElementById('btn-wallet-connect');
       const pill = document.getElementById('wallet-connected-pill');
       const acctDisp = document.getElementById('wallet-account-display');
       const tierBadge = document.getElementById('wallet-tier-badge');
-      const personaSelect = document.getElementById('persona-select');
 
-      if (state.connectedWallet) {
+      if (state.connectedWallet && state.connectedWallet.accountId) {
         if (connectBtn) connectBtn.style.display = 'none';
         if (pill) pill.classList.add('active');
         if (acctDisp) acctDisp.innerText = state.connectedWallet.accountId;
 
-        const p = state.personas[state.connectedWallet.accountId] || { trust: 0 };
-        const tier = p.trust >= 50 ? 'Tier 1' : p.trust >= 20 ? 'Tier 2' : 'Tier 3';
+        const p = state.personas[state.connectedWallet.accountId] || { trust: 0, completed: 0, isCouncil: false };
+        const tier = p.isCouncil ? 'Council' : p.trust >= 50 ? 'Tier 1' : p.trust >= 20 ? 'Tier 2' : 'Tier 3';
         if (tierBadge) tierBadge.innerText = `${p.trust.toFixed(1)} pts • ${tier}`;
-
-        if (personaSelect) {
-          let opt = Array.from(personaSelect.options).find(o => o.value === state.connectedWallet.accountId);
-          if (!opt) {
-            opt = document.createElement('option');
-            opt.value = state.connectedWallet.accountId;
-            opt.innerText = `${state.connectedWallet.accountId} (Connected)`;
-            personaSelect.appendChild(opt);
-          }
-          personaSelect.value = state.connectedWallet.accountId;
-        }
       } else {
         if (connectBtn) connectBtn.style.display = 'flex';
         if (pill) pill.classList.remove('active');
-        if (personaSelect && state.activePersona) {
-          personaSelect.value = state.activePersona;
-        }
       }
     }
 
@@ -2288,6 +2253,7 @@
       updateWalletUi();
       renderBounties();
       renderContributors();
+      if (state.selectedBountyId) openDrawer(state.selectedBountyId);
       hideWalletModal();
     }
 
@@ -2303,15 +2269,19 @@
 
     function disconnectWallet() {
       state.connectedWallet = null;
-      state.activePersona = 'alex.testnet';
+      state.activePersona = null;
       persistState();
       updateWalletUi();
       renderBounties();
       renderContributors();
+      if (state.selectedBountyId) openDrawer(state.selectedBountyId);
     }
 
     function computeTierForPersona(amount, personaId) {
-      const p = state.personas[personaId] || { trust: 0 };
+      if (!personaId) {
+        return { tier: 'TIER_3', label: 'Connect Wallet to Calculate Route', class: 'tier3' };
+      }
+      const p = state.personas[personaId] || { trust: 0, completed: 0, isCouncil: false };
       if (amount <= 5.0 && p.trust >= 50.0) {
         return { tier: 'TIER_1', label: 'Tier 1: Instant Auto-Payout', class: 'tier1' };
       } else if (amount <= 25.0 && p.trust >= 20.0) {
@@ -2359,10 +2329,19 @@
 
         let actionBtnText = 'Inspect';
         let isPrimary = false;
-        if (b.status === 'OPEN') { actionBtnText = 'Inspect & Claim'; isPrimary = true; }
-        else if (b.status === 'CLAIMED' && b.claimedBy === state.activePersona) { actionBtnText = 'Submit Work'; isPrimary = true; }
-        else if (b.status === 'IN_REVIEW' && state.personas[state.activePersona].isCouncil) { actionBtnText = 'Signoff'; isPrimary = true; }
-        else if (b.status === 'APPROVED' && state.personas[state.activePersona].isCouncil) { actionBtnText = 'Audit / Dispute'; isPrimary = true; }
+        if (b.status === 'OPEN') {
+          actionBtnText = state.activePersona ? 'Inspect & Claim' : 'Inspect';
+          isPrimary = true;
+        } else if (b.status === 'CLAIMED' && state.activePersona && b.claimedBy === state.activePersona) {
+          actionBtnText = 'Submit Work';
+          isPrimary = true;
+        } else if (b.status === 'IN_REVIEW' && state.activePersona && state.personas[state.activePersona]?.isCouncil) {
+          actionBtnText = 'Signoff';
+          isPrimary = true;
+        } else if (b.status === 'APPROVED' && state.activePersona && state.personas[state.activePersona]?.isCouncil) {
+          actionBtnText = 'Audit / Dispute';
+          isPrimary = true;
+        }
 
         // 1. Desktop Table Row
         const tr = document.createElement('tr');
@@ -2490,11 +2469,19 @@
       const catBadge = document.getElementById('drawer-category');
       catBadge.innerText = b.category;
 
-      const routing = computeTierForPersona(b.amount, state.activePersona);
-      document.getElementById('drawer-route-text').innerText = `${state.activePersona} (${state.personas[state.activePersona].trust} pts) → ${routing.label}`;
-      const badge = document.getElementById('drawer-route-badge');
-      badge.className = 'route-badge ' + routing.class;
-      badge.innerText = routing.tier;
+      if (!state.activePersona) {
+        document.getElementById('drawer-route-text').innerText = 'Wallet Not Connected → Connect Wallet to Calculate Dynamic Routing';
+        const badge = document.getElementById('drawer-route-badge');
+        badge.className = 'route-badge tier3';
+        badge.innerText = b.defaultTier || 'TIER_3';
+      } else {
+        const routing = computeTierForPersona(b.amount, state.activePersona);
+        const pTrust = state.personas[state.activePersona]?.trust ?? 0;
+        document.getElementById('drawer-route-text').innerText = `${state.activePersona} (${pTrust.toFixed(1)} pts) → ${routing.label}`;
+        const badge = document.getElementById('drawer-route-badge');
+        badge.className = 'route-badge ' + routing.class;
+        badge.innerText = routing.tier;
+      }
 
       document.getElementById('drawer-result').style.display = 'none';
 
@@ -2502,16 +2489,31 @@
       actionBlock.innerHTML = '';
 
       if (b.status === 'OPEN') {
-        actionBlock.innerHTML = `
-          <div class="panel-title">Claim Task</div>
-          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
-            Claiming locks this task to your account (<strong>${state.activePersona}</strong>).
-          </p>
-          <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="claimCurrentBounty()">
-            Claim Task as ${state.activePersona}
-          </button>
-        `;
+        if (!state.activePersona) {
+          actionBlock.innerHTML = `
+            <div class="panel-title">Claim Task</div>
+            <div style="background: var(--surface-secondary); border: 1px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center; margin-top: 8px;">
+              <p style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                Connect your NEAR testnet wallet to lock this task to your identity and claim escrowed rewards.
+              </p>
+              <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px; justify-content: center;" onclick="openWalletModal()">
+                Ⓝ Connect Wallet to Claim
+              </button>
+            </div>
+          `;
+        } else {
+          actionBlock.innerHTML = `
+            <div class="panel-title">Claim Task</div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+              Claiming locks this task to your connected account (<strong>${state.activePersona}</strong>).
+            </p>
+            <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="claimCurrentBounty()">
+              Claim Task as ${state.activePersona}
+            </button>
+          `;
+        }
       } else if (b.status === 'CLAIMED') {
+        const isClaimant = state.activePersona && b.claimedBy === state.activePersona;
         actionBlock.innerHTML = `
           <div class="panel-title">Submit Proof of Work</div>
           <div class="form-group">
@@ -2520,18 +2522,24 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="pr-url-input">${b.deliverableType || 'Deliverable URL'}</label>
-            <input type="text" id="pr-url-input" name="pr-url" class="form-input" value="${b.placeholder || ''}" placeholder="${b.placeholder || 'https://...'}" />
+            <input type="text" id="pr-url-input" name="pr-url" class="form-input" value="${b.placeholder || ''}" placeholder="${b.placeholder || 'https://...'}" ${!isClaimant ? 'disabled' : ''} />
           </div>
           <div class="form-group">
             <label class="form-label" for="pr-notes-input">Notes (Optional)</label>
-            <input type="text" id="pr-notes-input" name="pr-notes" class="form-input" placeholder="Deliverable completed." />
+            <input type="text" id="pr-notes-input" name="pr-notes" class="form-input" placeholder="Deliverable completed." ${!isClaimant ? 'disabled' : ''} />
           </div>
-          <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="submitWorkCurrentBounty()">
-            Submit for Settlement
-          </button>
+          ${isClaimant ? `
+            <button class="btn-action primary" style="width: 100%; padding: 10px; font-size: 13px;" onclick="submitWorkCurrentBounty()">
+              Submit for Settlement
+            </button>
+          ` : `
+            <div style="font-size: 11.5px; color: var(--text-tertiary); text-align: center; margin-top: 8px;">
+              🔒 Locked: Claimed by <strong>${b.claimedBy}</strong>. Only the claimant can submit deliverables.
+            </div>
+          `}
         `;
       } else if (b.status === 'IN_REVIEW') {
-        const isCouncil = state.personas[state.activePersona].isCouncil;
+        const isCouncil = state.activePersona && state.personas[state.activePersona]?.isCouncil;
         actionBlock.innerHTML = `
           <div class="panel-title">Council Review Pending</div>
           <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">
@@ -2621,6 +2629,10 @@
     }
 
     function claimCurrentBounty() {
+      if (!state.activePersona) {
+        openWalletModal();
+        return;
+      }
       const b = state.bounties.find(x => x.id === state.selectedBountyId);
       if (!b) return;
 
@@ -2645,6 +2657,10 @@
     }
 
     function submitWorkCurrentBounty() {
+      if (!state.activePersona) {
+        openWalletModal();
+        return;
+      }
       const b = state.bounties.find(x => x.id === state.selectedBountyId);
       if (!b) return;
 
@@ -2810,13 +2826,6 @@
       }).catch(() => {});
 
       openDrawer(b.id);
-    }
-
-    function onPersonaChanged() {
-      state.activePersona = document.getElementById('persona-select').value;
-      persistState();
-      renderBounties();
-      if (state.selectedBountyId) openDrawer(state.selectedBountyId);
     }
 
     function switchView(viewName, btn) {

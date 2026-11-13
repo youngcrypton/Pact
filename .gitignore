@@ -32,6 +32,7 @@ Thumbs.db
 # Internal hackathon notes & local artifacts
 HACKATHON.md
 DEMO_POST_TEMPLATE.md
+SUBMISSION.md
 mock-bounties.json
 data/test-*.json
 data/test-store/
