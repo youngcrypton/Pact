@@ -5,12 +5,12 @@
 [![NEAR Protocol](https://img.shields.io/badge/NEAR-Testnet%20%7C%20Mainnet-000000.svg)](https://near.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
 [![Tests](https://img.shields.io/badge/Tests-33%20Passing-brightgreen.svg)](https://github.com/youngcrypton/Pactt)
-[![Cloudflare Pages](https://img.shields.io/badge/Deployed-pactt.xyz-orange.svg?logo=cloudflare)](https://pactt.xyz)
+[![Cloudflare Workers](https://img.shields.io/badge/Deployed-pactt.terminall.workers.dev-orange.svg?logo=cloudflare)](https://pactt.terminall.workers.dev/)
 [![Supabase](https://img.shields.io/badge/Database-Supabase%20PostgreSQL-3ECF8E.svg?logo=supabase)](https://supabase.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 * **Track:** Social Money (`social`)
-* **Live Custom Domain:** [https://pactt.xyz](https://pactt.xyz)
+* **Live Production URL:** [https://pactt.terminall.workers.dev/](https://pactt.terminall.workers.dev/)
 * **Target Ecosystem:** Shared community budgets, programmable rewards, and reputation-based access on Sputnik DAO and Trezu.
 * **Repository:** [https://github.com/youngcrypton/Pactt](https://github.com/youngcrypton/Pactt)
 
@@ -153,7 +153,7 @@ npm run api
 node dist/preview/server.mjs
 ```
 
-### 5. Build for Cloudflare Pages (`pactt.xyz`)
+### 5. Build for Cloudflare Edge (`pactt.terminall.workers.dev`)
 ```bash
 npm run build
 ```
