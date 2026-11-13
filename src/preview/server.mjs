@@ -61,6 +61,20 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Demo Video Studio Player
+  if (url.pathname === '/demo' || url.pathname === '/demo.html') {
+    try {
+      const demoHtmlPath = path.join(__dirname, 'demo.html');
+      const html = fs.readFileSync(demoHtmlPath, 'utf-8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Error loading demo studio HTML: ' + err.message);
+    }
+    return;
+  }
+
   // Health check
   if (url.pathname === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
