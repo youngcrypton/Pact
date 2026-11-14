@@ -1,5 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { buildWalletBundle } from './bundle-wallet.mjs';
+
+// Build official NEAR Wallet Selector client bundle
+await buildWalletBundle();
 
 const distDir = path.resolve(process.cwd(), 'dist');
 if (fs.existsSync(distDir)) {
@@ -17,6 +21,19 @@ fs.mkdirSync(path.dirname(destPreviewHtml), { recursive: true });
 fs.copyFileSync(srcHtml, destRootHtml);
 fs.copyFileSync(srcHtml, destFallbackHtml);
 fs.copyFileSync(srcHtml, destPreviewHtml);
+
+// Copy NEAR Wallet Selector bundle and styles
+const srcWalletBundle = path.resolve(process.cwd(), 'src', 'preview', 'near-wallet-selector.bundle.js');
+const destWalletBundle = path.resolve(distDir, 'near-wallet-selector.bundle.js');
+if (fs.existsSync(srcWalletBundle)) {
+  fs.copyFileSync(srcWalletBundle, destWalletBundle);
+}
+
+const srcWalletCss = path.resolve(process.cwd(), 'src', 'preview', 'near-wallet-selector.css');
+const destWalletCss = path.resolve(distDir, 'near-wallet-selector.css');
+if (fs.existsSync(srcWalletCss)) {
+  fs.copyFileSync(srcWalletCss, destWalletCss);
+}
 
 // Copy demo HTML
 const srcDemoHtml = path.resolve(process.cwd(), 'src', 'preview', 'demo.html');

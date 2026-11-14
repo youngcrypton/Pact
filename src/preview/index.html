@@ -13,6 +13,10 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet">
 
+  <!-- Official NEAR Wallet Selector Stylesheet & Client Bundle -->
+  <link rel="stylesheet" href="./near-wallet-selector.css" />
+  <script src="./near-wallet-selector.bundle.js"></script>
+
   <style>
     /* CRYPTON CYBER-MONOCHROME FRAMER DESIGN SYSTEM (LIT ATMOSPHERIC BACKGROUND) */
     :root {
@@ -5226,6 +5230,10 @@
     }
 
     function openWalletModal() {
+      if (window.pacttWalletModal) {
+        window.pacttWalletModal.show();
+        return;
+      }
       document.getElementById('wallet-modal').classList.add('active');
     }
 
@@ -5375,7 +5383,15 @@
       connectWallet('direct', val);
     }
 
-    function disconnectWallet() {
+    async function disconnectWallet() {
+      if (window.pacttWalletSelector) {
+        try {
+          const wallet = await window.pacttWalletSelector.wallet();
+          await wallet.signOut();
+        } catch (e) {
+          console.warn('[Pactt] Wallet signOut notice:', e);
+        }
+      }
       state.connectedWallet = null;
       state.activePersona = null;
       persistState();
@@ -7033,6 +7049,63 @@
     syncWithCloud(true);
     setInterval(() => syncWithCloud(true), 15000);
     window.addEventListener('focus', () => syncWithCloud(true));
+
+    // Initialize Official NEAR Wallet Selector
+    async function initOfficialWalletSelector() {
+      if (typeof window.PacttNearWallet === 'undefined') {
+        console.log('[Pactt] Official NEAR Wallet bundle loading or not present.');
+        return;
+      }
+      try {
+        const {
+          setupWalletSelector,
+          setupModal,
+          setupMyNearWallet,
+          setupMeteorWallet,
+          setupHereWallet,
+          setupSender
+        } = window.PacttNearWallet;
+
+        window.pacttWalletSelector = await setupWalletSelector({
+          network: 'testnet',
+          modules: [
+            setupMyNearWallet(),
+            setupMeteorWallet(),
+            setupHereWallet(),
+            setupSender()
+          ]
+        });
+
+        window.pacttWalletModal = setupModal(window.pacttWalletSelector, {
+          contractId: 'pact-dao-064783.testnet',
+          description: 'Connect your NEAR wallet to claim bounties, submit deliverables, and build on-chain trust on Pactt.'
+        });
+
+        // Check if already signed in through selector
+        const selectorState = window.pacttWalletSelector.store.getState();
+        const existing = selectorState.accounts.find(a => a.active) || selectorState.accounts[0];
+        if (existing && existing.accountId && !state.connectedWallet) {
+          connectWallet('official', existing.accountId);
+        }
+
+        // Listen for wallet selector account changes
+        window.pacttWalletSelector.store.observable.subscribe((s) => {
+          const active = s.accounts.find(a => a.active) || s.accounts[0];
+          if (active && active.accountId) {
+            connectWallet('official', active.accountId);
+          }
+        });
+        console.log('[Pactt] Official NEAR Wallet Selector active on testnet.');
+      } catch (err) {
+        console.warn('[Pactt] Official NEAR Wallet Selector initialization fallback:', err);
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      initOfficialWalletSelector();
+    } else {
+      window.addEventListener('load', () => initOfficialWalletSelector());
+    }
   </script>
 
   <!-- Interactive Quick Tour Overlay -->
