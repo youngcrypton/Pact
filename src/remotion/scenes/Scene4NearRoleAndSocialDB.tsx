@@ -77,7 +77,7 @@ export const Scene4NearRoleAndSocialDB: React.FC = () => {
               Rolling 24-Hour Velocity Cap
             </h3>
             <p style={{ fontSize: 13.5, color: BRAND.textSecondary, lineHeight: 1.55, marginBottom: 16 }}>
-              Restricts automatic capital outflows per rolling 24-hour window. If an account attempts to drain treasury funds, the protocol automatically halts execution and escalates to Sputnik DAO multi-sig review.
+              Restricts automatic capital outflows per rolling 24-hour window. If an account attempts to drain treasury funds, Pactt automatically halts execution and escalates to Sputnik DAO multi-sig review.
             </p>
 
             <div style={{ background: '#f8fafc', border: `1px solid ${BRAND.border}`, borderRadius: 8, padding: 12 }}>

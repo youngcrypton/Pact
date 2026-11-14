@@ -62,9 +62,11 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Serve static out files (e.g., demo.mp4, stills) with Range support for video seeking
-  if (url.pathname.startsWith('/out/')) {
-    const filePath = path.join(path.dirname(__dirname), '..', url.pathname.slice(1));
+  // Serve static out files (e.g., demo.mp4, stills) or workspace video with Range support for video seeking
+  if (url.pathname.startsWith('/out/') || url.pathname === '/pactt-demo-final.mp4') {
+    const filePath = url.pathname === '/pactt-demo-final.mp4'
+      ? path.join(path.dirname(__dirname), '..', 'pactt-demo-final.mp4')
+      : path.join(path.dirname(__dirname), '..', url.pathname.slice(1));
     if (!fs.existsSync(filePath)) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('File not found: ' + url.pathname);

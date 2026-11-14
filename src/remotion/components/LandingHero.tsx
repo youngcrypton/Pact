@@ -106,7 +106,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             transition: 'all 0.15s ease',
           }}
         >
-          <span>Launch Protocol</span>
+          <span>Launch Pactt</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <line x1="7" y1="17" x2="17" y2="7" />
             <polyline points="7 7 17 7 17 17" />

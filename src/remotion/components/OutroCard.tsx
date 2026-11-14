@@ -59,7 +59,7 @@ export const OutroCard: React.FC = () => {
           marginBottom: 12,
         }}
       >
-        Pactt Protocol
+        Pactt
       </h1>
 
       <p
@@ -87,7 +87,7 @@ export const OutroCard: React.FC = () => {
             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
           }}
         >
-          pactt.terminall.workers.dev
+          pactt.xyz
         </div>
         <div
           style={{

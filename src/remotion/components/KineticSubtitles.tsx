@@ -8,7 +8,7 @@ interface KineticSubtitlesProps {
 
 export const KineticSubtitles: React.FC<KineticSubtitlesProps> = ({
   subtitle,
-  tag = 'PACT PROTOCOL',
+  tag = 'PACTT',
 }) => {
   return (
     <div

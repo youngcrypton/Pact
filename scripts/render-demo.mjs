@@ -31,7 +31,7 @@ const audioCmd = `"${FFMPEG}" -hide_banner -loglevel error ` +
   `-i "${path.join(AUDIO_DIR, 'act3.mp3')}" ` +
   `-i "${path.join(AUDIO_DIR, 'act4.mp3')}" ` +
   `-i "${path.join(AUDIO_DIR, 'act5.mp3')}" ` +
-  `-filter_complex "[0:a]adelay=0|0[a1];[1:a]adelay=22500|22500[a2];[2:a]adelay=42000|42000[a3];[3:a]adelay=60000|60000[a4];[4:a]adelay=76000|76000[a5];[a1][a2][a3][a4][a5]amix=inputs=5:duration=longest:normalize=0[outa]" ` +
+  `-filter_complex "[0:a]adelay=0|0[a1];[1:a]adelay=22500|22500[a2];[2:a]adelay=42000|42000[a3];[3:a]adelay=60000|60000[a4];[4:a]adelay=76000|76000[a5];[a1][a2][a3][a4][a5]amix=inputs=5:duration=longest:normalize=0,volume=2.2[outa]" ` +
   `-map "[outa]" -c:a aac -b:a 192k -y "${audioSynced}"`;
 
 execSync(audioCmd, { stdio: 'inherit' });
@@ -68,15 +68,19 @@ renderProcess.on('close', (code) => {
   // 3. Mux high-def video with audio track
   console.log('[3/3] Final muxing: combining 1080p video with stereo master audio...');
   const finalDemo = path.join(OUT_DIR, 'demo.mp4');
+  const workspaceDemo = path.join(ROOT_DIR, 'pactt-demo-final.mp4');
   const muxCmd = `"${FFMPEG}" -hide_banner -loglevel error -i "${videoRaw}" -i "${audioSynced}" -c:v copy -c:a copy -t 90 -y "${finalDemo}"`;
   execSync(muxCmd, { stdio: 'inherit' });
+
+  // Save copy directly to workspace root for easy user download & posting
+  fs.copyFileSync(finalDemo, workspaceDemo);
 
   // Cleanup intermediates
   if (fs.existsSync(videoRaw)) fs.unlinkSync(videoRaw);
   if (fs.existsSync(audioSynced)) fs.unlinkSync(audioSynced);
 
   console.log('===========================================================');
-  console.log('  SUCCESS: out/demo.mp4 rendered and verified!');
+  console.log('  SUCCESS: out/demo.mp4 and pactt-demo-final.mp4 created!');
   console.log('===========================================================');
   
   // Inspect result

@@ -28,14 +28,14 @@ ACTS = [
     },
     {
         "id": "act5",
-        "text": "Instant DAO bounties. Zero voter fatigue. Try Pactt today on NEAR Testnet at pactt.terminall.workers.dev."
+        "text": "Instant DAO bounties. Zero voter fatigue. Try Pactt today on NEAR Testnet at pactt.xyz."
     }
 ]
 
 async def generate_file(text, out_path, preview_path):
     for attempt in range(3):
         try:
-            communicate = edge_tts.Communicate(text, VOICE, rate="+3%", pitch="+0Hz")
+            communicate = edge_tts.Communicate(text, VOICE, rate="+3%", pitch="+0Hz", volume="+60%")
             await communicate.save(out_path)
             if os.path.getsize(out_path) > 1000:
                 with open(out_path, "rb") as f:

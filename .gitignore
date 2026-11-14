@@ -17,6 +17,7 @@ dist/
 build/
 out/
 *.wasm
+*.mp4
 
 # Logs & Debugging
 npm-debug.log*
