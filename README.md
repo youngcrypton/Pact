@@ -1,19 +1,19 @@
 <p align="center">
-  <a href="https://pactt.terminall.workers.dev/">
-    <img src="docs/assets/pactt-logo.svg" width="96" height="96" alt="Pactt Protocol" />
+  <a href="https://pactt.xyz/">
+    <img src="docs/assets/pactt-logo.svg" width="96" height="96" alt="Pactt" />
   </a>
 </p>
 
 <h1 align="center">Pactt</h1>
 
 <p align="center">
-  <strong>Earned Trust Coordination Protocol for Sputnik DAOs on NEAR</strong>
+  <strong>Earned Trust Coordination Layer for Sputnik DAOs on NEAR</strong>
 </p>
 
 <p align="center">
   <a href="https://near.org"><img src="https://img.shields.io/badge/NEAR-Protocol-000000.svg" alt="NEAR Protocol" /></a>
   <a href="https://github.com/youngcrypton/Pactt"><img src="https://img.shields.io/badge/Tests-33%20Passing-10b981.svg" alt="Tests" /></a>
-  <a href="https://pactt.terminall.workers.dev/"><img src="https://img.shields.io/badge/Live%20App-pactt.terminall.workers.dev-orange.svg" alt="Live App" /></a>
+  <a href="https://pactt.xyz/"><img src="https://img.shields.io/badge/Live%20App-pactt.xyz-10b981.svg" alt="Live App" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" /></a>
 </p>
 

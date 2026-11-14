@@ -352,6 +352,5 @@ Pactt verifies submitted deliverable URLs in real time:
 | Apple Touch Icon | `public/apple-touch-icon.png` | 180x180 PNG | Complete |
 | OpenGraph Social Card | `public/og-image.png` | 1200x630 PNG | Planned |
 | Hackathon Demo Video | `out/demo.mp4` | 1920x1080 30fps | In Development |
-| Production DApp | `https://pactt.terminall.workers.dev/` | Cloudflare Worker / SPA | Live |
-| Custom Domain | `https://pactt.xyz/` | Cloudflare / Namecheap DNS | Routing |
+| Production DApp | `https://pactt.xyz/` | Cloudflare Edge / Custom Domain | Live |
 

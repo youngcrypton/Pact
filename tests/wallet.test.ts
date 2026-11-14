@@ -54,16 +54,16 @@ test('Bug 2: NEAR Wallet Selector & Cryptographic Authentication', async (t) => 
     const mnwUrl = walletService.getWebWalletAuthUrl(
       'mynearwallet',
       'pact.testnet',
-      'https://pactt.terminall.workers.dev/callback'
+      'https://pactt.xyz/callback'
     );
     assert.ok(mnwUrl.startsWith('https://testnet.mynearwallet.com/login/'));
     assert.ok(mnwUrl.includes('contract_id=pact.testnet'));
-    assert.ok(mnwUrl.includes('success_url=https%3A%2F%2Fpactt.terminall.workers.dev%2Fcallback'));
+    assert.ok(mnwUrl.includes('success_url=https%3A%2F%2Fpactt.xyz%2Fcallback'));
 
     const meteorUrl = walletService.getWebWalletAuthUrl(
       'meteor',
       'pact.testnet',
-      'https://pactt.terminall.workers.dev/callback'
+      'https://pactt.xyz/callback'
     );
     assert.ok(meteorUrl.startsWith('https://wallet.meteorwallet.app/login/'));
   });
