@@ -8,9 +8,15 @@ import { KineticSubtitles } from '../components/KineticSubtitles.js';
 export const Scene3SputnikDaoSafety: React.FC = () => {
   const frame = useCurrentFrame();
 
-  let currentSubtitle = 'Custody never leaves the DAO. When a newcomer submits work or the reward exceeds 25 NEAR, Pactt automatically routes to Sputnik DAO v2.';
-  if (frame > 260) {
-    currentSubtitle = 'The council quorum ledger tracks real-time M-of-N multi-sig voting, safeguarding community treasury funds with full on-chain consensus.';
+  let currentSubtitle = 'Custody never leaves the DAO.';
+  if (frame > 70 && frame <= 190) {
+    currentSubtitle = 'When a newcomer submits work, or the reward exceeds 25 NEAR,';
+  } else if (frame > 190 && frame <= 340) {
+    currentSubtitle = 'Pactt automatically routes to Sputnik DAO v2 for multi-sig consensus.';
+  } else if (frame > 340 && frame <= 420) {
+    currentSubtitle = 'The council ledger tracks live quorum votes,';
+  } else if (frame > 420) {
+    currentSubtitle = 'keeping treasury funds completely protected.';
   }
 
   return (

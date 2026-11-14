@@ -50,11 +50,19 @@ export const Scene1LandingAndProblem: React.FC = () => {
   });
 
   // Dynamic Subtitle text based on speech progress
-  let currentSubtitle = 'Decentralized autonomous organizations on NEAR face severe voting fatigue.';
-  if (frame > 220 && frame <= 440) {
-    currentSubtitle = 'Routine micro-tasks under 5 NEAR require full council multi-sig consensus, proposal bonds, and days of delay.';
-  } else if (frame > 440) {
-    currentSubtitle = 'Even worse, Sputnik DAO purges claim records upon completion, treating veteran contributors like strangers. We built Pactt.';
+  let currentSubtitle = 'Decentralized autonomous organizations on NEAR';
+  if (frame > 80 && frame <= 155) {
+    currentSubtitle = 'face severe voting fatigue.';
+  } else if (frame > 155 && frame <= 240) {
+    currentSubtitle = 'Routine micro-tasks under 5 NEAR require full council...';
+  } else if (frame > 240 && frame <= 390) {
+    currentSubtitle = '...multi-sig consensus, proposal bonds, and days of delay.';
+  } else if (frame > 390 && frame <= 520) {
+    currentSubtitle = 'Even worse: Sputnik DAO purges claim records upon completion,';
+  } else if (frame > 520 && frame <= 600) {
+    currentSubtitle = 'treating veteran contributors like strangers.';
+  } else if (frame > 600) {
+    currentSubtitle = 'We built Pactt.';
   }
 
   return (

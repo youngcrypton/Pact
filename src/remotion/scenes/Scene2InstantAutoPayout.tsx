@@ -70,9 +70,15 @@ export const Scene2InstantAutoPayout: React.FC = () => {
     b.id === '#B-102' && isPaidOut ? { ...b, status: 'Paid Out' } : b
   );
 
-  let currentSubtitle = 'Alex has 142 earned trust points. When Alex submits a 4.5 NEAR micro-bounty, Pactt algorithmic trust evaluates the deliverable proof.';
-  if (frame > 260) {
-    currentSubtitle = 'Because the task is under 5 NEAR, the escrow settles autonomously in 4.2 seconds—zero council signatures, zero waiting, and Alex earns +33 trust points.';
+  let currentSubtitle = 'When Alex, a trusted contributor with 142 trust points,';
+  if (frame > 125 && frame <= 245) {
+    currentSubtitle = 'submits a 4.5 NEAR task, Pactt verifies the deliverable...';
+  } else if (frame > 245 && frame <= 365) {
+    currentSubtitle = '...and settles the payout instantly in 4.2 seconds.';
+  } else if (frame > 365 && frame <= 460) {
+    currentSubtitle = '0 council signatures. 0 voting fatigue.';
+  } else if (frame > 460) {
+    currentSubtitle = 'and Alex earns +33 trust points!';
   }
 
   return (

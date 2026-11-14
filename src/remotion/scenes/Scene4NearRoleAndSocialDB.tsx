@@ -7,9 +7,15 @@ import { KineticSubtitles } from '../components/KineticSubtitles.js';
 export const Scene4NearRoleAndSocialDB: React.FC = () => {
   const frame = useCurrentFrame();
 
-  let currentSubtitle = 'Pactt protects treasuries with rolling 24-hour velocity caps and council dispute slashing.';
-  if (frame > 220) {
-    currentSubtitle = 'Completed work is permanently written to NEAR Social on v1.social08.testnet as a portable, soulbound Web3 credential.';
+  let currentSubtitle = 'Pactt protects treasuries with rolling 24-hour velocity caps...';
+  if (frame > 105 && frame <= 175) {
+    currentSubtitle = '...and council dispute slashing.';
+  } else if (frame > 175 && frame <= 255) {
+    currentSubtitle = 'Completed work is permanently minted to NEAR Social...';
+  } else if (frame > 255 && frame <= 335) {
+    currentSubtitle = '...on v1.social08.testnet...';
+  } else if (frame > 335) {
+    currentSubtitle = '...as a portable, soulbound Web3 credential.';
   }
 
   return (
