@@ -5269,13 +5269,46 @@
 
     function connectWallet(type, explicitAccountId) {
       let accountId = explicitAccountId;
+      
+      // If no explicit account passed, initiate official wallet connection workflow
       if (!accountId) {
         if (type === 'mynearwallet') {
-          accountId = prompt('Enter your MyNearWallet testnet account:', 'alex.testnet') || 'alex.testnet';
+          // Official MyNearWallet Testnet Authentication Redirect
+          const contractId = 'pact-dao-064783.testnet';
+          const successUrl = encodeURIComponent(window.location.origin + window.location.pathname);
+          const failureUrl = encodeURIComponent(window.location.origin + window.location.pathname);
+          window.location.href = `https://testnet.mynearwallet.com/login/?contract_id=${contractId}&success_url=${successUrl}&failure_url=${failureUrl}`;
+          return;
         } else if (type === 'meteor') {
-          accountId = prompt('Enter your Meteor Wallet testnet account:', 'chen.testnet') || 'chen.testnet';
+          if (window.meteorWallet) {
+            window.meteorWallet.requestSignIn({ contractId: 'pact-dao-064783.testnet' })
+              .then(res => {
+                if (res && res.accountId) connectWallet('meteor', res.accountId);
+              })
+              .catch(err => {
+                console.warn('Meteor sign-in cancelled or rejected:', err);
+              });
+            return;
+          } else {
+            const contractId = 'pact-dao-064783.testnet';
+            const successUrl = encodeURIComponent(window.location.origin + window.location.pathname);
+            window.location.href = `https://wallet.meteorwallet.app/login/?contract_id=${contractId}&success_url=${successUrl}`;
+            return;
+          }
         } else if (type === 'here') {
-          accountId = prompt('Enter your Here Wallet testnet account:', 'maria.testnet') || 'maria.testnet';
+          if (window.here) {
+            window.here.signIn({ contractId: 'pact-dao-064783.testnet' })
+              .then(res => {
+                if (res && res.account_id) connectWallet('here', res.account_id);
+              })
+              .catch(err => {
+                console.warn('Here sign-in cancelled:', err);
+              });
+            return;
+          } else {
+            window.open('https://my.herewallet.app/', '_blank');
+            return;
+          }
         } else {
           accountId = 'alex.testnet';
         }
@@ -6972,6 +7005,18 @@
     renderContributors();
     updateWalletUi();
     recalculateSim();
+
+    // Check for return from official MyNearWallet testnet redirect
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectedAccount = urlParams.get('account_id');
+      if (redirectedAccount) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        connectWallet('mynearwallet', redirectedAccount);
+      }
+    } catch (e) {
+      console.warn('[NEAR Wallet] Failed to check redirect params:', e);
+    }
 
     // Default to Landing Mode on clean start
     const initialView = state.activeView || 'landing';

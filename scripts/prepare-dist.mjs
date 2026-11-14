@@ -48,7 +48,7 @@ fs.writeFileSync(
 
 // Cloudflare edge worker handler - Supabase REST Multi-User Sync
 const workerCode = `/**
- * Cloudflare Edge Worker for Pact Protocol
+ * Cloudflare Edge Worker for Pactt
  * Replicates multi-user protocol state via Supabase PostgreSQL at the edge
  */
 
@@ -215,7 +215,7 @@ export default {
     if (env && env.ASSETS) {
       return env.ASSETS.fetch(request);
     }
-    return new Response('Pact Protocol Active on Cloudflare', { status: 200 });
+    return new Response('Pactt Active on Cloudflare', { status: 200 });
   }
 };
 `;
