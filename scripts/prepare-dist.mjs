@@ -35,6 +35,22 @@ if (fs.existsSync(srcWalletCss)) {
   fs.copyFileSync(srcWalletCss, destWalletCss);
 }
 
+// Copy Brand Icons, Favicon, and OpenGraph Social Previews
+const srcLogoSvg = path.resolve(process.cwd(), 'docs', 'assets', 'pactt-logo.svg');
+if (fs.existsSync(srcLogoSvg)) {
+  fs.copyFileSync(srcLogoSvg, path.resolve(distDir, 'favicon.svg'));
+  fs.copyFileSync(srcLogoSvg, path.resolve(distDir, 'pactt-logo.svg'));
+  fs.copyFileSync(srcLogoSvg, path.resolve(distDir, 'favicon.ico'));
+  fs.copyFileSync(srcLogoSvg, path.resolve(process.cwd(), 'src', 'preview', 'favicon.svg'));
+  fs.copyFileSync(srcLogoSvg, path.resolve(process.cwd(), 'src', 'preview', 'pactt-logo.svg'));
+}
+
+const srcOgPng = path.resolve(process.cwd(), 'out', 'landing.png');
+if (fs.existsSync(srcOgPng)) {
+  fs.copyFileSync(srcOgPng, path.resolve(distDir, 'og-image.png'));
+  fs.copyFileSync(srcOgPng, path.resolve(process.cwd(), 'src', 'preview', 'og-image.png'));
+}
+
 // Copy demo HTML
 const srcDemoHtml = path.resolve(process.cwd(), 'src', 'preview', 'demo.html');
 const destDemoHtml = path.resolve(distDir, 'demo.html');

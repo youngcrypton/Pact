@@ -1,0 +1,27 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Rounded Shield -->
+  <rect width="120" height="120" rx="28" fill="#0c0e14"/>
+  <rect x="1" y="1" width="118" height="118" rx="27" stroke="rgba(255, 255, 255, 0.12)" stroke-width="2"/>
+  <rect x="2" y="2" width="116" height="116" rx="26" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1.5"/>
+
+  <!-- Subtle Radial Glow Behind Monogram -->
+  <circle cx="60" cy="60" r="38" fill="url(#emerald-glow)" opacity="0.35"/>
+
+  <defs>
+    <radialGradient id="emerald-glow" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Scaled & Centered Pactt Vector Monogram (48x48 scaled by 1.7x centered at 60,60) -->
+  <g transform="translate(19.2, 19.2) scale(1.7)">
+    <!-- Primary Pillar & Loop -->
+    <path d="M12 11C12 9.89543 12.8954 9 14 9H25C30.5228 9 35 13.4772 35 19C35 24.5228 30.5228 29 25 29H18V37C18 38.1046 17.1046 39 16 39H14C12.8954 39 12 38.1046 12 37V11Z" fill="#ffffff" />
+    <path d="M18 15H25C27.2091 15 29 16.7909 29 19C29 21.2091 27.2091 23 25 23H18V15Z" fill="#0c0e14" />
+    
+    <!-- Intersecting Double-T Coordination Knot in Emerald Neon -->
+    <path d="M28 27H35V29H32V38C32 38.5523 31.5523 39 31 39H29C28.4477 39 28 38.5523 28 38V27Z" fill="#10b981" />
+    <path d="M34 27H41V29H38V38C38 38.5523 37.5523 39 37 39H35C34.4477 39 34 38.5523 34 38V27Z" fill="#34d399" />
+  </g>
+</svg>
